@@ -55,12 +55,9 @@ export function Spine() {
           </p>
           <h2 id="spine-heading" className={`display ${styles.heading}`}>
             <span className={styles.hLine}>
-              <span className={styles.rightFx}>Right</span> things.
+              <span className={styles.rightFx}>Right</span> things. In the <span className={styles.rightFx}>right</span>{" "}
+              <span className={styles.hOrder}>order.</span>
             </span>
-            <span className={styles.hLine}>
-              In the <span className={styles.rightFx}>right</span>
-            </span>
-            <span className={`${styles.hLine} ${styles.hOrder}`}>order.</span>
           </h2>
           <p className={styles.lead}>
             Intelligence, media, people and opportunities — working together to create real outcomes across
@@ -160,6 +157,18 @@ export function Spine() {
               ))}
             </ul>
             <span className={styles.finishTag}>The right finish →</span>
+            <p className={`hand ${styles.note}`} aria-hidden="true">
+              <span className={styles.startTag}>Start right</span>
+              Ideas.
+              <br />
+              People.
+              <br />
+              Industries.
+              <br />
+              Opportunities.
+              <span className={styles.noteUnderline} />
+              <HandArrow variant="curlDownLeft" className={styles.noteArrow} />
+            </p>
           </div>
 
           {/* Vertical journey for small screens (horizontal wave hidden). */}
@@ -174,19 +183,6 @@ export function Spine() {
               </li>
             ))}
           </ol>
-
-          <p className={`hand ${styles.note}`} aria-hidden="true">
-            <span className={styles.startTag}>Start right</span>
-            Ideas.
-            <br />
-            People.
-            <br />
-            Industries.
-            <br />
-            Opportunities.
-            <span className={styles.noteUnderline} />
-            <HandArrow variant="flickRight" className={styles.noteArrow} />
-          </p>
         </div>
       </div>
 
