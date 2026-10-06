@@ -2,19 +2,16 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { CinematicPhoto } from "@/components/cinematic/CinematicPhoto";
 import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
-import { TornEdge } from "@/components/ui/TornEdge";
-import { PHOTOS, SPINE_PILLARS } from "@/content/home";
+import { BASE_PATH, SPINE_PILLARS } from "@/content/home";
 import styles from "./Spine.module.css";
 
 /**
  * Supplied bottom background (blurred crowd, stage glow).
- * PLACEHOLDER — drop the file at public/images/spine-crowd.jpg.
- * Until then the band renders its dark cinematic base.
+ * Place the file at public/images/spine-crowd.jpg.
  */
-const CROWD_SRC = "/images/spine-crowd.jpg";
+const CROWD_SRC = `${BASE_PATH}/images/spine-crowd.jpg`;
 
 const ICONS = {
   violet: (
@@ -211,16 +208,5 @@ export function Spine() {
       </div>
       <span className={styles.tornBR} aria-hidden="true" />
     </section>
-  );
-}
-
-/** Full-width bridge: people looking toward something together. */
-export function AudienceBand() {
-  return (
-    <figure className={styles.band}>
-      <CinematicPhoto photo={PHOTOS.audience} sizes="100vw" position="50% 62%" depth={1.4} />
-      <div className={styles.bandShade} />
-      <TornEdge edge="bottom" fill="var(--color-paper)" rim="#ffffff" seed={57} depth={30} />
-    </figure>
   );
 }

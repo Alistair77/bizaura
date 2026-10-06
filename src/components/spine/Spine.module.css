@@ -514,21 +514,6 @@
   pointer-events: none;
 }
 
-/* ---------- Audience band (unchanged contract) ---------- */
-.band {
-  position: relative;
-  height: clamp(260px, 40vh, 460px);
-  background: var(--color-night);
-}
-.bandShade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, var(--color-night) 0%, rgb(7 9 26 / 0) 30%),
-    linear-gradient(0deg, rgb(7 9 26 / 0.45) 0%, rgb(7 9 26 / 0) 40%);
-}
-
 /* =========================================================
    ENTRANCE CHOREOGRAPHY (final state is the default;
    animations only run once .is-in lands)

@@ -61,6 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Arms scroll reveals only when JS runs, so no-JS visitors see everything. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJsonLd }} />
       </head>
       <body>

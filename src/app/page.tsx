@@ -8,7 +8,7 @@ import { Header } from "@/components/header/Header";
 import { Hero } from "@/components/hero/Hero";
 import { Platforms } from "@/components/platforms/Platforms";
 import { WhoWeWorkWith } from "@/components/roles/WhoWeWorkWith";
-import { AudienceBand, Spine } from "@/components/spine/Spine";
+import { Spine } from "@/components/spine/Spine";
 
 /** Approved page order — do not reorder without sign-off. */
 export default function Home() {
@@ -19,7 +19,6 @@ export default function Home() {
         <Hero />
         <UpcomingEvents />
         <Spine />
-        <AudienceBand />
         <WhatWeBuild />
         <Platforms />
         <WhoWeWorkWith />

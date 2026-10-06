@@ -9,6 +9,9 @@
 // ponytail: placeholder origin until the production domain is confirmed.
 export const SITE_URL = "https://www.bizoramedia.com";
 
+/** Base path the site is served from (GitHub Pages project site). */
+export const BASE_PATH = "/bizaura";
+
 export type Accent = "violet" | "pink" | "blue" | "red" | "navy" | "yellow";
 
 export interface Photo {
@@ -17,7 +20,7 @@ export interface Photo {
 }
 
 /** Pre-sized at the CDN so the optimizer never pulls multi-MB originals. Must match next.config. */
-export const UNSPLASH_QUERY = "?auto=format&fit=crop&w=2400&q=80";
+export const UNSPLASH_QUERY = "?auto=format&fit=crop&w=1600&q=70";
 
 const photo = (id: string, alt: string): Photo => ({
   src: `https://images.unsplash.com/photo-${id}${UNSPLASH_QUERY}`,
@@ -27,7 +30,7 @@ const photo = (id: string, alt: string): Photo => ({
 export const PHOTOS = {
   /** Approved hero background asset: paper field + torn edge + conference photo (local). */
   heroBase: {
-    src: "/images/hero-background.jpg",
+    src: `${BASE_PATH}/images/hero-background.jpg`,
     alt: "Bizora conference stage with blue lighting and a speaker at a podium before an audience, revealed past a torn paper edge",
   } as Photo,
   heroStage: photo(
@@ -44,7 +47,7 @@ export const PHOTOS = {
   ),
   /** Approved Section 08 stage photograph (local asset). */
   closingStage: {
-    src: "/images/section08-stage.jpg",
+    src: `${BASE_PATH}/images/section08-stage.jpg`,
     alt: "Bizora conference stage with blue and purple lighting, speaker and audience before a Bizora screen",
   } as Photo,
   admitOne: photo(
