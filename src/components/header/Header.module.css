@@ -1,0 +1,271 @@
+/* =========================================================
+   HEADER — integrated into the hero, not a generic navbar.
+   Spec: logo left / capsule nav centre / search + CTA right,
+   all on one horizontal centre line. Transparent over the hero,
+   paper surface once scrolled.
+   ========================================================= */
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: var(--header-h);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    background-color var(--duration-medium) ease,
+    backdrop-filter var(--duration-medium) ease;
+}
+/* Soft fade instead of a hard divider */
+.header::after {
+  content: "";
+  position: absolute;
+  inset: 100% 0 auto;
+  height: 18px;
+  background: linear-gradient(to bottom, rgb(17 17 17 / 0.07), transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-medium) ease;
+}
+.scrolled {
+  background: var(--header-surface);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+}
+.scrolled::after {
+  opacity: 1;
+}
+
+.bar {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-inline: var(--gutter);
+}
+
+.brand {
+  display: grid;
+  gap: 3px;
+  flex: none;
+  border-radius: 6px;
+  color: var(--color-ink);
+  min-width: 150px;
+}
+.wordmark {
+  font-size: 2.75rem;
+  line-height: 1;
+}
+.tagline {
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #c4261c;
+  white-space: nowrap;
+}
+
+/* Unified capsule — one surface, not six buttons. 48px / radius 24. */
+.nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+.navList {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 2.2vw, 36px);
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 24px;
+  background: rgb(250 249 246 / 0.92);
+  box-shadow: 0 8px 24px -18px rgb(0 0 0 / 0.45);
+  white-space: nowrap;
+}
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #111;
+  transition: color var(--duration-fast) ease;
+}
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-pink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-medium) var(--ease-out);
+}
+.navLink:hover {
+  color: var(--color-ink);
+}
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+.iconBtn {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ease-out);
+}
+.scrolled .iconBtn {
+  color: var(--color-ink);
+}
+.iconBtn:hover {
+  background: rgb(255 255 255 / 0.14);
+}
+.scrolled .iconBtn:hover {
+  background: rgb(17 17 17 / 0.06);
+}
+.iconBtn:active {
+  transform: scale(0.94);
+}
+.iconBtn[aria-disabled="true"] {
+  cursor: default;
+}
+/* Top-right CTA — transparent pill over the photograph. */
+.cta {
+  min-height: 48px;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 24px;
+  border: 1px solid rgb(255 255 255 / 0.65);
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.cta:hover {
+  background: #fff;
+  color: var(--color-ink);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+.scrolled .cta {
+  border: 1px solid rgb(17 17 17 / 0.7);
+  background: transparent;
+  color: var(--color-ink);
+}
+.scrolled .cta:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+.ctaCompact,
+.menuBtn {
+  display: none;
+}
+
+/* ---------- Mobile sheet ---------- */
+.sheet {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 32px var(--gutter) 48px;
+  background: var(--color-paper);
+  overflow-y: auto;
+}
+.sheet[hidden] {
+  display: none;
+}
+.sheetOpen {
+  animation: sheetIn var(--duration-medium) var(--ease-out);
+}
+.sheetList {
+  display: grid;
+  gap: 4px;
+}
+.sheetList li {
+  animation: linkIn var(--duration-slow) var(--ease-out) both;
+  animation-delay: calc(var(--i) * 40ms);
+}
+.sheetLink {
+  display: block;
+  padding-block: 10px;
+  font-size: clamp(2rem, 9vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.05;
+}
+.sheetLink:hover {
+  color: var(--color-violet-deep);
+}
+
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes linkIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@media (max-width: 1080px) {
+  .nav {
+    display: none;
+  }
+  .menuBtn {
+    display: inline-grid;
+  }
+  /* On tablet/mobile the header sits over paper, so keep controls dark. */
+  .iconBtn {
+    color: var(--color-ink);
+  }
+  .cta {
+    border-color: rgb(17 17 17 / 0.4);
+    color: var(--color-ink);
+  }
+}
+@media (max-width: 560px) {
+  .cta,
+  .tagline {
+    display: none;
+  }
+  .brand {
+    min-width: 0;
+  }
+  .ctaCompact {
+    display: inline-grid;
+  }
+  .actions > .iconBtn:first-child {
+    display: none;
+  }
+}
+@media (min-width: 1081px) {
+  .sheet {
+    display: none;
+  }
+}

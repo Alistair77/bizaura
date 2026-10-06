@@ -1,0 +1,382 @@
+/* =========================================================
+   WHO WE WORK WITH — editorial paper collage + hanging passes.
+   Coloured areas are backing PAPER; badges are the objects.
+   ========================================================= */
+.section {
+  position: relative;
+  padding-block: var(--space-chapter);
+  background: #f4f2ec;
+  overflow: clip;
+}
+
+/* Dark charcoal sheet behind the passes. */
+.darkSheet {
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  left: 30%;
+  right: -3%;
+  z-index: 0;
+  background: #090c0f;
+  border-radius: 18px 22px 20px 24px;
+  rotate: -1deg;
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.5);
+}
+.darkSheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--grain);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* ---------- Section marker ---------- */
+.marker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #111;
+}
+.markerNum {
+  font-variant-numeric: tabular-nums;
+}
+.markerRule {
+  width: 84px;
+  height: 1px;
+  background: #6a6a6a;
+}
+
+/* ---------- Layout: editorial + passes ---------- */
+.layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+  margin-top: 44px;
+}
+
+/* ---------- Left editorial ---------- */
+.editorial {
+  border-left: 1px solid #6b6b6b;
+  padding-left: 26px;
+}
+.heading {
+  font-size: clamp(2.75rem, 2rem + 1.6vw, 3.375rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: #101010;
+}
+.hLine {
+  display: block;
+}
+.hGradient {
+  width: fit-content;
+  padding-right: 0.06em;
+  background: linear-gradient(92deg, #7a45ff 0%, #176fea 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.lead {
+  margin-top: 22px;
+  font-size: clamp(1.3125rem, 1.2rem + 0.4vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #4d4d4d;
+}
+.note {
+  margin-top: 44px;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: #171717;
+  transform: rotate(-5deg);
+}
+.noteArrow {
+  width: 72px;
+  margin: 10px 0 0 40px;
+}
+
+/* ---------- Pass collection ---------- */
+.passes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+  margin-right: -24px;
+  padding-top: 4px;
+}
+.passWrap {
+  --sheet: #176fea;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--drop, 0px);
+  padding-top: 172px;
+}
+.passWrap[data-accent="violet"] {
+  --sheet: #7a45ff;
+}
+.passWrap[data-accent="pink"] {
+  --sheet: #f52b87;
+}
+.passWrap[data-accent="red"] {
+  --sheet: #f0443d;
+}
+
+/* Coloured backing paper — secondary, mostly covered by the badge. */
+.paper {
+  position: absolute;
+  top: 158px;
+  bottom: -6px;
+  left: 50%;
+  width: 208px;
+  translate: -50% 0;
+  rotate: var(--paper-rot, 0deg);
+  border-radius: 7px 9px 6px 10px;
+  background: var(--sheet);
+  box-shadow: 0 6px 16px -8px rgb(0 0 0 / 0.4);
+}
+.paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--grain);
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Branded fabric lanyard running off above. */
+.lanyard {
+  position: absolute;
+  bottom: calc(100% - 182px);
+  left: 50%;
+  z-index: 1;
+  width: 48px;
+  height: 152px;
+  translate: -50% 0;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, #000 0%, #232326 22%, #050506 48%, #1b1b1e 72%, #000 100%);
+  box-shadow: 0 4px 10px -4px rgb(0 0 0 / 0.5);
+  -webkit-mask: linear-gradient(180deg, transparent 0, #000 32%);
+  mask: linear-gradient(180deg, transparent 0, #000 32%);
+  transition: translate var(--duration-medium) var(--ease-out);
+}
+.lanyardText {
+  display: block;
+  height: 100%;
+  padding-top: 10px;
+  writing-mode: vertical-rl;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(255 255 255 / 0.78);
+}
+.passWrap:hover .lanyard {
+  translate: -50% 2px;
+}
+
+/* Metal connector ring. */
+.ring {
+  position: absolute;
+  top: 162px;
+  left: 50%;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f4f4f4 0%, #b8b8b8 55%, #7d7d7d 100%);
+  box-shadow:
+    0 2px 3px rgb(0 0 0 / 0.4),
+    inset 0 1px 1px rgb(255 255 255 / 0.7);
+}
+.ring::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: #fffdf9;
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+/* ---------- The badge: a real printed pass ---------- */
+.badge {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  width: 190px;
+  padding: 24px 10px 10px;
+  border-radius: 10px;
+  background: #fffdf9;
+  rotate: var(--rot, 0deg);
+  box-shadow: 0 10px 22px rgb(0 0 0 / 0.18);
+  transition:
+    translate var(--duration-medium) var(--ease-out),
+    rotate var(--duration-medium) var(--ease-out),
+    box-shadow var(--duration-medium) var(--ease-out);
+}
+.passWrap:hover .badge {
+  translate: 0 -6px;
+  rotate: calc(var(--rot, 0deg) * 0.25);
+  box-shadow: 0 18px 30px rgb(0 0 0 / 0.26);
+}
+/* Punched slot the ring feeds through. */
+.badge::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 26px;
+  height: 5px;
+  translate: -50% 0;
+  border-radius: 3px;
+  background: var(--color-paper-edge);
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 0.25);
+}
+.badgeHead {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+.badgeBrand {
+  font-size: 0.8125rem;
+}
+.photo {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--color-night);
+}
+.photo img {
+  object-fit: cover;
+}
+.roleStrip {
+  padding: 6px;
+  border-radius: 4px;
+  background: var(--sheet);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.desc {
+  min-height: 3.75em;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #151515;
+}
+.badgeFoot {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px dashed rgb(0 0 0 / 0.16);
+  padding-top: 8px;
+}
+.qr {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  color: var(--color-ink);
+}
+.access {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: #333;
+}
+.footArrow {
+  color: var(--color-ink);
+}
+
+/* ---------- Tablet: 2x2 collage ---------- */
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 28px;
+  }
+  .passes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 8px;
+    margin-right: 0;
+  }
+  .passWrap {
+    --drop: 0px;
+    padding-top: 128px;
+  }
+  .paper {
+    top: 114px;
+  }
+  .lanyard {
+    bottom: calc(100% - 138px);
+    height: 108px;
+  }
+  .ring {
+    top: 118px;
+  }
+  .darkSheet {
+    left: 12%;
+  }
+}
+
+/* ---------- Mobile: vertical stack, still physical ---------- */
+@media (max-width: 699px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .note {
+    justify-self: start;
+    margin-top: 36px;
+  }
+  .passes {
+    grid-template-columns: minmax(0, 300px);
+    justify-content: center;
+    row-gap: 4px;
+    margin-top: 12px;
+  }
+  .passWrap {
+    padding-top: 118px;
+  }
+  .paper {
+    top: 104px;
+  }
+  .lanyard {
+    bottom: calc(100% - 128px);
+    height: 96px;
+  }
+  .ring {
+    top: 108px;
+  }
+  .darkSheet {
+    top: 2%;
+    bottom: 2%;
+    left: -6%;
+    right: -6%;
+  }
+}

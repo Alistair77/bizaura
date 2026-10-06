@@ -1,0 +1,121 @@
+/* Quiet by design — it must never compete with the final invitation. */
+.footer {
+  padding-block: clamp(64px, 7vw, 104px) 28px;
+  background: var(--color-night);
+  color: rgb(255 255 255 / 0.72);
+  font-size: var(--text-small);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr);
+  gap: 40px 32px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 10px;
+  border-radius: 6px;
+}
+.wordmark {
+  font-size: 2rem;
+  color: #fff;
+}
+.media {
+  padding-bottom: 2px;
+  font-size: var(--text-micro);
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.6);
+}
+.tagline {
+  margin-top: 16px;
+  font-size: var(--text-micro);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.colHead {
+  margin-bottom: 6px;
+  font-size: var(--text-micro);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: #fff;
+}
+.links {
+  display: grid;
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  transition: color var(--duration-fast) ease;
+}
+.link:hover {
+  color: #fff;
+}
+.contactLine {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+}
+@media (pointer: coarse) {
+  .link,
+  .contactLine {
+    min-height: 44px;
+  }
+}
+
+.social {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+.socialLink {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ease-out);
+}
+.socialLink:hover {
+  background: #fff;
+  color: var(--color-ink);
+}
+.socialLink:active {
+  transform: scale(0.94);
+}
+
+.bottom {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: 22px;
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+  font-size: var(--text-micro);
+  color: rgb(255 255 255 / 0.6);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .brandCol {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 559px) {
+  .contactCol {
+    grid-column: 1 / -1;
+  }
+}

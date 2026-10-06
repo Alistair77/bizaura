@@ -1,0 +1,188 @@
+/* =========================================================
+   OUR BELIEF — paper staircase + mission / vision
+   ========================================================= */
+.section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(92svh, 900px);
+  padding-block: var(--space-chapter) calc(var(--space-chapter) + 24px);
+  background: var(--color-paper);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: var(--space-between);
+  align-items: center;
+}
+
+/* ---------- Staircase ---------- */
+.stairArea {
+  grid-column: 1 / span 6;
+}
+.stairWrap {
+  position: relative;
+  margin-top: clamp(40px, 5vw, 72px);
+  padding-right: 150px;
+}
+.stairs {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+}
+.step {
+  position: relative;
+  width: fit-content;
+  margin-left: calc(var(--i) * clamp(20px, 3.2vw, 46px));
+  rotate: var(--rot);
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.14)) drop-shadow(0 10px 14px rgb(0 0 0 / 0.14));
+}
+.strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 300px;
+  padding: 20px 36px 20px 32px;
+  background: #fffdf8;
+  font-size: clamp(1.125rem, 0.9rem + 0.6vw, 1.375rem);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-mask: var(--strip-mask) 0 0 / 100% 100% no-repeat;
+  mask: var(--strip-mask) 0 0 / 100% 100% no-repeat;
+}
+.tape {
+  position: absolute;
+  top: -10px;
+  left: 22px;
+  z-index: 1;
+  width: 58px;
+  height: 20px;
+  background: rgb(255 230 0 / 0.6);
+  rotate: -9deg;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 0.1);
+}
+.step:nth-child(even) .tape {
+  left: auto;
+  right: 26px;
+  rotate: 7deg;
+  background: rgb(149 117 255 / 0.35);
+}
+
+.note {
+  position: absolute;
+  top: -50px;
+  right: -38px;
+  font-size: 1.25rem;
+  rotate: -4deg;
+}
+.noteArrow {
+  width: 46px;
+  margin: 10px 0 0 8px;
+}
+
+/* ---------- Mission / Vision ---------- */
+.statements {
+  grid-column: 7 / span 6;
+  display: grid;
+  gap: 20px;
+}
+.statement {
+  --accent: var(--color-violet);
+  --accent-deep: var(--color-violet-deep);
+  --tint: rgb(149 117 255 / 0.12);
+  --tint-soft: rgb(149 117 255 / 0.03);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 14px;
+  padding: clamp(26px, 3vw, 40px);
+  border: 2px solid var(--accent);
+  border-radius: 22px;
+  background: linear-gradient(165deg, var(--tint) 0%, var(--tint-soft) 55%, #fff 100%);
+}
+.statement[data-accent="pink"] {
+  --accent: var(--color-pink);
+  --accent-deep: var(--color-pink-deep);
+  --tint: rgb(255 63 164 / 0.1);
+  --tint-soft: rgb(255 63 164 / 0.025);
+}
+.statementHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.statementIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  color: var(--accent-deep);
+}
+.statementLabel {
+  font-size: var(--text-micro);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+.statementTitle {
+  max-width: 20ch;
+  font-size: clamp(1.5rem, 1rem + 1.3vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.statementBody {
+  max-width: 46ch;
+  color: var(--color-ink-soft);
+}
+.arc {
+  position: absolute;
+  top: -110px;
+  right: -110px;
+  width: 240px;
+  color: var(--accent);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+  .stairArea,
+  .statements {
+    grid-column: 1 / -1;
+  }
+  .statements {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 699px) {
+  .section {
+    min-height: 0;
+  }
+  .stairWrap {
+    padding-right: 0;
+  }
+  .strip {
+    min-width: 0;
+    padding: 16px 26px 16px 22px;
+    white-space: normal;
+  }
+  .step {
+    margin-left: calc(var(--i) * 18px);
+  }
+  .note {
+    position: static;
+    margin: 28px 0 0 auto;
+    width: fit-content;
+  }
+  .statements {
+    grid-template-columns: 1fr;
+  }
+}

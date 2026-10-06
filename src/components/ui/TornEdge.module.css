@@ -1,0 +1,32 @@
+.edge {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.bottom,
+.top {
+  left: 0;
+  width: 100%;
+}
+.bottom {
+  bottom: -1px;
+}
+.top {
+  top: -1px;
+  transform: scaleY(-1);
+}
+
+.left,
+.right {
+  top: 0;
+  height: 100%;
+}
+.right {
+  right: -1px;
+}
+.left {
+  left: -1px;
+  transform: scaleX(-1);
+}

@@ -1,0 +1,508 @@
+/* =========================================================
+   HERO — approved asset as the full-bleed base: paper field,
+   organic torn edge, conference photo. 1536x864 reference.
+   Left axis = --gutter: logo / wordmark / headline / copy /
+   CTAs / pills share one vertical line.
+   ========================================================= */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: stretch;
+  min-height: 100svh;
+  padding-top: var(--header-h);
+  background: #f4f3ef;
+  overflow: clip;
+}
+@media (min-width: 1024px) {
+  .hero {
+    min-height: max(864px, 100svh);
+  }
+}
+
+/* ---------- Approved base: paper + tear + photo in one asset ---------- */
+.base {
+  position: absolute;
+  inset: 0;
+  animation: photoIn 1000ms var(--ease-out) both;
+}
+.baseImg {
+  object-fit: cover;
+  object-position: 40% 50%;
+}
+.baseShade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgb(7 9 26 / 0.35) 0%, rgb(7 9 26 / 0) 30%);
+}
+.noteRight {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 24px;
+  z-index: 2;
+  font-size: 1.25rem;
+  color: #fff;
+  transform: rotate(-6deg);
+  text-align: right;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.45);
+}
+.noteRightArrow {
+  width: 44px;
+  margin: 6px 0 0 auto;
+  transform: scaleX(-1) rotate(8deg);
+}
+.tearStacked {
+  display: none;
+}
+
+/* ---------- Content grid: upper-left editorial, full-gutter axis ---------- */
+.grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+  width: 100%;
+  padding-inline: var(--gutter);
+  padding-top: clamp(48px, 4.4vw, 68px);
+  padding-bottom: 64px;
+}
+
+.copy {
+  position: relative;
+  grid-column: 1 / span 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.wordmark {
+  width: min(100%, 700px);
+  font-size: var(--text-wordmark);
+  animation: rise 700ms var(--ease-out) 80ms both;
+}
+
+/* ---------- Giant hero logo asset + tracking pupil ---------- */
+.heroLogo {
+  position: relative;
+  width: min(100%, 640px);
+  margin-top: -26px;
+  animation: rise 700ms var(--ease-out) 80ms both;
+}
+.heroLogoSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.headline {
+  max-width: 640px;
+  margin-top: 30px;
+  color: #0b0b0b;
+  font-size: var(--text-h1);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+.line {
+  display: block;
+  animation: rise 640ms var(--ease-out) both;
+}
+.line:nth-child(1) {
+  animation-delay: 180ms;
+}
+.line:nth-child(2) {
+  animation-delay: 240ms;
+}
+.line:nth-child(3) {
+  animation-delay: 300ms;
+}
+.outcomes {
+  width: fit-content;
+  padding-right: 0.06em;
+  background: var(--gradient-outcomes);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  max-width: 500px;
+  margin-top: 28px;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #4b4b4b;
+  animation: rise 640ms var(--ease-out) 380ms both;
+}
+
+/* ---------- CTA pair: identical 60px pills, 16px gap ---------- */
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 30px;
+  animation: rise 640ms var(--ease-out) 480ms both;
+}
+.primary,
+.secondary {
+  height: 60px;
+  min-height: 60px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.primary {
+  width: 270px;
+  border: 2px solid #050505;
+  background: #050505;
+  color: #fff;
+}
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -14px rgb(0 0 0 / 0.55);
+}
+.primary:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+.secondary {
+  width: 265px;
+  border: 1px solid #888;
+  background: transparent;
+  color: #111;
+}
+.secondary:hover {
+  background: rgb(0 0 0 / 0.04);
+  box-shadow: none;
+  transform: translateY(-2px);
+  color: #111;
+}
+.secondary:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Industry pills: one quiet left-aligned row ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px;
+  animation: rise 640ms var(--ease-out) 580ms both;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #c8c8c8;
+  border-radius: 18px;
+  background: rgb(255 255 255 / 0.4);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #333;
+}
+.chipMore {
+  border-style: dashed;
+  background: transparent;
+}
+
+/* ---------- Handwritten note: clear of wordmark + headline, on paper ---------- */
+.noteLeft {
+  position: absolute;
+  top: 280px;
+  left: 485px;
+  z-index: 3;
+  font-size: 1.125rem;
+  line-height: 1.05;
+  color: #161616;
+  transform: rotate(-6deg);
+  text-shadow:
+    0 0 10px rgb(245 244 240 / 0.9),
+    0 0 22px rgb(245 244 240 / 0.7);
+  animation: fadeIn 600ms ease 700ms both;
+}
+.noteLeftArrow {
+  width: 42px;
+  margin: 8px 0 0 10px;
+}
+
+/* ---------- Opportunity / Reach / Access: paper strips over photo ---------- */
+.insightWrap {
+  grid-column: 8 / span 5;
+  align-self: start;
+  margin-top: clamp(120px, 26vh, 226px);
+  margin-left: clamp(0px, 2vw, 28px);
+  perspective: 1100px;
+  min-width: 0;
+}
+.insights {
+  display: grid;
+  gap: 20px;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 600ms var(--ease-out);
+}
+.insightItem {
+  --rot: -3deg;
+  rotate: var(--rot);
+  animation: settle 700ms var(--ease-out) both;
+  animation-delay: calc(420ms + var(--i) * 90ms);
+  filter: drop-shadow(0 10px 10px rgb(0 0 0 / 0.18));
+}
+.insightItem:nth-child(1) {
+  --rot: -3deg;
+  margin-left: 0;
+  margin-right: 6%;
+}
+.insightItem:nth-child(2) {
+  --rot: 2deg;
+  margin-left: 7%;
+  margin-right: 0;
+}
+.insightItem:nth-child(3) {
+  --rot: -2deg;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.strip {
+  --accent: #7a48ff;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 22px;
+  width: min(100%, 500px);
+  min-height: 118px;
+  padding: 20px 24px 20px 20px;
+  /* Subtly imperfect paper rectangle — irregular but professional. */
+  border-radius: 9px 11px 10px 12px / 11px 9px 12px 10px;
+  background: #f4f2ed;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 0.18);
+  transition:
+    transform var(--duration-medium) var(--ease-out),
+    box-shadow var(--duration-medium) var(--ease-out);
+}
+.strip[data-accent="pink"] {
+  --accent: #f22688;
+  background-color: #f8d8e5;
+}
+.strip[data-accent="blue"] {
+  --accent: #2375e8;
+  background-color: #cfe3fa;
+}
+.strip[data-accent="violet"] {
+  background-color: #f4f2ed;
+}
+.insightItem:nth-child(1):hover .strip {
+  transform: translateY(-4px) rotate(2deg);
+  box-shadow: 0 16px 28px rgb(0 0 0 / 0.24);
+}
+.insightItem:nth-child(2):hover .strip {
+  transform: translateY(-4px) rotate(-1.5deg);
+  box-shadow: 0 16px 28px rgb(0 0 0 / 0.24);
+}
+.insightItem:nth-child(3):hover .strip {
+  transform: translateY(-4px) rotate(1.5deg);
+  box-shadow: 0 16px 28px rgb(0 0 0 / 0.24);
+}
+.strip:active {
+  transform: scale(0.98);
+}
+.stripIcon {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  flex: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+}
+.stripText {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.stripTitle {
+  font-size: clamp(1.75rem, 1.55rem + 0.7vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #101010;
+}
+.stripLine {
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #202020;
+}
+
+/* Imperfect coloured tape pinned over each card. */
+.tape {
+  position: absolute;
+  top: -13px;
+  left: 56px;
+  width: 92px;
+  height: 26px;
+  opacity: 0.85;
+  /* Irregular strip — not a clean rectangle. */
+  clip-path: polygon(1% 12%, 99% 0%, 100% 82%, 97% 100%, 2% 92%, 0% 78%);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.18);
+}
+.insightItem:nth-child(1) .tape {
+  transform: rotate(-7deg);
+}
+.insightItem:nth-child(2) .tape {
+  left: auto;
+  right: 64px;
+  transform: rotate(5deg);
+}
+.insightItem:nth-child(3) .tape {
+  left: 88px;
+  transform: rotate(-4deg);
+}
+
+/* ---------- Load sequence ---------- */
+@keyframes photoIn {
+  from {
+    opacity: 0.3;
+    transform: scale(1.04);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) rotate(3deg);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- Between desktop and tablet ---------- */
+@media (max-width: 1300px) {
+  .noteLeft {
+    display: none;
+  }
+  .insightItem:nth-child(n) {
+    margin-inline: 0;
+  }
+  .insightWrap {
+    margin-left: 0;
+  }
+}
+@media (max-width: 1180px) {
+  .grid {
+    column-gap: 16px;
+  }
+  .strip {
+    gap: 18px;
+    padding: 16px 20px 16px 18px;
+  }
+  .stripIcon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* ---------- Stacked (tablet + mobile): paper / photo / cards ---------- */
+@media (max-width: 1023px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+  }
+  .noteRight {
+    display: none;
+  }
+  .grid {
+    display: contents;
+  }
+  .copy {
+    order: 1;
+    z-index: 2;
+    padding: calc(var(--header-h) + 24px) var(--gutter) 56px;
+    background: var(--color-paper);
+  }
+  .tearStacked {
+    display: block;
+    top: calc(100% - 1px);
+  }
+  .base {
+    order: 2;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: clamp(300px, 72vw, 560px);
+  }
+  .baseImg {
+    object-position: 72% 40%;
+  }
+  .insightWrap {
+    order: 3;
+    position: relative;
+    z-index: 2;
+    grid-column: auto;
+    margin-top: clamp(-160px, -18vw, -96px);
+    margin-left: 0;
+    padding: 0 var(--gutter) 72px;
+  }
+  .insights {
+    max-width: 540px;
+  }
+  .insightItem:nth-child(n) {
+    margin-inline: 0;
+  }
+  .strip {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insights {
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .headline {
+    font-size: clamp(3rem, 14vw, 4rem);
+  }
+  .lead {
+    font-size: 1.0625rem;
+  }
+  .ctas {
+    width: 100%;
+  }
+  .primary,
+  .secondary {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+  .strip {
+    gap: 16px;
+    min-height: 112px;
+    padding: 16px 16px 16px 14px;
+  }
+  .stripIcon {
+    width: 56px;
+    height: 56px;
+  }
+}

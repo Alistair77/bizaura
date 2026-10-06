@@ -1,0 +1,97 @@
+:root {
+  /* Foundation */
+  --color-ink: #111111;
+  --color-ink-soft: #3a3a3a;
+  --color-ink-muted: #5c5c5c;
+  --color-paper: #f5f4f0;
+  --color-paper-warm: #f5f4f0;
+  --color-paper-edge: #e9e4da;
+  --color-navy: #00205b;
+  --color-night: #07091a;
+  --color-night-2: #0d1130;
+
+  /* Accents — vivid for display/decoration */
+  --color-violet: #9575ff;
+  --color-pink: #ff3fa4;
+  --color-blue: #4f86ff;
+  --color-red: #ff3b30;
+  --color-yellow: #ffe600;
+
+  /* Accents — deep variants: AA with white body text */
+  --color-violet-deep: #6b4ee6;
+  --color-pink-deep: #d61f82;
+  --color-blue-deep: #2f5fe0;
+
+  /* outcomes. — Purple → Blue → Magenta/Pink, horizontal */
+  --gradient-outcomes: linear-gradient(90deg, #7b42ff 0%, #315bff 38%, #c435ff 68%, #f02b82 100%);
+
+  /* Type */
+  --font-sans: var(--font-schibsted), "Helvetica Neue", Arial, sans-serif;
+  --font-hand: var(--font-hand-face), "Marker Felt", cursive;
+
+  --text-micro: 0.75rem; /* 12px floor */
+  --text-small: 0.875rem;
+  --text-body: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  --text-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --text-h2: clamp(2.25rem, 1.6rem + 2.8vw, 4.25rem);
+  --text-h1: clamp(4rem, 1rem + 4vw, 4.875rem);
+  --text-wordmark: clamp(5.5rem, 1rem + 8.2vw, 10rem);
+  --text-mega: clamp(2.75rem, 1.6rem + 5vw, 6.5rem);
+
+  --leading-display: 0.94;
+  --leading-body: 1.55;
+  --tracking-display: -0.025em;
+  --tracking-label: 0.14em;
+
+  /* Spacing — 8px grid, three tiers */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-within: clamp(0.5rem, 0.4rem + 0.4vw, 1rem);
+  --space-between: clamp(2rem, 1.6rem + 1.6vw, 3.5rem);
+  --space-chapter: clamp(4.5rem, 2.5rem + 8vw, 11rem);
+
+  /* Layout */
+  --container-max: 1280px;
+  --gutter: clamp(1rem, 5.5vw, 6rem);
+  --header-h: 84px;
+
+  /* Shape */
+  --radius-small: 8px;
+  --radius-medium: 16px;
+  --radius-large: 28px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgb(17 17 17 / 0.06), 0 8px 24px -12px rgb(17 17 17 / 0.18);
+  --shadow-paper: 0 1px 1px rgb(17 17 17 / 0.08), 0 6px 14px -8px rgb(17 17 17 / 0.28);
+  --shadow-ticket: 0 2px 3px rgb(0 0 0 / 0.18), 0 18px 32px -18px rgb(0 0 0 / 0.55);
+
+  /* Motion */
+  --duration-fast: 160ms;
+  --duration-medium: 320ms;
+  --duration-slow: 720ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+
+  /* Materials */
+  --header-surface: rgb(245 244 240 / 0.94);
+  --strip-surface: #f4f2ee;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --header-surface: var(--color-paper);
+    --strip-surface: #ffffff;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-ink-soft: #111111;
+    --color-ink-muted: #2a2a2a;
+    --shadow-card: 0 0 0 2px var(--color-ink);
+  }
+}

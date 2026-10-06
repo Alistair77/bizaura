@@ -1,0 +1,283 @@
+/* =========================================================
+   LET'S BUILD WHAT'S NEXT — cinematic invitation
+   ========================================================= */
+.lets {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: max(775px, min(110svh, 1125px));
+  padding-block: var(--space-chapter);
+  background: var(--color-night);
+  color: #fff;
+  overflow: clip;
+}
+.letsMedia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.letsShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(7 9 26 / 0.92) 0%, rgb(7 9 26 / 0.76) 45%, rgb(7 9 26 / 0.25) 80%),
+    linear-gradient(0deg, rgb(7 9 26 / 0.55) 0%, rgb(7 9 26 / 0) 40%);
+}
+.letsLayout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: center;
+}
+.letsCopy {
+  grid-column: 1 / span 7;
+  display: grid;
+  justify-items: start;
+  gap: clamp(22px, 2.6vw, 36px);
+}
+.letsHeading {
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 1.3rem + 4vw, 5.25rem);
+}
+.letsLead {
+  font-size: var(--text-lead);
+  color: rgb(255 255 255 / 0.86);
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+.letsNote {
+  grid-column: 10 / span 3;
+  justify-self: end;
+  align-self: start;
+  font-size: 1.5rem;
+  color: #fff;
+  rotate: -6deg;
+}
+.letsNoteArrow {
+  width: 52px;
+  margin: 10px 0 0 6px;
+}
+
+/* =========================================================
+   ADMIT ONE CONVERSATION — the final physical invitation
+   ========================================================= */
+.admit {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+  padding-block: clamp(56px, 6vw, 84px);
+  background:
+    radial-gradient(90% 80% at 0% 100%, rgb(149 117 255 / 0.35), transparent 60%),
+    var(--color-blue-deep);
+  color: #fff;
+  overflow: clip;
+}
+.admitMedia {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: 46%;
+}
+.admitShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(47 95 224 / 0.5) 0%, rgb(0 32 91 / 0.3) 45%, rgb(7 9 26 / 0.45) 100%),
+    linear-gradient(0deg, rgb(7 9 26 / 0.5), rgb(7 9 26 / 0) 45%);
+}
+.admitLayout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: center;
+}
+.admitCopy {
+  grid-column: 1 / span 6;
+  display: grid;
+  justify-items: start;
+  gap: clamp(16px, 2vw, 24px);
+}
+.admitHeading {
+  font-size: clamp(3rem, 1.4rem + 5vw, 6.5rem);
+  line-height: 0.92;
+}
+.admitLead {
+  font-size: var(--text-lead);
+  color: rgb(255 255 255 / 0.92);
+}
+.email {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 6px;
+  border-bottom: 2px solid rgb(255 255 255 / 0.4);
+  font-weight: 700;
+  transition: border-color var(--duration-fast) ease;
+}
+.email:hover {
+  border-color: var(--color-yellow);
+}
+
+/* ---------- Conversation ticket: slim horizontal admission ticket ---------- */
+.ticketWrap {
+  grid-column: 7 / span 6;
+  justify-self: end;
+  align-self: center;
+  width: min(100%, 560px);
+  rotate: -4deg;
+  filter: drop-shadow(0 3px 3px rgb(0 0 0 / 0.25)) drop-shadow(0 30px 40px rgb(0 0 0 / 0.45));
+}
+.ticket {
+  --stub: 64px;
+  --notch: 14px;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--stub) minmax(0, 1fr);
+  border-radius: 14px;
+  background: #fdfbf6;
+  color: var(--color-ink);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at var(--stub) 0, #0000 97%, #000) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle var(--notch) at var(--stub) 100%, #0000 97%, #000) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle 5px at 0 50%, #0000 94%, #000) 0 0 / 100% 16px repeat-y,
+    radial-gradient(circle 5px at 100% 50%, #0000 94%, #000) 0 0 / 100% 16px repeat-y;
+  -webkit-mask-composite: source-in;
+  mask:
+    radial-gradient(circle var(--notch) at var(--stub) 0, #0000 97%, #000) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle var(--notch) at var(--stub) 100%, #0000 97%, #000) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle 5px at 0 50%, #0000 94%, #000) 0 0 / 100% 16px repeat-y,
+    radial-gradient(circle 5px at 100% 50%, #0000 94%, #000) 0 0 / 100% 16px repeat-y;
+  mask-composite: intersect;
+}
+.ticket::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: 0.07;
+  pointer-events: none;
+}
+.stub {
+  display: grid;
+  place-items: center;
+  border-right: 2px dashed rgb(17 17 17 / 0.28);
+  background: var(--color-yellow);
+}
+.stubText {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  font-size: var(--text-small);
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.ticketBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "brand cta"
+    "line cta"
+    "hand cta";
+  align-content: center;
+  align-items: center;
+  gap: 4px 22px;
+  padding: 20px 28px;
+}
+.brand {
+  grid-area: brand;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.brandWordmark {
+  font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem);
+}
+.brandMedia {
+  padding-bottom: 2px;
+  font-size: var(--text-micro);
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+.ticketLine {
+  grid-area: line;
+  margin-top: 4px;
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+.ticketHand {
+  grid-area: hand;
+  font-size: 1.25rem;
+  color: var(--color-pink-deep);
+}
+.ticketCta {
+  grid-area: cta;
+  width: 200px;
+  min-height: 46px;
+  padding: 0 18px;
+  font-size: var(--text-small);
+  white-space: nowrap;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 899px) {
+  .letsCopy {
+    grid-column: 1 / -1;
+  }
+  .letsNote {
+    grid-column: 1 / -1;
+    margin-top: 40px;
+  }
+  .admit {
+    min-height: 0;
+  }
+  .admitMedia {
+    display: none;
+  }
+  .admitLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 56px;
+  }
+  .ticketWrap {
+    justify-self: auto;
+    rotate: -2deg;
+  }
+}
+
+@media (max-width: 480px) {
+  .ctas > :global(.btn) {
+    flex: 1 1 100%;
+  }
+  .ticket {
+    --stub: 56px;
+  }
+  .stubText {
+    font-size: var(--text-micro);
+  }
+  .ticketBody {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "brand"
+      "line"
+      "hand"
+      "cta";
+    gap: 8px;
+    padding: 20px;
+  }
+  .ticketCta {
+    width: 100%;
+  }
+}

@@ -1,0 +1,195 @@
+/* =========================================================
+   WE CREATE PLATFORMS — full-screen cinematic story
+   ========================================================= */
+.section {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: max(640px, min(100svh, 1000px));
+  padding-block: var(--space-chapter);
+  background: var(--color-night);
+  color: #fff;
+  overflow: clip;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(7 9 26 / 0.94) 0%, rgb(7 9 26 / 0.78) 38%, rgb(7 9 26 / 0.5) 62%, rgb(7 9 26 / 0.72) 100%),
+    linear-gradient(0deg, rgb(7 9 26 / 0.7) 0%, rgb(7 9 26 / 0) 35%);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: center;
+}
+
+/* ---------- Story ---------- */
+.story {
+  grid-column: 1 / span 7;
+  display: grid;
+  justify-items: start;
+  gap: clamp(20px, 2.4vw, 32px);
+}
+.label {
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--color-ink);
+  font-size: var(--text-micro);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+.heading {
+  font-size: clamp(2.75rem, 1.4rem + 4.4vw, 6rem);
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+.row {
+  display: block;
+}
+.violet {
+  color: var(--color-violet);
+}
+.pink {
+  color: var(--color-pink);
+}
+
+/* ---------- Timeline ---------- */
+.timeline {
+  position: relative;
+  grid-column: 9 / span 4;
+  display: grid;
+  gap: clamp(28px, 3vw, 44px);
+  padding-left: 48px;
+}
+/* The spine of the timeline draws downward on entry */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 12px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-red), var(--color-blue) 40%, var(--color-pink) 75%, rgb(255 255 255 / 0.6));
+  transform-origin: top;
+  transition: transform 1200ms var(--ease-out) 200ms;
+}
+:global(.js) .timeline:not(:global(.is-in))::before {
+  transform: scaleY(0);
+}
+
+.step {
+  --accent: var(--color-red);
+  position: relative;
+  display: grid;
+  gap: 4px;
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+  transition-delay: calc(360ms + var(--i) * 200ms);
+}
+:global(.js) .timeline:not(:global(.is-in)) .step {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+.step[data-accent="blue"] {
+  --accent: var(--color-blue);
+}
+.step[data-accent="pink"] {
+  --accent: var(--color-pink);
+}
+
+.node {
+  position: absolute;
+  top: 2px;
+  left: -48px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: radial-gradient(circle, var(--accent) 0 4px, var(--color-night) 5px);
+  transition: transform 500ms var(--ease-spring);
+  transition-delay: calc(360ms + var(--i) * 200ms);
+}
+:global(.js) .timeline:not(:global(.is-in)) .node {
+  transform: scale(0.4);
+}
+
+.stepNum {
+  font-size: var(--text-micro);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.stepText {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.5);
+}
+
+.closing .node {
+  --accent: var(--color-pink);
+  background: radial-gradient(circle, #fff 0 5px, var(--color-pink) 6px);
+}
+.closingText {
+  max-width: 30ch;
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.9);
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.5);
+}
+.closingText em {
+  font-style: normal;
+  color: var(--color-pink);
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .story {
+    grid-column: 1 / span 6;
+  }
+  .timeline {
+    grid-column: 8 / span 5;
+  }
+}
+
+/* Stacked: image, headline, CTA, then timeline */
+@media (max-width: 899px) {
+  .section {
+    display: block;
+    min-height: 0;
+    padding-top: 0;
+  }
+  .media {
+    position: relative;
+    z-index: 0;
+    height: clamp(260px, 62vw, 460px);
+  }
+  .shade {
+    background: linear-gradient(0deg, var(--color-night) 0%, rgb(7 9 26 / 0.25) 55%, rgb(7 9 26 / 0.35) 100%);
+  }
+  .layout {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    margin-top: -48px;
+  }
+  .timeline {
+    gap: 40px;
+  }
+}
