@@ -33,6 +33,7 @@ interface EyeOProps {
 export function EyeO({ size, live = false, className }: EyeOProps) {
   const ref = useRef<SVGSVGElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [blinking, setBlinking] = useState(false);
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const irisId = `eyeo-iris-${uid}`;
   const shadeId = `eyeo-shade-${uid}`;
@@ -67,8 +68,15 @@ export function EyeO({ size, live = false, className }: EyeOProps) {
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
+    // Blink: scaleY the almond to 0.1 and back (160ms total) every ~7s.
+    const blink = () => {
+      setBlinking(true);
+      window.setTimeout(() => setBlinking(false), 80);
+    };
+    const blinkTimer = window.setInterval(blink, 7000);
     return () => {
       window.removeEventListener("pointermove", onMove);
+      window.clearInterval(blinkTimer);
       cancelAnimationFrame(raf);
     };
   }, [live]);
@@ -76,7 +84,7 @@ export function EyeO({ size, live = false, className }: EyeOProps) {
   return (
     <svg
       ref={ref}
-      className={`${styles.o} ${className ?? ""}`}
+      className={`${styles.o} ${blinking ? styles.blinking : ""} ${className ?? ""}`}
       style={size ? { width: (size * 104) / 74, height: size } : undefined}
       viewBox="0 0 104 74"
       aria-hidden="true"
@@ -98,7 +106,7 @@ export function EyeO({ size, live = false, className }: EyeOProps) {
         </clipPath>
       </defs>
 
-      <g>
+      <g className={styles.eyelid}>
         {/* Sclera */}
         <path d="M16 37 Q52 9, 88 37 Q52 65, 16 37 Z" fill="#FFFFFF" />
         <path d="M16 37 Q52 9, 88 37 Q52 65, 16 37 Z" fill={`url(#${shadeId})`} />
