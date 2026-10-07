@@ -1,0 +1,128 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import styles from "./EyeO.module.css";
+
+/** Iris striations: 12 thin lighter lines radiating from the pupil. */
+const STRIATIONS = Array.from({ length: 12 }, (_, i) => (i * Math.PI) / 6);
+
+interface EyeOProps {
+  /** Explicit rendered height in px. Omit for em sizing (1.04em × 0.74em,
+   * driven by the parent wordmark font-size: 100px hero → 104×74). */
+  size?: number;
+  /** Enable mouse-follow + blink. Defaults to false (e.g. static contexts). */
+  live?: boolean;
+  className?: string;
+}
+
+/**
+ * The BIZORA eye-"O": thick black elliptical ring, white almond, gradient
+ * iris, pupil, specular highlights. Reference: 104×74 at 100px wordmark.
+ */
+export function EyeO({ size, live = false, className }: EyeOProps) {
+  const ref = useRef<SVGSVGElement>(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [blinking, setBlinking] = useState(false);
+
+  useEffect(() => {
+    if (!live) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    const target = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
+
+    const tick = () => {
+      current.x += (target.x - current.x) * 0.18;
+      current.y += (target.y - current.y) * 0.18;
+      setOffset({ x: current.x, y: current.y });
+      if (Math.abs(target.x - current.x) > 0.01 || Math.abs(target.y - current.y) > 0.01) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = 0;
+      }
+    };
+
+    const onMove = (e: PointerEvent) => {
+      const nx = (e.clientX / window.innerWidth - 0.5) * 2;
+      const ny = (e.clientY / window.innerHeight - 0.5) * 2;
+      // Up to 3 viewBox units (≈3px at hero scale).
+      target.x = Math.max(-1, Math.min(1, nx)) * 3;
+      target.y = Math.max(-1, Math.min(1, ny)) * 3;
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+
+    // Blink: scaleY the almond to 0.1 and back (160ms total) every ~7s.
+    const blink = () => {
+      setBlinking(true);
+      window.setTimeout(() => setBlinking(false), 80);
+    };
+    const blinkTimer = window.setInterval(blink, 7000);
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.clearInterval(blinkTimer);
+      cancelAnimationFrame(raf);
+    };
+  }, [live]);
+
+  return (
+    <svg
+      ref={ref}
+      className={`${styles.o} ${blinking ? styles.blinking : ""} ${className ?? ""}`}
+      style={size ? { width: (size * 104) / 74, height: size } : undefined}
+      viewBox="0 0 104 74"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <defs>
+        <radialGradient id="eyeo-iris" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#3A4FE6" />
+          <stop offset="45%" stopColor="#5B6CFF" />
+          <stop offset="75%" stopColor="#9E8BFF" />
+          <stop offset="100%" stopColor="#E6D9FF" />
+        </radialGradient>
+        <radialGradient id="eyeo-shade" cx="50%" cy="50%" r="50%">
+          <stop offset="70%" stopColor="#E6E8F5" stopOpacity="0" />
+          <stop offset="100%" stopColor="#E6E8F5" stopOpacity="0.9" />
+        </radialGradient>
+        <clipPath id="eyeo-almond">
+          <path d="M16 37 Q52 9, 88 37 Q52 65, 16 37 Z" />
+        </clipPath>
+      </defs>
+
+      <g className={styles.eyelid}>
+        {/* Sclera */}
+        <path d="M16 37 Q52 9, 88 37 Q52 65, 16 37 Z" fill="#FFFFFF" />
+        <path d="M16 37 Q52 9, 88 37 Q52 65, 16 37 Z" fill="url(#eyeo-shade)" />
+
+        {/* Iris + pupil ride together for the mouse-follow. */}
+        <g transform={`translate(${offset.x.toFixed(2)} ${offset.y.toFixed(2)})`}>
+          <circle cx="52" cy="37" r="21" fill="url(#eyeo-iris)" />
+          <g clipPath="url(#eyeo-almond)" opacity="0.25">
+            {STRIATIONS.map((a) => (
+              <line
+                key={a.toFixed(2)}
+                x1={52 + Math.cos(a) * 9}
+                y1={37 + Math.sin(a) * 9}
+                x2={52 + Math.cos(a) * 20}
+                y2={37 + Math.sin(a) * 20}
+                stroke="#FFFFFF"
+                strokeWidth="1"
+              />
+            ))}
+          </g>
+          <circle cx="52" cy="37" r="21" fill="none" stroke="#3B2FA8" strokeWidth="1.5" />
+          <circle cx="52" cy="37" r="8.5" fill="#05050A" />
+          {/* Highlights */}
+          <circle cx="45" cy="30" r="3" fill="#FFFFFF" opacity="0.95" />
+          <circle cx="58.5" cy="43" r="1.25" fill="#FFFFFF" opacity="0.6" />
+        </g>
+      </g>
+
+      {/* Thick black ring over the almond edges. */}
+      <ellipse cx="52" cy="37" rx="45" ry="30" fill="none" stroke="#0B0B0F" strokeWidth="14" />
+    </svg>
+  );
+}

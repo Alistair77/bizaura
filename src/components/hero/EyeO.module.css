@@ -1,0 +1,20 @@
+.o {
+  width: 1.04em;
+  height: 0.74em;
+  flex: none;
+  overflow: visible;
+}
+
+.eyelid {
+  transform-box: view-box;
+  transform-origin: 52px 37px;
+}
+
+.blinking .eyelid {
+  transform: scaleY(0.1);
+  transition: transform 80ms ease-in;
+}
+
+.eyelid {
+  transition: transform 80ms ease-out;
+}

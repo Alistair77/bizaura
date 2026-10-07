@@ -5,11 +5,15 @@
 .section {
   position: relative;
   padding-block: var(--space-chapter);
-  background: #f4f2ec;
+  background:
+    radial-gradient(36% 44% at 6% 12%, rgb(110 224 168 / 0.08), transparent 70%),
+    radial-gradient(30% 40% at 98% 88%, rgb(255 178 122 / 0.07), transparent 70%),
+    #ffffff;
+  border-top: 1px solid rgb(17 17 17 / 0.08);
   overflow: clip;
 }
 
-/* Dark charcoal sheet behind the passes. */
+/* Light sheet behind the passes — part of the paper collage. */
 .darkSheet {
   position: absolute;
   top: 5%;
@@ -17,10 +21,11 @@
   left: 30%;
   right: -3%;
   z-index: 0;
-  background: #090c0f;
+  background: #eceae4;
+  border: 1px solid rgb(17 17 17 / 0.08);
   border-radius: 18px 22px 20px 24px;
   rotate: -1deg;
-  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.5);
+  box-shadow: 0 30px 60px -30px rgb(17 17 17 / 0.18);
 }
 .darkSheet::after {
   content: "";
@@ -28,7 +33,7 @@
   inset: 0;
   border-radius: inherit;
   background-image: var(--grain);
-  opacity: 0.1;
+  opacity: 0.06;
   pointer-events: none;
 }
 
@@ -263,7 +268,7 @@
   aspect-ratio: 3 / 2;
   border-radius: 6px;
   overflow: hidden;
-  background: var(--color-night);
+  background: #eceae4;
 }
 .photo img {
   object-fit: cover;

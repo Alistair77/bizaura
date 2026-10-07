@@ -7,7 +7,9 @@
   align-items: center;
   min-height: min(92svh, 920px);
   padding-block: var(--space-chapter);
-  background: var(--color-paper);
+  background:
+    radial-gradient(34% 40% at 94% 8%, rgb(154 107 255 / 0.07), transparent 70%),
+    var(--color-paper);
 }
 
 .head {

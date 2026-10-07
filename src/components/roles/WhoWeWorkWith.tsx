@@ -57,7 +57,7 @@ export function WhoWeWorkWith() {
       <div className="grain" aria-hidden="true" />
       {/* Dark charcoal sheet behind the passes — part of the paper collage. */}
       <div className={styles.darkSheet} aria-hidden="true">
-        <TornEdge edge="left" fill="#f4f2ec" seed={41} depth={44} />
+        <TornEdge edge="left" fill="#ffffff" seed={41} depth={44} />
       </div>
 
       <div className="container">

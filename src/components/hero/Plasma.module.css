@@ -1,0 +1,16 @@
+/* Plasma canvas container — fills the .plasma-wrap box in Hero.module.css.
+   (Module version of the React Bits Plasma.css: Next.js forbids global
+   CSS imports from components, so the plain './Plasma.css' import
+   could not be kept.) */
+.container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

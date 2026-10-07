@@ -2,8 +2,12 @@
   --bleed: max(var(--gutter), (100vw - var(--container-max)) / 2);
   position: relative;
   padding-block: clamp(40px, 4.5vw, 72px) clamp(48px, 5vw, 80px);
-  background: var(--color-navy);
-  color: #fff;
+  background:
+    radial-gradient(36% 60% at 8% 20%, rgb(124 155 255 / 0.08), transparent 70%),
+    radial-gradient(30% 55% at 96% 90%, rgb(255 95 160 / 0.06), transparent 70%),
+    #ffffff;
+  color: var(--color-ink);
+  border-block: 1px solid rgb(17 17 17 / 0.08);
   overflow: clip;
 }
 
@@ -105,8 +109,9 @@
   align-items: center;
   width: clamp(300px, 27vw, 372px);
   min-height: 136px;
-  background: #fdfbf6;
+  background: #ffffff;
   color: var(--color-ink);
+  border: 1px solid rgb(17 17 17 / 0.1);
   border-radius: 10px;
   -webkit-mask:
     radial-gradient(circle var(--notch) at var(--stub) 0, #0000 97%, #000) 0 0 / 100% 100% no-repeat,
@@ -181,7 +186,7 @@
   margin-right: 16px;
   border-radius: 10px;
   overflow: hidden;
-  background: var(--color-night);
+  background: #eceae4;
 }
 .thumb img {
   object-fit: cover;
@@ -227,7 +232,7 @@
   white-space: nowrap;
 }
 .seeAll:hover {
-  color: var(--color-yellow);
+  color: var(--color-pink-deep);
 }
 
 @media (max-width: 899px) {

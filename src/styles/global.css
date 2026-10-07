@@ -250,8 +250,8 @@ button {
   padding-block: var(--space-chapter);
 }
 .section-dark {
-  background: var(--color-night);
-  color: #fff;
+  background: #ffffff;
+  color: var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -322,7 +322,7 @@ button {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: var(--color-night);
+  background: #e9e7e2;
 }
 .cine__img {
   object-fit: cover;

@@ -1,5 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Covered_By_Your_Grace, Inter_Tight, Schibsted_Grotesk } from "next/font/google";
+import {
+  Covered_By_Your_Grace,
+  Inter,
+  Inter_Tight,
+  Schibsted_Grotesk,
+  Shadows_Into_Light_Two,
+} from "next/font/google";
 import { ExperienceShell } from "@/components/providers/ExperienceShell";
 import { CONTACT, SITE_URL } from "@/content/home";
 import "@/styles/global.css";
@@ -18,12 +24,27 @@ const hand = Covered_By_Your_Grace({
   preload: false,
 });
 
-// Spec typeface for the How We Engage section.
+// Spec typefaces for the hero: Inter Tight 800/900 display, Inter body.
 const tight = Inter_Tight({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-tight",
   display: "swap",
+});
+
+const body = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const script = Shadows_Into_Light_Two({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-script",
+  display: "swap",
+  preload: false,
 });
 
 const TITLE = "Bizora Media — Where Access Turns Into Outcomes";
@@ -40,7 +61,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f4f0",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
@@ -57,7 +78,7 @@ const organizationJsonLd = JSON.stringify({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${hand.variable} ${tight.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${hand.variable} ${tight.variable} ${body.variable} ${script.variable}`} suppressHydrationWarning>
       <head>
         {/* Arms scroll reveals only when JS runs, so no-JS visitors see everything. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

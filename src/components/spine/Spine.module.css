@@ -3,29 +3,31 @@
    Palette in one place:
    ========================================================= */
 .section {
-  --a-violet: #7b3ff2;
-  --a-blue: #2563ff;
-  --a-pink: #ff2e93;
-  --a-red: #ff3b5c;
+  --a-violet: #6b4ee6;
+  --a-blue: #2f5fe0;
+  --a-pink: #d61f82;
+  --a-red: #d92d20;
   position: relative;
   padding-top: var(--space-chapter);
   background:
-    radial-gradient(70% 55% at 0% 0%, rgb(255 255 255 / 0.06), transparent 70%),
-    linear-gradient(180deg, #05060a 0%, #0a0b12 100%);
-  color: #fff;
+    radial-gradient(42% 34% at 88% 6%, rgb(154 107 255 / 0.08), transparent 70%),
+    radial-gradient(36% 30% at 4% 42%, rgb(76 123 255 / 0.07), transparent 70%),
+    #ffffff;
+  color: var(--color-ink);
+  border-block: 1px solid rgb(17 17 17 / 0.08);
   overflow: clip;
 }
 
-/* Light-speck film grain over the dark canvas (3–5%). */
+/* Light film grain over the white canvas (3–5%). */
 .dust {
   position: absolute;
   inset: 0;
   z-index: 5;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
 }
-/* Rough torn black-paper corner, top-left. */
+/* Soft paper fragment, top-left. */
 .tornTL {
   position: absolute;
   top: -8px;
@@ -34,8 +36,8 @@
   width: 230px;
   height: 150px;
   pointer-events: none;
-  background: #000;
-  opacity: 0.55;
+  background: #eceae4;
+  opacity: 1;
   clip-path: polygon(0 0, 78% 4%, 92% 18%, 70% 30%, 84% 46%, 60% 58%, 72% 74%, 40% 86%, 48% 100%, 0 100%);
 }
 
@@ -65,7 +67,7 @@
 }
 .kicker {
   grid-area: kicker;
-  color: #fff;
+  color: var(--color-ink);
 }
 .spineRule {
   position: absolute;
@@ -73,10 +75,10 @@
   top: 46px;
   bottom: 84px;
   width: 1px;
-  background: rgb(255 255 255 / 0.6);
+  background: rgb(17 17 17 / 0.2);
 }
 .kicker {
-  color: #fff;
+  color: var(--color-ink);
 }
 .kicker :global(.eyebrow__rule) {
   width: 130px;
@@ -110,7 +112,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 18px rgb(255 46 147 / 0.35));
 }
 .lead {
   grid-area: lead;
@@ -118,7 +119,7 @@
   margin-top: 14px;
   font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
   line-height: 1.35;
-  color: rgb(255 255 255 / 0.85);
+  color: var(--color-ink-soft);
 }
 .approach {
   grid-area: cta;
@@ -130,7 +131,7 @@
   margin-top: 0;
   font-size: var(--text-small);
   font-weight: 700;
-  color: #fff;
+  color: var(--color-ink);
   border-radius: 999px;
 }
 .circle {
@@ -140,7 +141,7 @@
   height: 56px;
   flex: none;
   border-radius: 50%;
-  border: 1.5px solid #fff;
+  border: 1.5px solid var(--color-ink);
   transition:
     background-color var(--duration-medium) ease,
     border-color var(--duration-medium) ease;
@@ -181,18 +182,19 @@
   position: relative;
   overflow: hidden;
   clip-path: polygon(var(--cut) 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
-  background: var(--color-night-2);
+  background: #f4f2ee;
+  border: 1px solid rgb(17 17 17 / 0.08);
   filter:
-    drop-shadow(0 18px 24px rgb(0 0 0 / 0.45))
-    drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 16%, transparent));
+    drop-shadow(0 18px 24px rgb(17 17 17 / 0.12))
+    drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 12%, transparent));
   transition:
     opacity var(--duration-medium) ease,
     filter var(--duration-medium) ease;
 }
 .pillar:hover {
   filter:
-    drop-shadow(0 22px 30px rgb(0 0 0 / 0.55))
-    drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 28%, transparent));
+    drop-shadow(0 22px 30px rgb(17 17 17 / 0.16))
+    drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 20%, transparent));
 }
 .pillar[data-accent="blue"] {
   --accent: var(--a-blue);
@@ -214,17 +216,17 @@
 .pillar:hover .pillarImg {
   transform: scale(1.06);
 }
-/* Image fades into the night toward the copy (upper ~55% photo). */
+/* Image fades into white toward the copy (upper ~55% photo). */
 .pillar::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgb(5 6 10 / 0.12) 0%,
-    rgb(5 6 10 / 0.05) 40%,
-    rgb(5 6 10 / 0.85) 70%,
-    #05060a 100%
+    rgb(255 255 255 / 0.06) 0%,
+    rgb(255 255 255 / 0.02) 40%,
+    rgb(255 255 255 / 0.82) 70%,
+    #ffffff 100%
   );
   pointer-events: none;
 }
@@ -300,8 +302,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1.5px solid rgb(255 255 255 / 0.85);
-  background: rgb(5 6 10 / 0.55);
+  border: 1.5px solid rgb(17 17 17 / 0.2);
+  background: rgb(255 255 255 / 0.9);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   color: var(--accent);
@@ -316,13 +318,13 @@
   font-weight: 800;
   line-height: 1.04;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--color-ink);
 }
 .pillarBody {
   min-height: 4.2em;
   font-size: clamp(0.9375rem, 0.85rem + 0.3vw, 1.0625rem);
   line-height: 1.4;
-  color: #c9cbd6;
+  color: var(--color-ink-soft);
 }
 
 /* ---------- Zone 2: journey (clean band below the panels) ---------- */
@@ -338,7 +340,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 10px rgb(123 63 242 / 0.55));
+  filter: drop-shadow(0 0 10px rgb(107 78 230 / 0.25));
 }
 .pathLine {
   stroke-dasharray: 1;
@@ -425,7 +427,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   text-align: center;
-  color: #fff;
+  color: var(--color-ink);
 }
 .nodeLabel .rightFx {
   background-size: 100% 2px;
@@ -436,7 +438,7 @@
   font-size: 0.6875rem;
   font-weight: 400;
   letter-spacing: 0.08em;
-  color: rgb(255 255 255 / 0.6);
+  color: var(--color-ink-muted);
 }
 .finishTag {
   position: absolute;
@@ -446,7 +448,7 @@
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.7);
+  color: var(--color-ink-muted);
 }
 /* Hovering a panel pulses its node. */
 .stage:has(.pillars > :nth-child(1):hover) .nodes > :nth-child(1) .dot,
@@ -472,7 +474,7 @@
   font-size: 1.125rem;
   line-height: 1.08;
   font-style: italic;
-  color: #fff;
+  color: var(--color-ink);
   transform: rotate(-8deg);
 }
 .startTag {
@@ -488,7 +490,7 @@
   display: block;
   height: 5px;
   margin-top: 6px;
-  background: #fff;
+  background: var(--color-ink);
   border-radius: 3px;
   opacity: 0.9;
   clip-path: polygon(0 40%, 100% 0, 100% 60%, 0 100%);
@@ -496,7 +498,7 @@
 .noteArrow {
   width: 56px;
   margin: 2px 0 0 30px;
-  color: #fff;
+  color: var(--color-ink);
 }
 
 /* ---------- Zone 3: bottom photo, right below the journey ---------- */
@@ -505,7 +507,7 @@
   z-index: 1;
   height: clamp(320px, 34vw, 460px);
   margin-top: clamp(8px, 1.5vw, 20px);
-  background: linear-gradient(180deg, #05060a, #0a0b12);
+  background: linear-gradient(180deg, #ffffff, #f4f2ee);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 460' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C240,30 480,30 720,62 C960,94 1200,94 1440,58 L1440,460 L0,460 Z' fill='%23fff'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 460' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C240,30 480,30 720,62 C960,94 1200,94 1440,58 L1440,460 L0,460 Z' fill='%23fff'/%3E%3C/svg%3E");
   -webkit-mask-size: 100% 100%;
@@ -518,13 +520,12 @@
 .crowdShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(5 6 10 / 0.9) 0%, rgb(5 6 10 / 0.45) 45%, rgb(5 6 10 / 0.15) 100%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.92) 0%, rgb(255 255 255 / 0.45) 45%, rgb(255 255 255 / 0.12) 100%);
 }
 .crowdWash {
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, rgb(37 99 255 / 0.22), rgb(123 63 242 / 0.18));
-  mix-blend-mode: soft-light;
+  background: linear-gradient(120deg, rgb(47 95 224 / 0.1), rgb(107 78 230 / 0.08));
 }
 /* Torn white-paper fragment, bottom-right. */
 .tornBR {
@@ -759,7 +760,7 @@
     gap: 0;
     margin-top: 28px;
     padding-left: 6px;
-    border-left: 2px solid rgb(255 255 255 / 0.16);
+    border-left: 2px solid rgb(17 17 17 / 0.14);
   }
   .nodeV {
     --accent: var(--a-violet);
@@ -786,14 +787,14 @@
     border-radius: 50%;
     border: 3px solid #fff;
     background: var(--accent);
-    box-shadow: 0 0 14px var(--accent);
+    box-shadow: 0 0 0 2px rgb(17 17 17 / 0.12), 0 0 14px color-mix(in srgb, var(--accent) 45%, transparent);
   }
   .nodeLabelV {
     font-size: 0.8125rem;
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #fff;
+    color: var(--color-ink);
   }
   .note {
     position: static;

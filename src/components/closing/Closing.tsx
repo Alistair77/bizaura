@@ -110,7 +110,7 @@ export function AdmitOne() {
         <ConversationTicket />
       </div>
 
-      <TornEdge edge="bottom" fill="var(--color-night)" seed={127} depth={22} />
+      <TornEdge edge="bottom" fill="#ffffff" seed={127} depth={22} />
     </section>
   );
 }

@@ -20,7 +20,7 @@ export function Platforms() {
             <span className={styles.row}>where things</span>
             <span className={`${styles.row} ${styles.pink}`}>happen.</span>
           </h2>
-          <a className="btn btn--light" href="#admit-one">
+          <a className="btn" href="#admit-one">
             Get in the room <Icon name="arrow" size={16} className="btn__arrow" />
           </a>
         </div>
