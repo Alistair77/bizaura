@@ -9,9 +9,6 @@ export function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className={`container ${styles.amourBand}`}>
-        <FooterAmour />
-      </div>
       <div className={`container ${styles.grid}`}>
         <div className={styles.brandCol}>
           <a href="#top" className={styles.brand} aria-label="Bizora Media — back to top">
@@ -115,6 +112,10 @@ export function Footer() {
 
       <div className={`container ${styles.bottom}`}>
         <p>© {year} Bizora Media. All rights reserved.</p>
+      </div>
+
+      <div className={`container ${styles.amourBand}`}>
+        <FooterAmour />
       </div>
     </footer>
   );

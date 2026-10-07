@@ -115,12 +115,51 @@
   line-height: 1;
   color: #0b0b0f;
   font-optical-sizing: auto;
-  animation: riseIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 80ms both;
 }
-.reg {
+/* Amour-style ink-in: each glyph wipes up like a marker stroke. */
+.lIn {
+  display: inline-block;
+  animation: letterInk 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(60ms + var(--i, 0) * 90ms);
+}
+@keyframes letterInk {
+  from {
+    opacity: 0;
+    transform: translateY(26px) rotate(2deg);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0);
+  }
+}
+/* Idle marker bounce; a harder bounce under the cursor. */
+.lFloat {
+  display: inline-block;
+  transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: letterIdle 3.2s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.45s);
+}
+@keyframes letterIdle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+.lIn:hover .lFloat {
+  animation-play-state: paused;
+  transform: translateY(-8px) scale(1.07);
+}
+.regWrap {
   align-self: flex-start;
   margin-top: 0.11em;
   margin-left: 0.04em;
+}
+.reg {
   font-family: var(--font-body), Inter, system-ui, sans-serif;
   font-weight: 600;
   font-size: clamp(12px, 1.2vw, 20px);
@@ -604,6 +643,8 @@
 @media (prefers-reduced-motion: reduce) {
   .plasmaWrap,
   .logo,
+  .lIn,
+  .lFloat,
   .tagline,
   .line,
   .sub,

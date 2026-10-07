@@ -72,7 +72,7 @@
   display: flex;
   align-items: center;
   min-height: 0;
-  padding-block: clamp(2rem, 4vw, 3rem);
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
   background:
     radial-gradient(90% 80% at 0% 100%, rgb(149 117 255 / 0.35), transparent 60%),
     var(--color-blue-deep);

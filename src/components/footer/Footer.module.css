@@ -7,9 +7,9 @@
   font-size: var(--text-small);
 }
 
-/* Animated Amour brand banner: BIZORA hand-inked over a cobalt sun. */
+/* Animated Amour brand banner at the foot of the footer. */
 .amourBand {
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-top: clamp(32px, 4vw, 48px);
 }
 .amourWrap {
   min-height: 320px;
