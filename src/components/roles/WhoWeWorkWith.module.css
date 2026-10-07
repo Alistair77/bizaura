@@ -124,11 +124,28 @@
 
 /* ---------- Pass collection ---------- */
 .passes {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 40px;
-  margin-right: -24px;
+  gap: 44px;
+  margin-right: -64px;
   padding-top: 4px;
+}
+/* The hanging rail all four straps loop over. */
+.passes::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -12px;
+  right: -12px;
+  z-index: 4;
+  height: 12px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #4a4a52 0%, #17171a 55%, #000 100%);
+  box-shadow:
+    0 3px 6px rgb(0 0 0 / 0.35),
+    inset 0 1px 1px rgb(255 255 255 / 0.25);
+  pointer-events: none;
 }
 .passWrap {
   --sheet: #176fea;
@@ -136,7 +153,7 @@
   display: flex;
   justify-content: center;
   margin-top: var(--drop, 0px);
-  padding-top: 172px;
+  padding-top: 272px;
 }
 .passWrap[data-accent="violet"] {
   --sheet: #7a45ff;
@@ -151,10 +168,10 @@
 /* Coloured backing paper — secondary, mostly covered by the badge. */
 .paper {
   position: absolute;
-  top: 158px;
+  top: 258px;
   bottom: -6px;
   left: 50%;
-  width: 208px;
+  width: 228px;
   translate: -50% 0;
   rotate: var(--paper-rot, 0deg);
   border-radius: 7px 9px 6px 10px;
@@ -175,18 +192,16 @@
 /* Branded fabric lanyard running off above. */
 .lanyard {
   position: absolute;
-  bottom: calc(100% - 182px);
+  top: -12px;
   left: 50%;
   z-index: 1;
   width: 48px;
-  height: 152px;
+  height: 294px;
   translate: -50% 0;
   overflow: hidden;
   background:
     linear-gradient(90deg, #000 0%, #232326 22%, #050506 48%, #1b1b1e 72%, #000 100%);
   box-shadow: 0 4px 10px -4px rgb(0 0 0 / 0.5);
-  -webkit-mask: linear-gradient(180deg, transparent 0, #000 32%);
-  mask: linear-gradient(180deg, transparent 0, #000 32%);
   transition: translate var(--duration-medium) var(--ease-out);
 }
 .lanyardText {
@@ -208,7 +223,7 @@
 /* Metal connector ring. */
 .ring {
   position: absolute;
-  top: 162px;
+  top: 262px;
   left: 50%;
   z-index: 3;
   width: 22px;
@@ -235,9 +250,9 @@
   z-index: 2;
   display: grid;
   align-content: start;
-  gap: 8px;
-  width: 190px;
-  padding: 24px 10px 10px;
+  gap: 9px;
+  width: 210px;
+  padding: 26px 12px 12px;
   border-radius: 10px;
   border: 1px solid rgb(17 17 17 / 0.08);
   background: #ffffff;
@@ -272,7 +287,7 @@
   padding-top: 2px;
 }
 .badgeBrand {
-  font-size: 0.8125rem;
+  font-size: 0.9rem;
 }
 .photo {
   position: relative;
@@ -285,11 +300,11 @@
   object-fit: cover;
 }
 .roleStrip {
-  padding: 6px;
+  padding: 7px;
   border-radius: 4px;
   background: var(--sheet);
   color: #fff;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.02em;
   text-align: center;
@@ -300,7 +315,7 @@
 }
 .desc {
   min-height: 3.75em;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.25;
   color: #151515;
@@ -314,13 +329,13 @@
   padding-top: 8px;
 }
 .qr {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   flex: none;
   color: var(--color-ink);
 }
 .access {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   line-height: 1.6;
@@ -344,17 +359,17 @@
   }
   .passWrap {
     --drop: 0px;
-    padding-top: 128px;
+    padding-top: 214px;
   }
   .paper {
-    top: 114px;
+    top: 200px;
   }
   .lanyard {
-    bottom: calc(100% - 138px);
-    height: 108px;
+    top: -12px;
+    height: 236px;
   }
   .ring {
-    top: 118px;
+    top: 204px;
   }
   .darkSheet {
     left: 12%;
@@ -376,18 +391,24 @@
     row-gap: 4px;
     margin-top: 12px;
   }
+  .passes::before {
+    left: 50%;
+    right: auto;
+    width: 324px;
+    translate: -50% 0;
+  }
   .passWrap {
-    padding-top: 118px;
+    padding-top: 194px;
   }
   .paper {
-    top: 104px;
+    top: 180px;
   }
   .lanyard {
-    bottom: calc(100% - 128px);
-    height: 96px;
+    top: -12px;
+    height: 216px;
   }
   .ring {
-    top: 108px;
+    top: 184px;
   }
   .darkSheet {
     top: 2%;

@@ -213,10 +213,17 @@
   background: var(--color-yellow);
   color: var(--color-ink);
   border: 2px solid var(--color-ink);
-  transition: transform var(--duration-fast) var(--ease-out);
+  box-shadow: 0 3px 0 var(--color-ink);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow 120ms ease;
 }
 .action:hover {
   transform: rotate(-30deg);
+}
+.action:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 transparent;
 }
 .action:active {
   transform: scale(0.94);

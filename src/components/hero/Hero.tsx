@@ -37,12 +37,12 @@ export function Hero() {
             speed={0.3}
             direction="pingpong"
             scale={1.2}
-            opacity={0.55}
+            opacity={0.7}
             mouseInteractive={true}
             renderScale={0.55}
             maxDpr={1.5}
             targetFps={50}
-            iterations={60}
+            iterations={64}
             lightMode={true}
           />
           <div className={styles.plasmaStatic} />
@@ -86,8 +86,12 @@ export function Hero() {
         </div>
 
         <ul className={styles.chips} aria-label="Industries we work across">
-          {INDUSTRIES.map((industry) => (
-            <li key={industry} className={styles.chip}>
+          {INDUSTRIES.map((industry, i) => (
+            <li
+              key={industry}
+              className={styles.chip}
+              style={{ "--i": i } as React.CSSProperties}
+            >
               {industry}
             </li>
           ))}
