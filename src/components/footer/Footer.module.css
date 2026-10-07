@@ -1,20 +1,20 @@
 /* Quiet by design — it must never compete with the final invitation. */
 .footer {
-  padding-block: clamp(64px, 7vw, 104px) 28px;
+  padding-block: clamp(2.5rem, 4.5vw, 4rem) 28px;
   background: #ffffff;
   color: var(--color-ink-soft);
   border-top: 1px solid rgb(17 17 17 / 0.1);
   font-size: var(--text-small);
 }
 
-/* Animated Amour brand banner at the foot of the footer. */
+/* Animated Amour brand banner: full-bleed, same height. */
 .amourBand {
-  margin-top: clamp(32px, 4vw, 48px);
+  margin-top: clamp(24px, 3vw, 36px);
 }
 .amourWrap {
   min-height: 320px;
-  border-radius: 24px;
-  border: 1px solid rgb(17 17 17 / 0.08);
+  border-top: 1px solid rgb(17 17 17 / 0.08);
+  border-bottom: 1px solid rgb(17 17 17 / 0.08);
   overflow: hidden;
   box-shadow: var(--shadow-card);
 }
@@ -148,7 +148,7 @@ svg[data-reveal].is-in .drawAmr {
 }
 
 .bottom {
-  margin-top: clamp(40px, 5vw, 64px);
+  margin-top: clamp(24px, 3vw, 36px);
   padding-top: 22px;
   border-top: 1px solid rgb(17 17 17 / 0.1);
   font-size: var(--text-micro);

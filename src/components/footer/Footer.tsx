@@ -114,7 +114,7 @@ export function Footer() {
         <p>© {year} Bizora Media. All rights reserved.</p>
       </div>
 
-      <div className={`container ${styles.amourBand}`}>
+      <div className={styles.amourBand}>
         <FooterAmour />
       </div>
     </footer>
