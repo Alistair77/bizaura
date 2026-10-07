@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Wordmark } from "@/components/brand/Wordmark";
+import { Plasma } from "@/components/hero/Plasma";
 import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
 import { TornEdge } from "@/components/ui/TornEdge";
@@ -55,6 +56,21 @@ export function WhoWeWorkWith() {
   return (
     <section id="who-we-work-with" className={styles.section} aria-labelledby="roles-heading">
       <div className="grain" aria-hidden="true" />
+      {/* Hero plasma carried down — slightly deeper than the Engage band. */}
+      <div className={styles.rolesPlasma} aria-hidden="true">
+        <Plasma
+          speed={0.3}
+          direction="pingpong"
+          scale={1.5}
+          opacity={0.4}
+          mouseInteractive={false}
+          renderScale={0.4}
+          maxDpr={1.25}
+          targetFps={30}
+          iterations={45}
+          lightMode={true}
+        />
+      </div>
       {/* Dark charcoal sheet behind the passes — part of the paper collage. */}
       <div className={styles.darkSheet} aria-hidden="true">
         <TornEdge edge="left" fill="#ffffff" seed={41} depth={44} />

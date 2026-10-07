@@ -10,6 +10,15 @@
   border-block: 1px solid rgb(17 17 17 / 0.08);
   overflow: clip;
 }
+/* Hero-plasma continuation — brighter than the Engage band. */
+.eventsPlasma {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.85;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 22%, #000 88%, transparent 100%);
+}
 
 .layout {
   display: grid;

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { Plasma } from "@/components/hero/Plasma";
 import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
 import { pointerTilt } from "@/components/ui/pointerTilt";
@@ -113,6 +114,21 @@ export function UpcomingEvents() {
 
   return (
     <section id="events" className={styles.section} aria-labelledby="events-heading">
+      {/* Hero plasma carried down — brighter than the Engage band. */}
+      <div className={styles.eventsPlasma} aria-hidden="true">
+        <Plasma
+          speed={0.3}
+          direction="pingpong"
+          scale={1.4}
+          opacity={0.4}
+          mouseInteractive={false}
+          renderScale={0.4}
+          maxDpr={1.25}
+          targetFps={30}
+          iterations={45}
+          lightMode={true}
+        />
+      </div>
       <div className={`container ${styles.layout}`}>
         <div className={styles.tab}>
           <TornEdge edge="left" fill="var(--color-blue-deep)" seed={41} depth={22} className={styles.tabTear} />

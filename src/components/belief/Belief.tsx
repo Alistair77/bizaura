@@ -1,3 +1,4 @@
+import { Plasma } from "@/components/hero/Plasma";
 import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
 import { tornStripMask } from "@/components/ui/TornEdge";
@@ -37,6 +38,21 @@ export function Belief() {
   return (
     <section id="belief" className={styles.section} aria-labelledby="belief-heading">
       <div className="grain" />
+      {/* Faint hero-plasma wash — light, never hyper. */}
+      <div className={styles.beliefPlasma} aria-hidden="true">
+        <Plasma
+          speed={0.3}
+          direction="pingpong"
+          scale={1.5}
+          opacity={0.3}
+          mouseInteractive={false}
+          renderScale={0.35}
+          maxDpr={1.2}
+          targetFps={24}
+          iterations={40}
+          lightMode={true}
+        />
+      </div>
       <div className={`container ${styles.layout}`}>
         <div className={styles.stairArea}>
           <h2 id="belief-heading" className="eyebrow" data-reveal>

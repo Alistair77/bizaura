@@ -7,6 +7,18 @@
   font-size: var(--text-small);
 }
 
+/* Animated Amour brand banner: BIZORA hand-inked over a cobalt sun. */
+.amourBand {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.amourWrap {
+  min-height: 320px;
+  border-radius: 24px;
+  border: 1px solid rgb(17 17 17 / 0.08);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr);
@@ -38,6 +50,43 @@
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-ink-muted);
+}
+
+/* Hand-inked Amour accents: stroke-in like wet marker. */
+.sunMark {
+  display: block;
+  width: 104px;
+  height: 68px;
+  margin-top: 18px;
+  overflow: visible;
+  color: var(--color-ink-soft);
+}
+.squiggle {
+  display: block;
+  width: 150px;
+  height: 20px;
+  margin-top: 10px;
+  overflow: visible;
+}
+.drawAmr {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+}
+svg[data-reveal].is-in .drawAmr {
+  animation: amrDraw 1.2s ease-out 0.25s forwards;
+}
+@keyframes amrDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawAmr {
+    stroke-dashoffset: 0;
+  }
+  svg[data-reveal].is-in .drawAmr {
+    animation: none;
+  }
 }
 
 .colHead {

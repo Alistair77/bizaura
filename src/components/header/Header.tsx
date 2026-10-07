@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { EyeO } from "@/components/hero/EyeO";
 import { Icon } from "@/components/ui/Icon";
+import { SOCIAL_LINKS } from "@/content/home";
 import styles from "./Header.module.css";
 
 const LINKS = [
@@ -46,8 +47,8 @@ export function Header() {
         </a>
 
         <ul className={styles.links}>
-          {LINKS.map((link) => (
-            <li key={link.label}>
+          {LINKS.map((link, i) => (
+            <li key={link.label} style={{ "--i": i } as React.CSSProperties}>
               <a
                 href={link.href}
                 className={styles.link}
@@ -60,6 +61,15 @@ export function Header() {
         </ul>
 
         <div className={styles.actions}>
+          <ul className={styles.social} aria-label="Social media">
+            {SOCIAL_LINKS.map((social) => (
+              <li key={social.label}>
+                <a className={styles.socialBtn} href={social.href} aria-label={social.label}>
+                  <Icon name={social.icon} size={17} />
+                </a>
+              </li>
+            ))}
+          </ul>
           <a className={styles.cta} href="#admit-one">
             Get Involved
             <Icon name="arrow" size={18} strokeWidth={2} className={styles.ctaArrow} />
@@ -106,6 +116,15 @@ export function Header() {
           Get Involved
           <Icon name="arrow" size={18} strokeWidth={2} className={styles.ctaArrow} />
         </a>
+        <ul className={styles.sheetSocial} aria-label="Social media">
+          {SOCIAL_LINKS.map((social) => (
+            <li key={social.label}>
+              <a className={styles.socialBtn} href={social.href} aria-label={social.label}>
+                <Icon name={social.icon} size={17} />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </header>
   );

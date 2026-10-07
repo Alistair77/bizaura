@@ -4,13 +4,23 @@
    ========================================================= */
 .section {
   position: relative;
-  padding-block: var(--space-chapter);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
   background:
     radial-gradient(36% 44% at 6% 12%, rgb(110 224 168 / 0.08), transparent 70%),
     radial-gradient(30% 40% at 98% 88%, rgb(255 178 122 / 0.07), transparent 70%),
     #ffffff;
   border-top: 1px solid rgb(17 17 17 / 0.08);
   overflow: clip;
+}
+
+/* Hero-plasma continuation — slightly deeper than the Engage band. */
+.rolesPlasma {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.7;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 15%, #000 85%, transparent 100%);
 }
 
 /* Light sheet behind the passes — part of the paper collage. */

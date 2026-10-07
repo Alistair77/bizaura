@@ -1,3 +1,4 @@
+import { Plasma } from "@/components/hero/Plasma";
 import { Icon } from "@/components/ui/Icon";
 import { BUILD_CARDS } from "@/content/home";
 import styles from "./WhatWeBuild.module.css";
@@ -6,6 +7,21 @@ export function WhatWeBuild() {
   return (
     <section id="what-we-build" className={styles.section} aria-labelledby="build-heading">
       <div className="grain" />
+      {/* Faint hero-plasma wash — light, never hyper. */}
+      <div className={styles.buildPlasma} aria-hidden="true">
+        <Plasma
+          speed={0.3}
+          direction="pingpong"
+          scale={1.5}
+          opacity={0.3}
+          mouseInteractive={false}
+          renderScale={0.35}
+          maxDpr={1.2}
+          targetFps={24}
+          iterations={40}
+          lightMode={true}
+        />
+      </div>
       <div className="container">
         <div className={styles.head}>
           <div data-reveal>

@@ -1,4 +1,5 @@
 import { CinematicPhoto } from "@/components/cinematic/CinematicPhoto";
+import { Plasma } from "@/components/hero/Plasma";
 import { Icon } from "@/components/ui/Icon";
 import { PHOTOS, PLATFORM_TIMELINE } from "@/content/home";
 import styles from "./Platforms.module.css";
@@ -9,6 +10,21 @@ export function Platforms() {
       <div className={styles.media}>
         <CinematicPhoto photo={PHOTOS.platforms} sizes="100vw" position="62% 50%" depth={1} />
         <div className={styles.shade} />
+      </div>
+      {/* Whisper of hero plasma — the photograph stays the priority. */}
+      <div className={styles.platformsPlasma} aria-hidden="true">
+        <Plasma
+          speed={0.3}
+          direction="pingpong"
+          scale={1.5}
+          opacity={0.28}
+          mouseInteractive={false}
+          renderScale={0.35}
+          maxDpr={1.2}
+          targetFps={24}
+          iterations={40}
+          lightMode={true}
+        />
       </div>
 
       <div className={`container ${styles.layout}`}>
@@ -33,13 +49,16 @@ export function Platforms() {
               data-accent={step.accent}
               style={{ "--i": i } as React.CSSProperties}
             >
-              <span className={styles.node} aria-hidden="true" />
-              <span className={styles.stepNum}>{step.num}</span>
+              <span className={styles.node} aria-hidden="true">
+                {step.num}
+              </span>
               <p className={styles.stepText}>{step.text}</p>
             </li>
           ))}
           <li className={`${styles.step} ${styles.closing}`} style={{ "--i": PLATFORM_TIMELINE.length } as React.CSSProperties}>
-            <span className={styles.node} aria-hidden="true" />
+            <span className={styles.node} aria-hidden="true">
+              →
+            </span>
             <p className={styles.closingText}>
               We like putting interesting people in <em>interesting rooms</em>. Because that’s where things happen.
             </p>

@@ -36,7 +36,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.7;
   -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 82%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 82%, transparent 100%);
 }
@@ -138,10 +138,12 @@
 }
 .headline {
   margin: 26px 0 0;
+  font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(2.2rem, 2.925vw, 3.625rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 24px rgb(255 255 255 / 0.8);
 }
 .hLine {
   display: block;
@@ -365,10 +367,11 @@
 }
 .detailTitle {
   margin: 10px 0 0;
+  font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(2rem, 2.623vw, 3.25rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 .detailSub {
   margin: 12px 0 0;

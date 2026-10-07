@@ -37,7 +37,7 @@ export function Hero() {
             speed={0.3}
             direction="pingpong"
             scale={1.2}
-            opacity={0.45}
+            opacity={0.55}
             mouseInteractive={true}
             renderScale={0.55}
             maxDpr={1.5}

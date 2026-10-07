@@ -82,7 +82,77 @@
   transform: scaleX(1);
 }
 
-/* ---------- CTA pill: 176×50 ---------- */
+/* Ink-in entrance: brand, links, pill and CTA stage in like wet ink. */
+.brand,
+.links li,
+.social,
+.cta,
+.menuBtn {
+  animation: navIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.links li {
+  animation-delay: calc(80ms + var(--i, 0) * 80ms);
+}
+.social {
+  animation-delay: 400ms;
+}
+.actions .cta {
+  animation-delay: 480ms;
+}
+.menuBtn {
+  animation-delay: 480ms;
+}
+@keyframes navIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* ---------- Social capsule (same shape language as the nav) ---------- */
+.social {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 48px;
+  padding: 0 8px;
+  border-radius: 24px;
+  border: 1px solid rgb(17 17 17 / 0.1);
+  background: rgb(255 255 255 / 0.92);
+  box-shadow: 0 8px 24px -18px rgb(0 0 0 / 0.25);
+  list-style: none;
+}
+.socialBtn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #111;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.socialBtn:hover {
+  background: var(--color-ink);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.socialBtn:active {
+  transform: scale(0.94);
+}
+.sheetSocial {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+.sheetSocial .socialBtn {
+  border: 1px solid rgb(17 17 17 / 0.14);
+  width: 44px;
+  height: 44px;
+}
 .actions {
   display: flex;
   align-items: center;
@@ -171,7 +241,20 @@
   .links {
     display: none;
   }
+  .actions .social {
+    display: none;
+  }
   .menuBtn {
     display: grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand,
+  .links li,
+  .social,
+  .cta,
+  .menuBtn {
+    animation: none;
   }
 }

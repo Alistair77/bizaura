@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Plasma } from "@/components/hero/Plasma";
 import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
 import { SPINE_PILLARS } from "@/content/home";
@@ -36,6 +37,21 @@ const JOURNEY = [
 export function Spine() {
   return (
     <section id="spine" className={styles.section} aria-labelledby="spine-heading" data-reveal>
+      {/* Faint hero-plasma wash — light, never hyper. */}
+      <div className={styles.spinePlasma} aria-hidden="true">
+        <Plasma
+          speed={0.3}
+          direction="pingpong"
+          scale={1.5}
+          opacity={0.3}
+          mouseInteractive={false}
+          renderScale={0.35}
+          maxDpr={1.2}
+          targetFps={24}
+          iterations={40}
+          lightMode={true}
+        />
+      </div>
       <div className={styles.dust} aria-hidden="true" />
       <div className={styles.tornTL} aria-hidden="true" />
 
