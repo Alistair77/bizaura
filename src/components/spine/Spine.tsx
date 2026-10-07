@@ -1,17 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
-import { BASE_PATH, SPINE_PILLARS } from "@/content/home";
+import { SPINE_PILLARS } from "@/content/home";
 import styles from "./Spine.module.css";
-
-/**
- * Supplied bottom background (blurred crowd, stage glow).
- * Place the file at public/images/spine-crowd.jpg.
- */
-const CROWD_SRC = `${BASE_PATH}/images/spine-crowd.jpg`;
 
 const ICONS = {
   violet: (
@@ -41,8 +34,6 @@ const JOURNEY = [
 ] as const;
 
 export function Spine() {
-  const [crowdOk, setCrowdOk] = useState(true);
-
   return (
     <section id="spine" className={styles.section} aria-labelledby="spine-heading" data-reveal>
       <div className={styles.dust} aria-hidden="true" />
@@ -86,15 +77,17 @@ export function Spine() {
                   data-accent={pillar.accent}
                   style={{ "--i": i } as React.CSSProperties}
                 >
-                  <Image
-                    className={styles.pillarImg}
-                    src={pillar.image.src}
-                    alt={pillar.image.alt}
-                    fill
-                    sizes="(min-width: 900px) 22vw, 100vw"
-                    quality={70}
-                    loading={i === 0 ? "eager" : "lazy"}
-                  />
+                  <div className={styles.pillarImgWrap}>
+                    <Image
+                      className={styles.pillarImg}
+                      src={pillar.image.src}
+                      alt={pillar.image.alt}
+                      fill
+                      sizes="(min-width: 900px) 22vw, 100vw"
+                      quality={70}
+                      loading={i === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
                   <span className={styles.num} aria-hidden="true">
                     {pillar.num}
                   </span>
@@ -185,24 +178,6 @@ export function Spine() {
           </ol>
         </div>
       </div>
-
-      <div className={styles.photoBand}>
-        {crowdOk && (
-          <Image
-            src={CROWD_SRC}
-            alt="Blurred conference crowd seen from behind facing a glowing stage"
-            fill
-            sizes="100vw"
-            quality={75}
-            loading="lazy"
-            className={styles.crowdImg}
-            onError={() => setCrowdOk(false)}
-          />
-        )}
-        <div className={styles.crowdWash} aria-hidden="true" />
-        <div className={styles.crowdShade} aria-hidden="true" />
-      </div>
-      <span className={styles.tornBR} aria-hidden="true" />
     </section>
   );
 }

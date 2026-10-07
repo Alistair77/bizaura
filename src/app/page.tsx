@@ -17,8 +17,8 @@ export default function Home() {
       <Header />
       <main id="main">
         <Hero />
-        <UpcomingEvents />
         <Spine />
+        <UpcomingEvents />
         <WhatWeBuild />
         <Platforms />
         <WhoWeWorkWith />

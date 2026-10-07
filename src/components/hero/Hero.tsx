@@ -34,17 +34,16 @@ export function Hero() {
       <div className={styles.heroBg} aria-hidden="true">
         <div ref={wrapRef} className={styles.plasmaWrap}>
           <Plasma
-            color=""
-            lightMode={true}
-            speed={0.4}
+            speed={0.3}
             direction="pingpong"
-            scale={1.5}
-            opacity={1}
+            scale={1.2}
+            opacity={0.45}
             mouseInteractive={true}
             renderScale={0.55}
             maxDpr={1.5}
             targetFps={50}
-            iterations={52}
+            iterations={60}
+            lightMode={true}
           />
           <div className={styles.plasmaStatic} />
         </div>

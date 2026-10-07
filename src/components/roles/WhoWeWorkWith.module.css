@@ -21,7 +21,7 @@
   left: 30%;
   right: -3%;
   z-index: 0;
-  background: #eceae4;
+  background: #f6f7f9;
   border: 1px solid rgb(17 17 17 / 0.08);
   border-radius: 18px 22px 20px 24px;
   rotate: -1deg;
@@ -215,7 +215,7 @@
   position: absolute;
   inset: 5px;
   border-radius: 50%;
-  background: #fffdf9;
+  background: #ffffff;
   box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.35);
 }
 
@@ -229,7 +229,8 @@
   width: 190px;
   padding: 24px 10px 10px;
   border-radius: 10px;
-  background: #fffdf9;
+  border: 1px solid rgb(17 17 17 / 0.08);
+  background: #ffffff;
   rotate: var(--rot, 0deg);
   box-shadow: 0 10px 22px rgb(0 0 0 / 0.18);
   transition:

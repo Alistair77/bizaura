@@ -9,6 +9,7 @@
   --a-red: #d92d20;
   position: relative;
   padding-top: var(--space-chapter);
+  padding-bottom: var(--space-chapter);
   background:
     radial-gradient(42% 34% at 88% 6%, rgb(154 107 255 / 0.08), transparent 70%),
     radial-gradient(36% 30% at 4% 42%, rgb(76 123 255 / 0.07), transparent 70%),
@@ -163,51 +164,63 @@
   font-size: 1rem;
 }
 
-/* ---------- Zone 1B: slanted panels ---------- */
+/* ---------- Zone 1B: WhatWeBuild-style property cards ---------- */
 .stage {
   grid-column: 1 / -1;
   min-width: 0;
   margin-top: clamp(36px, 4vw, 60px);
 }
 .pillars {
-  --cut: clamp(16px, 1.8vw, 28px);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(20px, 2.5vw, 40px);
-  height: clamp(480px, 44vw, 620px);
+  align-items: stretch;
 }
 .pillar {
+  --vivid: #8a5cf6;
+  --deep: var(--a-violet);
   --accent: var(--a-violet);
   container-type: inline-size;
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  clip-path: polygon(var(--cut) 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
-  background: #f4f2ee;
-  border: 1px solid rgb(17 17 17 / 0.08);
-  filter:
-    drop-shadow(0 18px 24px rgb(17 17 17 / 0.12))
-    drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 12%, transparent));
+  border-radius: 20px;
+  background: linear-gradient(165deg, var(--vivid) 0%, var(--deep) 78%);
+  color: #fff;
+  box-shadow: 0 24px 48px -24px rgb(17 17 17 / 0.35);
   transition:
     opacity var(--duration-medium) ease,
-    filter var(--duration-medium) ease;
+    transform var(--duration-medium) var(--ease-out),
+    box-shadow var(--duration-medium) ease;
 }
 .pillar:hover {
-  filter:
-    drop-shadow(0 22px 30px rgb(17 17 17 / 0.16))
-    drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 20%, transparent));
+  transform: translateY(-6px);
+  box-shadow: 0 32px 56px -24px rgb(17 17 17 / 0.45);
 }
 .pillar[data-accent="blue"] {
+  --vivid: #5b8cff;
+  --deep: var(--a-blue);
   --accent: var(--a-blue);
 }
 .pillar[data-accent="pink"] {
+  --vivid: #ff6eb0;
+  --deep: var(--a-pink);
   --accent: var(--a-pink);
 }
 .pillar[data-accent="red"] {
+  --vivid: #f0564a;
+  --deep: #c22a20;
   --accent: var(--a-red);
 }
-/* Dim siblings on hover; brighten the hairline. */
+/* Dim siblings on hover. */
 .pillars:has(> :hover) > :not(:hover) {
-  opacity: 0.7;
+  opacity: 0.75;
+}
+.pillarImgWrap {
+  position: relative;
+  flex: none;
+  height: clamp(200px, 20vw, 260px);
 }
 .pillarImg {
   object-fit: cover;
@@ -216,115 +229,69 @@
 .pillar:hover .pillarImg {
   transform: scale(1.06);
 }
-/* Image fades into white toward the copy (upper ~55% photo). */
-.pillar::after {
+/* Soft legibility scrim over the photo's lower half. */
+.pillarImgWrap::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgb(255 255 255 / 0.06) 0%,
-    rgb(255 255 255 / 0.02) 40%,
-    rgb(255 255 255 / 0.82) 70%,
-    #ffffff 100%
-  );
+  background: linear-gradient(180deg, rgb(0 0 0 / 0) 50%, rgb(0 0 0 / 0.38) 100%);
   pointer-events: none;
-}
-/* Glowing diagonal hairline down the slanted edge. */
-.pillar::before {
-  content: "";
-  position: absolute;
-  top: -2%;
-  bottom: -2%;
-  left: 1px;
-  z-index: 2;
-  width: 2px;
-  background: linear-gradient(180deg, var(--accent), transparent 85%);
-  transform: rotate(3deg);
-  transform-origin: top;
-  opacity: 0.85;
-  transition: opacity var(--duration-medium) ease;
-  pointer-events: none;
-}
-.pillar:hover::before {
-  opacity: 1;
 }
 .num {
   position: absolute;
-  top: 20px;
-  left: calc(var(--cut) + 14px);
+  top: 18px;
+  left: 20px;
   z-index: 2;
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--accent);
+  color: #fff;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.35);
   font-variant-numeric: tabular-nums;
-  transition: text-shadow var(--duration-medium) ease;
 }
 .num::after {
   content: "";
   width: 28px;
   height: 3px;
   border-radius: 2px;
-  background: var(--accent);
-}
-.pillar:hover .num {
-  text-shadow: 0 0 18px var(--accent);
-}
-/* Panel 04: purple-to-pink gradient number + purple badge. */
-.pillar[data-accent="red"] .num {
-  background: linear-gradient(90deg, var(--a-violet), var(--a-pink));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.pillar[data-accent="red"] .num::after {
-  background: linear-gradient(90deg, var(--a-violet), var(--a-pink));
-}
-.pillar[data-accent="red"] .badge {
-  color: var(--a-violet);
+  background: rgb(255 255 255 / 0.8);
 }
 .pillarText {
-  position: absolute;
-  inset: auto 0 0;
-  z-index: 2;
+  position: static;
   display: grid;
   justify-items: start;
   gap: 12px;
-  padding: 0 calc(var(--cut) + 8px) clamp(22px, 2.4vw, 34px) calc(var(--cut) + 10px);
+  flex: 1;
+  padding: 22px 24px 28px;
 }
 .badge {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1.5px solid rgb(17 17 17 / 0.2);
-  background: rgb(255 255 255 / 0.9);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  color: var(--accent);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--deep);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 0.18);
 }
 .badge svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 .pillarTitle {
-  min-height: 2.08em;
-  font-size: clamp(1.125rem, 13cqi - 6px, 1.625rem);
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
   font-weight: 800;
-  line-height: 1.04;
+  line-height: 1.06;
   letter-spacing: -0.02em;
-  color: var(--color-ink);
+  color: #fff;
 }
 .pillarBody {
-  min-height: 4.2em;
-  font-size: clamp(0.9375rem, 0.85rem + 0.3vw, 1.0625rem);
-  line-height: 1.4;
-  color: var(--color-ink-soft);
+  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.125rem);
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.9);
 }
 
 /* ---------- Zone 2: journey (clean band below the panels) ---------- */
@@ -501,46 +468,7 @@
   color: var(--color-ink);
 }
 
-/* ---------- Zone 3: bottom photo, right below the journey ---------- */
-.photoBand {
-  position: relative;
-  z-index: 1;
-  height: clamp(320px, 34vw, 460px);
-  margin-top: clamp(8px, 1.5vw, 20px);
-  background: linear-gradient(180deg, #ffffff, #f4f2ee);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 460' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C240,30 480,30 720,62 C960,94 1200,94 1440,58 L1440,460 L0,460 Z' fill='%23fff'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 460' preserveAspectRatio='none'%3E%3Cpath d='M0,70 C240,30 480,30 720,62 C960,94 1200,94 1440,58 L1440,460 L0,460 Z' fill='%23fff'/%3E%3C/svg%3E");
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
-.crowdImg {
-  object-fit: cover;
-  object-position: center bottom;
-}
-.crowdShade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.92) 0%, rgb(255 255 255 / 0.45) 45%, rgb(255 255 255 / 0.12) 100%);
-}
-.crowdWash {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, rgb(47 95 224 / 0.1), rgb(107 78 230 / 0.08));
-}
-/* Torn white-paper fragment, bottom-right. */
-.tornBR {
-  position: absolute;
-  right: -14px;
-  bottom: 34px;
-  z-index: 4;
-  width: 104px;
-  height: 86px;
-  background: #f4f2ec;
-  rotate: 7deg;
-  clip-path: polygon(4% 12%, 22% 2%, 45% 10%, 66% 0, 88% 8%, 100% 22%, 94% 45%, 100% 68%, 86% 84%, 62% 76%, 38% 92%, 16% 82%, 6% 96%, 0 70%, 8% 45%);
-  filter: drop-shadow(-6px -6px 10px rgb(0 0 0 / 0.4));
-  pointer-events: none;
-}
+/* ---------- Zone 3 removed: crowd photo band deleted (white theme) ---------- */
 
 /* =========================================================
    ENTRANCE CHOREOGRAPHY (final state is the default;
@@ -622,9 +550,6 @@
   stroke-dasharray: 300;
   animation: draw 800ms ease-out 2.1s backwards;
 }
-.section.is-in .photoBand {
-  animation: fadeIn 800ms ease 0.4s backwards;
-}
 
 .hOrder {
   position: relative;
@@ -672,7 +597,7 @@
     opacity: 0.4;
   }
   to {
-    clip-path: polygon(var(--cut) 0, 100% 0, calc(100% - var(--cut)) 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     opacity: 1;
   }
 }
@@ -706,9 +631,6 @@
     grid-column: 1 / -1;
     margin-top: var(--space-between);
   }
-  .pillars {
-    --cut: clamp(10px, 1.2vw, 18px);
-  }
   .journeyV {
     display: none;
   }
@@ -741,9 +663,11 @@
   }
   .pillar {
     flex: 0 0 78%;
-    min-height: 420px;
     margin-right: 0;
     scroll-snap-align: center;
+  }
+  .pillarImgWrap {
+    height: 200px;
   }
   .journey {
     display: block;
@@ -801,9 +725,6 @@
     transform: rotate(-8deg);
     margin-top: 26px;
   }
-  .photoBand {
-    height: 300px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -819,8 +740,7 @@
   .section.is-in .node .dot,
   .section.is-in .nodeLabel,
   .section.is-in .finishTag,
-  .section.is-in .note,
-  .section.is-in .photoBand {
+  .section.is-in .note {
     animation: none;
   }
   .section.is-in .hOrder::after {

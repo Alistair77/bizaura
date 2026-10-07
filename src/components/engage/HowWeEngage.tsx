@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { Plasma } from "@/components/hero/Plasma";
 import { Icon } from "@/components/ui/Icon";
 import { ENGAGE_STAGES } from "@/content/home";
 import styles from "./HowWeEngage.module.css";
@@ -124,6 +125,21 @@ export function HowWeEngage() {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
+        {/* Hero plasma carried down: quiet silk band behind the journey. */}
+        <div className={styles.engagePlasma} aria-hidden="true">
+          <Plasma
+            speed={0.3}
+            direction="pingpong"
+            scale={1.4}
+            opacity={0.35}
+            mouseInteractive={false}
+            renderScale={0.4}
+            maxDpr={1.25}
+            targetFps={30}
+            iterations={45}
+            lightMode={true}
+          />
+        </div>
         <div className={styles.grain} aria-hidden="true" />
         <span className={`${styles.dust} ${styles.dustA}`} aria-hidden="true" />
         <span className={`${styles.dust} ${styles.dustB}`} aria-hidden="true" />

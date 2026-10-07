@@ -34,7 +34,7 @@
   height: 126%;
   transform: rotate(-16deg) scale(1.2);
   transform-origin: 55% 45%;
-  filter: blur(5px) saturate(1.25) contrast(1.05);
+  filter: blur(3px) saturate(1.35) contrast(1.05);
   -webkit-mask-image:
     linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 12%, rgb(0 0 0 / 0.85) 30%, #000 45%, #000 100%),
     linear-gradient(180deg, #000 0%, #000 82%, rgb(0 0 0 / 0.55) 100%);
@@ -128,7 +128,7 @@
   line-height: 1;
 }
 
-/* ---------- Tagline + long arrow ---------- */
+/* ---------- Tagline: pencil note under the logo ---------- */
 .tagline {
   position: relative;
   width: fit-content;
@@ -136,7 +136,7 @@
   transform: rotate(-4deg);
   transform-origin: left center;
   font-family: var(--font-script), "Shadows Into Light Two", Caveat, cursive;
-  font-size: clamp(20px, 2.03vw, 34px);
+  font-size: clamp(18px, 1.56vw, 26px);
   line-height: 1.25;
   letter-spacing: 0.06em;
   color: #3e3e44;
