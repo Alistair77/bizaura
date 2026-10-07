@@ -20,6 +20,25 @@ export interface PlasmaProps {
   lightMode?: boolean;
   respectReducedMotion?: boolean;
   palette?: [string, string, string, string, string];
+  /** Seconds added to the shader clock — selects which part of the flow is on screen. */
+  timeOffset?: number;
+  /**
+   * Editorial "silk" light mode (hero): saturated colour ramp driven by the plasma's own
+   * colour phase, fine strands traced from its energy field. Independent of `lightMode`.
+   */
+  silk?: boolean;
+  /** Silk colour ramp, cool → warm. */
+  ramp?: [string, string, string, string, string];
+  /** Strand strength in silk mode, 0–1. */
+  fibers?: number;
+  /**
+   * Ring composition: the column is bent into an elliptical band hugging the viewport,
+   * flowing around the content.
+   * [ring radius (1 = edges), band width, flow length, seam angle (rad), offset into the column].
+   */
+  ring?: [number, number, number, number, number];
+  /** Render one still frame at this clock value (tuning / stills). */
+  freezeAt?: number;
 }
 
 const hexToRgb = (hex: string): [number, number, number] => {
@@ -61,10 +80,56 @@ uniform vec3 uColB;
 uniform vec3 uColC;
 uniform vec3 uColD;
 uniform vec3 uColE;
+uniform float uSilk;
+uniform float uFibers;
+uniform vec3 uR0;
+uniform vec3 uR1;
+uniform vec3 uR2;
+uniform vec3 uR3;
+uniform vec3 uR4;
+uniform float uRing;
+uniform vec4 uRingP;
+uniform float uRingY;
 out vec4 fragColor;
+
+float gSeam = 0.0;
+float gRingFade = 1.0;
+
+// Ring composition: polar remap around the centre (ellipse fitted to the viewport).
+// The column's cross-section becomes radial, its length runs around the content.
+vec2 ringCoord(vec2 C) {
+  vec2 r = iResolution.xy;
+  vec2 c = r * 0.5;
+  // Centre sits a little low so the top band rides up behind the logo as light wisps.
+  vec2 e = ((C - c) / r.y - vec2(0.0, -0.04)) / vec2(0.5 * r.x / r.y, 0.5);
+  // Low-frequency warp bends the band's arcs into diagonal streams (no concentric rings).
+  e += 0.09 * vec2(sin(e.y * 3.1 + 1.7), sin(e.x * 2.3 + 0.4));
+  float rho = length(e);
+  float raw = atan(e.y, e.x);
+  float sides = abs(cos(raw)); // 1 at left/right, 0 at top/bottom centre
+  float th = mod(raw - uRingP.w + 3.14159265, 6.28318531) - 3.14159265;
+  gSeam = smoothstep(2.35, 3.14159265, abs(th));
+  // A gentle wobble keeps the band from reading as a perfect ellipse.
+  float radius = uRingP.x + 0.07 * sin(2.0 * th + 1.1) + 0.04 * sin(3.0 * th - 0.4);
+  // Streams are strongest at the sides and lighter top / bottom; the inner edge dissolves.
+  float top = smoothstep(0.0, 1.0, e.y / max(rho, 1e-3)); // 1 straight up, 0 at the sides/below
+  gRingFade = mix(0.55 + 0.45 * sides, 0.3, top) * smoothstep(radius - 0.42, radius - 0.12, rho);
+  float band = uRingP.y * (1.0 + 0.7 * (1.0 - sides));
+  vec2 f = vec2((rho - radius) * band, uRingY + (th / 3.14159265) * uRingP.z);
+  return c + f * r.y;
+}
+
+vec3 rampColor(float t) {
+  t = clamp(t, 0.0, 1.0) * 4.0;
+  vec3 c = mix(uR0, uR1, smoothstep(0.0, 1.0, t));
+  c = mix(c, uR2, smoothstep(1.0, 2.0, t));
+  c = mix(c, uR3, smoothstep(2.0, 3.0, t));
+  return mix(c, uR4, smoothstep(3.0, 4.0, t));
+}
 
 void mainImage(out vec4 o, vec2 C) {
   vec2 center = iResolution.xy * 0.5;
+  if (uRing > 0.5) C = ringCoord(C);
   C = (C - center) / uScale + center;
 
   vec2 mouseOffset = (uMouse - center) * 0.0002;
@@ -109,7 +174,23 @@ void main() {
 
   float alpha = length(rgb) * uOpacity;
 
-  if (uLightMode > 0.5) {
+  if (uSilk > 0.5) {
+    float energy = clamp(length(rgb) / 1.7320508, 0.0, 1.0);
+    vec3 n = rgb / max(rgb.r + rgb.g + rgb.b, 1e-4);
+    vec2 uv = gl_FragCoord.xy / iResolution.xy;
+    // Hue from the plasma's own colour phase, biased diagonally: cool top-left,
+    // peach top-right and bottom-left, violet bottom-right.
+    float h = 0.45 + (n.r - n.b) * 0.75 + (uv.x - 0.5) * 1.1
+            + (1.0 - uv.x) * (1.0 - uv.y) * 0.7 - uv.x * (1.0 - uv.y) * 0.55
+            - (1.0 - uv.x) * uv.y * 0.35;
+    vec3 pigment = rampColor(h);
+    // Strands: iso-lines of the energy field, which run along the flow.
+    float strands = 0.5 + 0.5 * sin(energy * 72.0);
+    float core = smoothstep(0.02, 0.45, energy);
+    float coverage = core * mix(1.0, 0.7 + 0.3 * strands, uFibers) * min(uOpacity, 1.0) * (1.0 - gSeam) * gRingFade;
+    pigment = mix(pigment, vec3(1.0), smoothstep(0.86, 1.0, energy) * 0.4);
+    fragColor = vec4(mix(vec3(1.0), pigment, coverage), 1.0);
+  } else if (uLightMode > 0.5) {
     float energy = clamp(length(rgb) / 1.7320508, 0.0, 1.0);
     vec3 n = rgb / max(rgb.r + rgb.g + rgb.b, 1e-4);
 
@@ -140,9 +221,17 @@ export const Plasma = ({
   lightMode = false,
   respectReducedMotion = true,
   palette = ['#FF7A3D', '#9A6BFF', '#4C7BFF', '#FF5FA0', '#FFB27A'],
+  timeOffset = 0,
+  freezeAt,
+  silk = false,
+  ramp = ['#3557FF', '#7A55FF', '#C64BE4', '#FF62AC', '#FFAA7C'],
+  fibers = 0,
+  ring,
 }: PlasmaProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const paletteKey = palette.join(',');
+  const rampKey = ramp.join(',');
+  const ringKey = ring ? ring.join(',') : '';
 
   useEffect(() => {
     const containerEl = containerRef.current;
@@ -204,6 +293,16 @@ export const Plasma = ({
         uColC: { value: new Float32Array(hexToRgb(palette[2])) },
         uColD: { value: new Float32Array(hexToRgb(palette[3])) },
         uColE: { value: new Float32Array(hexToRgb(palette[4])) },
+        uSilk: { value: silk ? 1 : 0 },
+        uFibers: { value: fibers },
+        uR0: { value: new Float32Array(hexToRgb(ramp[0])) },
+        uR1: { value: new Float32Array(hexToRgb(ramp[1])) },
+        uR2: { value: new Float32Array(hexToRgb(ramp[2])) },
+        uR3: { value: new Float32Array(hexToRgb(ramp[3])) },
+        uR4: { value: new Float32Array(hexToRgb(ramp[4])) },
+        uRing: { value: ring ? 1 : 0 },
+        uRingP: { value: new Float32Array(ring ? ring.slice(0, 4) : [0.9, 1, 0.8, 1.5708]) },
+        uRingY: { value: ring ? ring[4] : 0 },
       },
     });
     const mesh = new Mesh(gl, { geometry, program });
@@ -277,9 +376,9 @@ export const Plasma = ({
         const u = seg / dur;
         const smooth = u * u * (3 - 2 * u);
         program.uniforms.uDirection.value = 1.0;
-        program.uniforms.iTime.value = fwd ? smooth * dur : (1 - smooth) * dur;
+        program.uniforms.iTime.value = timeOffset + (fwd ? smooth * dur : (1 - smooth) * dur);
       } else {
-        program.uniforms.iTime.value = timeValue;
+        program.uniforms.iTime.value = timeOffset + timeValue;
       }
       renderer.render({ scene: mesh });
     };
@@ -319,8 +418,11 @@ export const Plasma = ({
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    if (prefersReducedMotion) {
-      program.uniforms.iTime.value = 2.5;
+    if (freezeAt !== undefined) {
+      program.uniforms.iTime.value = freezeAt;
+      renderer.render({ scene: mesh });
+    } else if (prefersReducedMotion) {
+      program.uniforms.iTime.value = timeOffset + 2.5;
       renderer.render({ scene: mesh });
     } else {
       start();
@@ -342,7 +444,7 @@ export const Plasma = ({
       (gl.getExtension('WEBGL_lose_context') as { loseContext?: () => void } | null)?.loseContext?.();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [color, speed, direction, scale, opacity, mouseInteractive, renderScale, maxDpr, targetFps, iterations, lightMode, respectReducedMotion, paletteKey]);
+  }, [color, speed, direction, scale, opacity, mouseInteractive, renderScale, maxDpr, targetFps, iterations, lightMode, respectReducedMotion, paletteKey, timeOffset, freezeAt, silk, rampKey, fibers, ringKey]);
 
   return <div ref={containerRef} className={styles.container} />;
 };

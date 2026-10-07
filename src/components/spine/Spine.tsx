@@ -144,6 +144,17 @@ export function Spine() {
                 strokeLinecap="round"
                 pathLength={1}
               />
+              {/* Live pulse travelling the journey, independent of scroll. */}
+              <path
+                className={styles.flowPulse}
+                d="M -12 152 C 55 142, 85 118, 125 105 C 175 88, 225 58, 295 60 C 335 61, 352 66, 375 72 C 430 82, 485 60, 548 82 C 592 95, 608 103, 625 108 C 688 120, 735 58, 802 57 C 838 56, 856 63, 875 70 C 918 82, 962 54, 1012 58"
+                fill="none"
+                stroke="#ffffff"
+                strokeWidth="3"
+                strokeLinecap="round"
+                pathLength={1}
+                aria-hidden="true"
+              />
             </svg>
             <ul className={styles.nodes}>
               {JOURNEY.map((node, i) => (

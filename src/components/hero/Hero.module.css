@@ -1,25 +1,23 @@
 /* =========================================================
-   BIZORA HERO v2 — 1672×941 reference recreation.
-   Fluid: px-at-ref / 1672 × 100vw, capped with clamp.
+   BIZORA HERO — centred editorial stack inside a living plasma field.
+   Measured against the 1672×941 reference; fluid via vw/vh clamps.
+   Layers: plasma 0 · white falloff 2 · cards + notes 5 · text 10 · CTAs 20
    ========================================================= */
 .hero {
   position: relative;
   isolation: isolate;
-  min-height: 100vh;
-  min-height: 100svh;
-  background: #ffffff;
-  color: #0b0b0f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: max(760px, 100svh);
+  background: #fff;
+  color: #050505;
   overflow: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-@media (min-width: 960px) {
-  .hero {
-    min-height: max(760px, 100svh);
-  }
-}
 
-/* ---------- Background layers (z 0) ---------- */
+/* ---------- Plasma (z 0) under a soft white falloff (z 2) ---------- */
 .heroBg {
   position: absolute;
   inset: 0;
@@ -28,46 +26,21 @@
 }
 .plasmaWrap {
   position: absolute;
-  top: -12%;
-  right: -10%;
-  width: 82%;
-  height: 126%;
-  transform: rotate(-16deg) scale(1.2);
-  transform-origin: 55% 45%;
-  filter: blur(1.5px) saturate(1.5) contrast(1.08);
-  -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 12%, rgb(0 0 0 / 0.85) 30%, #000 45%, #000 100%),
-    linear-gradient(180deg, #000 0%, #000 82%, rgb(0 0 0 / 0.55) 100%);
-  mask-image:
-    linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 12%, rgb(0 0 0 / 0.85) 30%, #000 45%, #000 100%),
-    linear-gradient(180deg, #000 0%, #000 82%, rgb(0 0 0 / 0.55) 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-  animation: plasmaIn 1.2s ease-out both;
-}
-@keyframes plasmaIn {
-  from {
-    opacity: 0;
-  }
-}
-.plasmaCanvas {
-  position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
+  animation: fadeIn 1400ms ease-out both;
 }
 .plasmaStatic {
   display: none;
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(28% 22% at 45% 8%, #7c9bffdd, transparent 70%),
-    radial-gradient(30% 28% at 55% 45%, #ff7a3ddd, transparent 70%),
-    radial-gradient(22% 20% at 62% 62%, #ff5fa0cc, transparent 70%),
-    radial-gradient(30% 30% at 88% 75%, #9a6bffcc, transparent 70%),
-    radial-gradient(25% 25% at 95% 10%, #ffb27aaa, transparent 70%);
-  filter: blur(24px);
+    radial-gradient(22% 34% at 8% 30%, #5b6bffcc, transparent 70%),
+    radial-gradient(20% 30% at 16% 62%, #e15bd8b3, transparent 70%),
+    radial-gradient(24% 28% at 18% 92%, #ffa56ab3, transparent 70%),
+    radial-gradient(24% 30% at 88% 22%, #ff9d7ab3, transparent 70%),
+    radial-gradient(22% 32% at 94% 70%, #ff62aab3, transparent 70%),
+    radial-gradient(18% 22% at 96% 96%, #7a62ff99, transparent 70%);
+  filter: blur(30px);
 }
 .isFallback canvas {
   display: none;
@@ -75,52 +48,67 @@
 .isFallback .plasmaStatic {
   display: block;
 }
-/* White radial wash keeping the left column clean. */
-.wash {
+/* Keeps the centre readable without a visible shape. */
+.falloff {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  background: radial-gradient(60% 70% at 18% 60%, #fff 40%, rgb(255 255 255 / 0) 75%);
+  background:
+    radial-gradient(
+      ellipse 31% 41% at 50% 51%,
+      rgb(255 255 255 / 0.97) 0%,
+      rgb(255 255 255 / 0.9) 45%,
+      rgb(255 255 255 / 0.5) 75%,
+      rgb(255 255 255 / 0) 100%
+    ),
+    linear-gradient(180deg, rgb(255 255 255 / 0) 84%, #fff 100%);
 }
-.grain {
+.filters {
   position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.06;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
-/* ---------- Left content column (z 2) ---------- */
-.content {
+/* ---------- Editorial stack (z 10) ---------- */
+.stack {
   position: relative;
-  z-index: 2;
-  padding-top: clamp(110px, 17.43vh, 164px);
-  padding-bottom: clamp(24px, 4.68vh, 44px);
-  padding-left: clamp(20px, 4.6vw, 77px);
-  padding-right: clamp(20px, 4vw, 64px);
-  max-width: 900px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: clamp(88px, 13.2vh, 130px) 20px clamp(56px, 11vh, 120px);
+  text-align: center;
+  /* The stack spans the hero width; only its own controls take the pointer. */
+  pointer-events: none;
+}
+.stack a,
+.stack li {
+  pointer-events: auto;
 }
 
-/* ---------- Logo: 100px ---------- */
+/* Logo — still; only the pupil follows the pointer */
 .logo {
   display: inline-flex;
   align-items: center;
-  border-radius: 6px;
+  border-radius: 8px;
   font-family: var(--font-tight), "Inter Tight", sans-serif;
   font-weight: 900;
-  font-size: clamp(56px, 5.98vw, 100px);
+  font-size: clamp(52px, 5.7vw, 98px);
   letter-spacing: -0.045em;
   line-height: 1;
-  color: #0b0b0f;
+  color: #050505;
   font-optical-sizing: auto;
+  animation: fadeIn 700ms ease-out 150ms both;
 }
-/* Amour-style ink-in: each glyph wipes up like a marker stroke. */
+.logoEye {
+  margin-inline: 0.01em;
+}
+/* Per-letter ink-in, idle bounce, and cursor pop. */
 .lIn {
   display: inline-block;
   animation: letterInk 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(60ms + var(--i, 0) * 90ms);
+  animation-delay: calc(150ms + var(--i, 0) * 90ms);
 }
 @keyframes letterInk {
   from {
@@ -134,7 +122,6 @@
     clip-path: inset(0);
   }
 }
-/* Idle marker bounce; a harder bounce under the cursor. */
 .lFloat {
   display: inline-block;
   transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -154,51 +141,71 @@
   animation-play-state: paused;
   transform: translateY(-8px) scale(1.07);
 }
-.regWrap {
-  align-self: flex-start;
-  margin-top: 0.11em;
-  margin-left: 0.04em;
-}
 .reg {
+  align-self: flex-start;
+  margin: 0.04em 0 0 0.05em;
   font-family: var(--font-body), Inter, system-ui, sans-serif;
   font-weight: 600;
-  font-size: clamp(12px, 1.2vw, 20px);
+  font-size: 0.19em;
   letter-spacing: 0;
-  line-height: 1;
 }
 
-/* ---------- Tagline: pencil note under the logo ---------- */
+/* Pencil tagline: slightly left of the axis, rising gently to the right */
 .tagline {
   position: relative;
-  width: fit-content;
-  margin: 2px 0 0 1px;
-  transform: rotate(-4deg);
-  transform-origin: left center;
-  font-family: var(--font-script), "Shadows Into Light Two", Caveat, cursive;
-  font-size: clamp(18px, 1.56vw, 26px);
-  line-height: 1.25;
-  letter-spacing: 0.06em;
-  color: #3e3e44;
-  animation: riseIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 160ms both;
+  margin-top: clamp(8px, 1.3vh, 16px);
+  translate: -2.1vw 0;
+  rotate: -3.4deg;
+  animation: fadeIn 700ms ease-out 380ms both;
 }
 .tagText {
+  margin: 0;
+  font-family: var(--font-script), "Shadows Into Light Two", cursive;
+  font-size: clamp(20px, 1.7vw, 30px);
+  line-height: 1.22;
+  letter-spacing: 0.03em;
+  color: #353535;
+  text-align: left;
+  filter: url(#hero-pencil);
+}
+.tagLine {
+  display: block;
+  white-space: nowrap;
+}
+.tagLine + .tagLine {
+  padding-left: 0.18em;
+}
+.tagWord {
   display: inline-block;
+  translate: 0 var(--dy, 0);
+  rotate: var(--rot, 0deg);
+}
+.tagWord + .tagWord {
+  margin-left: 0.3em;
 }
 .tagArrow {
   position: absolute;
-  left: calc(100% + 22px);
-  bottom: -2px;
-  width: clamp(110px, 11.36vw, 190px);
+  left: calc(100% + 0.45em);
+  top: 0.05em;
+  width: clamp(86px, 8.1vw, 138px);
   height: auto;
-  overflow: visible;
 }
 .handArrow {
   overflow: visible;
 }
 .drawStroke {
+  fill: none;
+  stroke: #353535;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-dasharray: 260;
   stroke-dashoffset: 260;
-  animation: drawIn 1.1s ease-out 0.6s forwards;
+  animation: drawIn 900ms ease-out 650ms forwards;
+}
+.drawHead {
+  animation-duration: 350ms;
+  animation-delay: 1400ms;
 }
 @keyframes drawIn {
   to {
@@ -206,166 +213,160 @@
   }
 }
 
-/* ---------- Headline: 106px ---------- */
+/* Headline — the visual axis */
 .headline {
-  margin: clamp(16px, 1.79vw, 30px) 0 0;
+  margin: clamp(16px, 2.6vh, 30px) 0 0;
   font-family: var(--font-tight), "Inter Tight", sans-serif;
   font-weight: 800;
-  font-size: clamp(52px, 6.34vw, 106px);
-  line-height: 0.85;
-  letter-spacing: -0.055em;
-  color: #0b0b0f;
+  font-size: clamp(56px, 5.65vw, 102px);
+  line-height: 0.875;
+  letter-spacing: -0.04em;
+  word-spacing: 0.06em;
+  color: #050505;
   font-optical-sizing: auto;
 }
 .line {
   display: block;
-  animation: riseIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: riseIn 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 .line:nth-child(1) {
-  animation-delay: 240ms;
+  animation-delay: 480ms;
 }
 .line:nth-child(2) {
-  animation-delay: 320ms;
-}
-.line:nth-child(3) {
-  animation-delay: 400ms;
-}
-.halo {
-  text-shadow: 0 0 28px rgb(255 255 255 / 0.85);
+  animation-delay: 550ms;
 }
 .gradient {
   background: linear-gradient(
     90deg,
-    #2f5bff 0%,
-    #5b45f5 14%,
-    #8b3eeb 30%,
-    #c13fda 46%,
-    #e64bb4 60%,
-    #f5678c 74%,
-    #f7905f 88%,
-    #f6a050 100%
+    #2d4bff 0%,
+    #4e4ff6 14%,
+    #7d48ee 30%,
+    #aa45e2 44%,
+    #d34ad3 57%,
+    #ef57b4 69%,
+    #fb6f98 81%,
+    #ff907f 91%,
+    #ffb277 100%
   );
+  background-size: 112% 100%;
+  background-position: 0% 50%;
+  /* room for descenders under background-clip without loosening the leading */
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* Entrance, then an almost imperceptible drift — never a colour cycle. */
+  animation:
+    riseIn 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 620ms both,
+    gradientDrift 16s ease-in-out 1.4s infinite alternate;
+}
+@keyframes gradientDrift {
+  to {
+    background-position: 100% 50%;
+  }
 }
 
-/* ---------- Sub-copy ---------- */
 .sub {
-  margin: clamp(14px, 1.5vw, 25px) 0 0;
-  max-width: 600px;
+  margin: clamp(12px, 2vh, 22px) 0 0;
+  max-width: 40em;
   font-family: var(--font-body), Inter, system-ui, sans-serif;
   font-weight: 400;
-  font-size: clamp(17px, 1.47vw, 24.5px);
-  line-height: 1.4286;
-  letter-spacing: -0.005em;
-  color: #1a1a1f;
-  font-optical-sizing: auto;
-  animation: riseIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 480ms both;
+  font-size: clamp(16px, 1.27vw, 21px);
+  line-height: 1.45;
+  color: #171717;
+  animation: fadeIn 700ms ease-out 760ms both;
 }
 
-/* ---------- Buttons: 66px, gap 23 ---------- */
+/* CTAs (z 20) */
 .ctas {
+  position: relative;
+  z-index: 20;
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(12px, 1.38vw, 23px);
-  margin: clamp(16px, 1.61vw, 27px) 0 0;
-  animation: riseIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 560ms both;
+  justify-content: center;
+  gap: clamp(12px, 1.15vw, 19px);
+  margin-top: clamp(20px, 3.3vh, 32px);
+  animation: riseIn 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 860ms both;
 }
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: clamp(52px, 3.95vw, 66px);
-  border-radius: 9999px;
+  gap: 14px;
+  height: clamp(52px, 3.5vw, 60px);
+  padding: 0 clamp(28px, 2.8vw, 48px);
+  border: 1.5px solid #050505;
+  border-radius: 999px;
   font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: clamp(16px, 1.2vw, 20px);
+  font-size: clamp(15px, 1.02vw, 17.5px);
   font-weight: 600;
-  letter-spacing: 0;
   white-space: nowrap;
   transition:
-    background-color 200ms ease,
-    color 200ms ease,
-    border-color 200ms ease,
-    transform 120ms ease,
-    box-shadow 120ms ease;
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
 }
-.btn:focus-visible {
-  outline: 3px solid #7b3cf0;
-  outline-offset: 3px;
-}
-.btn:active {
-  transform: translateY(5px) scale(0.99);
+.btn:hover {
+  transform: translateY(-2px);
 }
 .primary {
-  width: clamp(240px, 20.16vw, 337px);
-  border: 2px solid #0b0b0f;
-  background: #0b0b0f;
+  background: #050505;
   color: #fff;
-  box-shadow: 0 5px 0 rgb(0 0 0 / 0.45);
+  box-shadow: 0 12px 26px -16px rgb(0 0 0 / 0.6);
 }
 .primary:hover {
-  background: #000;
-}
-.primary:active {
-  box-shadow: 0 0 0 transparent;
-}
-.btnArrow {
-  margin-left: 18px;
-  transition: transform 200ms ease;
-}
-.primary:hover .btnArrow {
-  transform: translateX(4px);
+  background: #1b1b1f;
+  box-shadow: 0 16px 30px -16px rgb(0 0 0 / 0.6);
 }
 .secondary {
-  width: clamp(220px, 17.76vw, 297px);
-  border: 1.5px solid #0b0b0f;
-  background: rgb(255 255 255 / 0.7);
-  color: #0b0b0f;
-  box-shadow: 0 5px 0 #0b0b0f;
+  background: #fff;
+  color: #050505;
 }
 .secondary:hover {
-  background: #0b0b0f;
-  color: #fff;
+  background: #f6f6f7;
 }
-.secondary:active {
-  box-shadow: 0 0 0 transparent;
+.btnArrow {
+  transition: transform 220ms ease;
+}
+.primary:hover .btnArrow {
+  transform: translateX(3px);
 }
 
-/* ---------- Chips: 38px, gap 16 ---------- */
+/* Industry chips — quiet metadata */
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin: clamp(12px, 1.26vw, 21px) 0 0;
+  justify-content: center;
+  gap: clamp(8px, 0.9vw, 15px);
+  max-width: 900px;
+  margin: clamp(18px, 2.9vh, 27px) 0 0;
   padding: 0;
   list-style: none;
-  animation: riseIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 640ms both;
+  animation: fadeIn 700ms ease-out 960ms both;
 }
 .chip {
   --tilt: -1.4deg;
   display: inline-flex;
   align-items: center;
-  height: clamp(32px, 2.27vw, 38px);
-  padding: 0 19px;
-  border: 1px solid #d5d5da;
-  border-radius: 9999px;
-  background: rgb(255 255 255 / 0.8);
+  height: clamp(34px, 2.45vw, 41px);
+  padding: 0 clamp(14px, 1.25vw, 21px);
+  border: 1px solid #dedee3;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.92);
   font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: clamp(13px, 0.9vw, 15px);
-  font-weight: 400;
+  font-size: clamp(13px, 0.86vw, 14.5px);
+  color: #1c1c20;
   white-space: nowrap;
-  color: #222228;
   rotate: var(--tilt);
   transition:
     border-color 150ms ease,
     background-color 150ms ease,
-    rotate 300ms var(--ease-out, ease),
+    rotate 300ms ease,
     translate 300ms ease;
   animation: chipWobble 4.2s ease-in-out infinite;
   animation-delay: calc(var(--i, 0) * -0.7s);
 }
-/* Hand-placed Marker collage: alternating lean, like the footer poster. */
 .chips > :nth-child(even) {
   --tilt: 1.2deg;
 }
@@ -381,140 +382,122 @@
   }
 }
 .chip:hover {
-  border-color: #0b0b0f;
+  border-color: #050505;
   background: #fff;
   rotate: 0deg;
   translate: 0 -2px;
 }
-.chipMore {
-  font-weight: 500;
-}
 
-/* ---------- Glass cards (z 3) ---------- */
-.cards {
+/* ---------- Plasma ecosystem: cards + note (z 5) ---------- */
+.field {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
 }
 .cardPos {
+  --rot: 0deg;
   position: absolute;
   display: block;
-  border-radius: 26px;
+  border-radius: 28px;
   pointer-events: auto;
-  animation: cardIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  rotate: var(--rot);
+  transition: rotate 280ms ease;
+  animation: riseIn 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.cardPos:focus-visible {
-  outline: 3px solid #7b3cf0;
-  outline-offset: 3px;
+.cardOpp {
+  --rot: 7.5deg;
+  left: 9.1%;
+  top: 19.4%;
+  animation-delay: 1050ms;
 }
-.pos1 {
-  left: 56.94%;
-  top: 24.23%;
-  width: 20.04%;
-  min-width: 300px;
-  rotate: -4deg;
-  animation-delay: 720ms;
+.cardReach {
+  --rot: -10deg;
+  left: 5.1%;
+  top: 46.8%;
+  animation-delay: 1150ms;
 }
-.pos2 {
-  left: 73.27%;
-  top: 45.91%;
-  width: 21.23%;
-  min-width: 310px;
-  rotate: 6deg;
-  animation-delay: 800ms;
-}
-.pos3 {
-  left: 68.18%;
-  top: 70.99%;
-  width: 23.33%;
-  min-width: 330px;
-  rotate: -4deg;
-  animation-delay: 880ms;
-}
-@keyframes cardIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
+.cardAccess {
+  --rot: 10deg;
+  left: 72.3%;
+  top: 56%;
+  animation-delay: 1250ms;
 }
 .cardFloat {
   display: block;
-  animation: floatY 6s ease-in-out infinite;
+  animation: cardFloat 6s ease-in-out infinite;
 }
-.pos2 .cardFloat {
+.cardReach .cardFloat {
   animation-duration: 7s;
-  animation-delay: -2s;
+  animation-delay: -2.5s;
 }
-.pos3 .cardFloat {
-  animation-duration: 6.5s;
+.cardAccess .cardFloat {
+  animation-duration: 5.5s;
   animation-delay: -4s;
 }
-@keyframes floatY {
+@keyframes cardFloat {
   0%,
   100% {
-    transform: translateY(-6px) rotate(-0.6deg);
+    transform: translateY(-3px);
   }
   50% {
-    transform: translateY(6px) rotate(0.6deg);
+    transform: translateY(4px);
   }
 }
 .card {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 18px 20px;
-  border: 1px solid rgb(255 255 255 / 0.85);
-  border-radius: 26px;
-  background: rgb(255 255 255 / 0.72);
-  backdrop-filter: blur(18px) saturate(1.5);
-  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  gap: clamp(12px, 0.95vw, 16px);
+  padding: clamp(16px, 1.25vw, 21px) clamp(16px, 1.3vw, 22px);
+  border: 1px solid rgb(255 255 255 / 0.75);
+  border-radius: 28px;
+  background: rgb(255 255 255 / 0.9);
   box-shadow:
-    0 24px 60px rgb(70 40 140 / 0.18),
-    0 2px 6px rgb(0 0 0 / 0.05),
-    inset 0 1px 0 rgb(255 255 255 / 0.9);
-  transition: box-shadow 320ms ease;
+    0 22px 48px -22px rgb(64 40 140 / 0.35),
+    0 2px 8px rgb(17 17 17 / 0.04);
+  transition:
+    translate 260ms ease,
+    box-shadow 260ms ease;
+}
+/* Hover: lift, deepen the shadow and ease the tilt back a little. */
+.cardPos:hover {
+  rotate: calc(var(--rot) * 0.75);
 }
 .cardPos:hover .card {
-  box-shadow:
-    0 32px 72px rgb(70 40 140 / 0.26),
-    0 2px 6px rgb(0 0 0 / 0.06),
-    inset 0 1px 0 rgb(255 255 255 / 0.9);
-}
-.cardPos:hover .cardFloat {
   translate: 0 -4px;
-}
-.cardFloat {
-  transition: translate 320ms ease;
+  box-shadow:
+    0 30px 60px -24px rgb(64 40 140 / 0.45),
+    0 2px 8px rgb(17 17 17 / 0.05);
 }
 .cardIcon {
   display: grid;
   place-items: center;
   flex: none;
-  width: 66px;
-  height: 66px;
+  width: clamp(54px, 3.95vw, 66px);
+  height: clamp(54px, 3.95vw, 66px);
   border-radius: 50%;
   color: #fff;
 }
 .cardText {
   display: grid;
-  gap: 4px;
-  min-width: 0;
   flex: 1;
+  gap: 5px;
+  min-width: 0;
+  text-align: left;
 }
 .cardTitle {
   font-family: var(--font-tight), "Inter Tight", sans-serif;
   font-weight: 700;
-  font-size: 20px;
+  font-size: clamp(17px, 1.15vw, 19.5px);
   letter-spacing: -0.01em;
   color: #0b0b0f;
-  font-optical-sizing: auto;
 }
 .cardDesc {
   font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #55555c;
+  font-size: clamp(12.5px, 0.82vw, 14px);
+  line-height: 1.32;
+  color: #5a5a62;
+  white-space: nowrap;
 }
 .cardArrow {
   display: grid;
@@ -522,171 +505,163 @@
   flex: none;
   width: 44px;
   height: 44px;
+  border: 1px solid rgb(17 17 17 / 0.06);
   border-radius: 50%;
-  border: 1px solid rgb(0 0 0 / 0.04);
-  background: rgb(255 255 255 / 0.85);
+  background: #fff;
   color: #0b0b0f;
-  box-shadow: 0 3px 0 rgb(17 17 17 / 0.14);
-  transition:
-    translate 320ms ease,
-    box-shadow 120ms ease;
-}
-.cardPos:active .cardArrow {
-  translate: 0 3px;
-  box-shadow: 0 0 0 transparent;
+  box-shadow: 0 6px 16px -6px rgb(17 17 17 / 0.25);
+  translate: 0 -10px;
 }
 .cardArrow svg {
-  transition: transform 200ms ease;
+  transition: transform 220ms ease;
 }
 .cardPos:hover .cardArrow svg {
   transform: translateX(3px);
 }
-.arrowTop {
-  align-self: start;
-}
 
-/* ---------- Connectors overlay ---------- */
-.connectors {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.connectorDraw {
-  stroke-dasharray: 300;
-  stroke-dashoffset: 300;
-  animation: drawIn 0.8s ease-out 1s forwards;
-}
-
-/* ---------- Top-right hand note ---------- */
+/* Pencil note, upper right */
 .note {
   position: absolute;
-  z-index: 3;
-  left: 82.06%;
-  top: 26.04%;
-  width: 280px;
-  transform: rotate(-13deg);
-  transform-origin: left top;
+  left: 79.6%;
+  top: 33.6%;
+  font-size: clamp(24px, 1.98vw, 34px);
+  rotate: -16deg;
+  transform-origin: 0 50%;
   pointer-events: none;
-  animation: riseIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 1080ms both;
+  animation: fadeIn 800ms ease-out 1350ms both;
 }
 .noteText {
-  position: relative;
-  margin: 34px 0 0 44px;
-  font-family: var(--font-script), "Shadows Into Light Two", Caveat, cursive;
-  font-size: 36px;
-  line-height: 1.15;
-  letter-spacing: 0.05em;
-  color: #2e2e34;
+  margin: 0;
+  font-family: var(--font-script), "Shadows Into Light Two", cursive;
+  line-height: 1.18;
+  letter-spacing: 0.03em;
+  color: #353535;
+  white-space: nowrap;
+  filter: url(#hero-pencil);
+}
+.noteLine {
+  display: block;
 }
 .noteIndent {
-  display: inline-block;
-  margin-left: 26px;
+  padding-left: 0.85em;
 }
 .sparks {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 60px;
-  height: 60px;
+  left: -1.45em;
+  top: -0.95em;
+  width: 1.4em;
+  height: 1.4em;
   overflow: visible;
 }
 .swoosh {
   position: absolute;
-  left: 44px;
-  top: 108px;
-  width: 240px;
-  height: 80px;
+  left: 2.4em;
+  top: 2.45em;
+  width: 6.6em;
+  height: 1.05em;
   overflow: visible;
+}
+.note .drawStroke {
+  animation-delay: 1600ms;
 }
 
 /* ---------- Entrance ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
 @keyframes riseIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
-  }
-}
-.tagline,
-.note {
-  animation-name: riseFade;
-}
-@keyframes riseFade {
-  from {
-    opacity: 0;
+    transform: translateY(14px);
   }
 }
 
-/* ---------- < 1200px: hide note + connectors, shrink cards ---------- */
-@media (max-width: 1200px) {
-  .note,
-  .connectors {
-    display: none;
+/* ---------- ≤1199px: cards leave the ring and line up beneath the content ---------- */
+@media (max-width: 1199px) {
+  .hero {
+    padding-bottom: 64px;
+  }
+  .stack {
+    padding-bottom: 40px;
+  }
+  .field {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px 28px;
+    width: 100%;
+    padding: 8px 24px 0;
   }
   .cardPos {
-    scale: 0.9;
+    position: relative;
+    left: auto;
+    top: auto;
+    max-width: 100%;
+  }
+  .cardOpp,
+  .cardAccess {
+    --rot: 2deg;
+  }
+  .cardReach {
+    --rot: -2deg;
+  }
+  .note {
+    display: none;
   }
 }
 
-/* ---------- < 960px: stacked layout ---------- */
-@media (max-width: 960px) {
-  .plasmaWrap {
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 52%;
-    transform: none;
-    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+/* ---------- ≤760px: phone composition ---------- */
+@media (max-width: 760px) {
+  .stack {
+    padding-top: 104px;
   }
-  .content {
-    max-width: none;
+  .logo {
+    font-size: clamp(44px, 13.5vw, 64px);
+  }
+  .tagText {
+    font-size: clamp(19px, 5.2vw, 23px);
+  }
+  .headline {
+    font-size: clamp(44px, 12vw, 68px);
   }
   .sub br {
     display: none;
   }
   .sub {
-    max-width: 40ch;
+    max-width: 30em;
   }
   .ctas {
     flex-direction: column;
     align-items: stretch;
-  }
-  .btn,
-  .primary,
-  .secondary {
     width: 100%;
+    max-width: 360px;
   }
-  .cards {
-    position: static;
-    display: flex;
-    gap: 16px;
-    margin-top: 40px;
-    padding: 0 clamp(20px, 4.6vw, 77px) 56px;
-    overflow-x: auto;
-    pointer-events: auto;
+  .btn {
+    height: 60px;
   }
-  .cardPos {
-    position: static;
-    flex: 0 0 320px;
-    width: 320px;
-    min-width: 0;
-    rotate: none;
-    scale: none;
-    animation-delay: 720ms;
+  .falloff {
+    background:
+      radial-gradient(ellipse 80% 42% at 50% 36%, rgb(255 255 255 / 0.95) 35%, rgb(255 255 255 / 0) 100%),
+      linear-gradient(180deg, rgb(255 255 255 / 0) 88%, #fff 100%);
   }
 }
-
-/* ---------- Tagline arrow hides below 600px ---------- */
-@media (max-width: 600px) {
+@media (max-width: 520px) {
   .tagArrow {
     display: none;
   }
+  .cardDesc {
+    white-space: normal;
+  }
+  .tagline {
+    translate: none;
+  }
 }
 
-/* ---------- Reduced motion ---------- */
+/* ---------- Reduced motion: still frame, no drift, no float ---------- */
 @media (prefers-reduced-motion: reduce) {
   .plasmaWrap,
   .logo,
@@ -694,23 +669,27 @@
   .lFloat,
   .tagline,
   .line,
+  .gradient,
   .sub,
   .ctas,
   .chips,
+  .chip,
   .cardPos,
+  .cardFloat,
   .note {
     animation: none;
   }
-  .cardFloat {
-    animation: none;
-  }
   .chip {
-    animation: none;
     rotate: none;
   }
-  .drawStroke,
-  .connectorDraw {
+  .drawStroke {
     animation: none;
     stroke-dashoffset: 0;
+  }
+  .btn:hover {
+    transform: none;
+  }
+  .cardPos:hover .card {
+    translate: none;
   }
 }

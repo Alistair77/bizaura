@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { INDUSTRIES } from "@/content/home";
 import { Icon } from "@/components/ui/Icon";
-import { Connectors } from "./Connectors";
 import { GlassCard } from "./GlassCard";
 import { HandArrow } from "./HandArrow";
 import { HandNote } from "./HandNote";
@@ -12,15 +11,31 @@ import { Plasma } from "./Plasma";
 import styles from "./Hero.module.css";
 
 /**
- * BIZORA landing hero v2 — 1672×941 reference recreation.
- * Navbar overlays from <header>; this section owns the background,
- * left content column, glass cards, connectors and hand note.
+ * Plasma composition tuned against the 1672×941 hero reference: the raymarched column is
+ * bent into a ring around the content, sampling its wide upper part so every edge has
+ * ribbons, with the seam hidden at the bottom.
  */
+const PLASMA_RING: [number, number, number, number, number] = [0.95, 1.6, 0.5, 1.5708, 0.7];
+const PLASMA_TIME_OFFSET = 15;
+
+/** Per-word baseline jitter for the pencil tagline (px, deg) — human, never random per render. */
+const TAGLINE: { text: string; dy: number; rot: number }[][] = [
+  [
+    { text: "Where", dy: 0, rot: -0.6 },
+    { text: "builders,", dy: -1, rot: 0.4 },
+    { text: "ideas", dy: 0.5, rot: -0.3 },
+  ],
+  [
+    { text: "and", dy: 0.5, rot: 0.3 },
+    { text: "opportunities", dy: -0.5, rot: -0.4 },
+    { text: "meet.", dy: 1, rot: 0.6 },
+  ],
+];
+
 export function Hero() {
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  // Static fallback gradient shows ONLY when WebGL actually failed:
-  // the Plasma component appends no <canvas> on renderer failure.
+  // Static fallback shows ONLY when WebGL failed: Plasma appends no <canvas> then.
   useEffect(() => {
     const t = window.setTimeout(() => {
       const el = wrapRef.current;
@@ -31,46 +46,66 @@ export function Hero() {
 
   return (
     <section id="top" className={styles.hero} aria-labelledby="hero-heading">
+      {/* z 0–2: living plasma under a soft white falloff — decorative */}
       <div className={styles.heroBg} aria-hidden="true">
         <div ref={wrapRef} className={styles.plasmaWrap}>
           <Plasma
+            silk
+            ring={PLASMA_RING}
+            fibers={0.3}
             speed={0.3}
             direction="pingpong"
-            scale={1.2}
-            opacity={0.7}
-            mouseInteractive={true}
+            scale={0.8}
+            opacity={1}
+            mouseInteractive
             renderScale={0.55}
             maxDpr={1.5}
             targetFps={50}
-            iterations={64}
-            lightMode={true}
+            iterations={40}
+            timeOffset={PLASMA_TIME_OFFSET}
           />
           <div className={styles.plasmaStatic} />
         </div>
-        <div className={styles.wash} />
-        <div className={styles.grain} />
+        <div className={styles.falloff} />
+        <svg className={styles.filters} aria-hidden="true" focusable="false">
+          <filter id="hero-pencil" x="-4%" y="-10%" width="108%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="7" result="grain" />
+            <feDisplacementMap in="SourceGraphic" in2="grain" scale="0.9" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
       </div>
 
-      <div className={styles.content}>
+      {/* z 10: the editorial stack — the headline is the visual axis */}
+      <div className={styles.stack}>
         <HeroLogo />
 
-        <p className={styles.tagline} aria-label="Where builders, ideas and opportunities meet.">
-          <span className={styles.tagText} aria-hidden="true">
-            Where builders, ideas
-            <br />
-            and opportunities meet.
-          </span>
+        <div className={styles.tagline}>
+          <p className={styles.tagText}>
+            {TAGLINE.map((line, i) => (
+              <span key={i} className={styles.tagLine}>
+                {line.map((word) => (
+                  <span
+                    key={word.text}
+                    className={styles.tagWord}
+                    style={{ "--dy": `${word.dy}px`, "--rot": `${word.rot}deg` } as React.CSSProperties}
+                  >
+                    {word.text}
+                  </span>
+                ))}
+              </span>
+            ))}
+          </p>
           <HandArrow className={styles.tagArrow} />
-        </p>
+        </div>
 
         <h1 id="hero-heading" className={styles.headline}>
-          <span className={`${styles.line} ${styles.halo}`}>Where access</span>
-          <span className={`${styles.line} ${styles.halo}`}>turns into</span>
+          <span className={styles.line}>Where access</span>{" "}
+          <span className={styles.line}>turns into</span>{" "}
           <span className={`${styles.line} ${styles.gradient}`}>outcomes.</span>
         </h1>
 
         <p className={styles.sub}>
-          We bring the right intelligence, with the right media,
+          We bring the right intelligence, with the right media,{" "}
           <br />
           to the right people, for the right opportunities.
         </p>
@@ -78,7 +113,7 @@ export function Hero() {
         <div className={styles.ctas}>
           <a className={`${styles.btn} ${styles.primary}`} href="#what-we-build">
             See what we build
-            <Icon name="arrow" size={22} strokeWidth={2} className={styles.btnArrow} />
+            <Icon name="arrow" size={18} strokeWidth={2} className={styles.btnArrow} />
           </a>
           <a className={`${styles.btn} ${styles.secondary}`} href="#admit-one">
             Start a conversation
@@ -95,50 +130,47 @@ export function Hero() {
               {industry}
             </li>
           ))}
-          <li className={`${styles.chip} ${styles.chipMore}`}>+ more</li>
+          <li className={styles.chip}>+ more</li>
         </ul>
       </div>
 
-      <div className={styles.cards} aria-hidden="false">
+      {/* z 5: the plasma ecosystem — cards and the pencil note */}
+      <div className={styles.field}>
         <GlassCard
-          className={styles.pos1}
+          className={styles.cardOpp}
           icon="people"
-          gradientFrom="#FF9A5A"
-          gradientTo="#F2667A"
-          iconShadow="rgba(242, 102, 122, 0.35)"
+          gradientFrom="#FF9A62"
+          gradientTo="#FF6A5C"
+          iconShadow="rgba(255, 106, 92, 0.35)"
           title="Opportunities"
           lines={["Discover and access", "meaningful opportunities."]}
           href="#what-we-build"
           label="Opportunities — Discover and access meaningful opportunities."
-          arrowTop
         />
         <GlassCard
-          className={styles.pos2}
+          className={styles.cardReach}
           icon="chatDots"
-          gradientFrom="#8F7BFF"
-          gradientTo="#5A5AE8"
-          iconShadow="rgba(90, 90, 232, 0.35)"
+          gradientFrom="#7C6DF3"
+          gradientTo="#5048DE"
+          iconShadow="rgba(80, 72, 222, 0.35)"
           title="Reach"
           lines={["Get in front of the right", "audience and stakeholders."]}
           href="#platforms"
           label="Reach — Get in front of the right audience and stakeholders."
         />
         <GlassCard
-          className={styles.pos3}
+          className={styles.cardAccess}
           icon="sprout"
-          gradientFrom="#6EE0A8"
-          gradientTo="#2FB57A"
-          iconShadow="rgba(47, 181, 122, 0.35)"
+          gradientFrom="#58D99D"
+          gradientTo="#2DB879"
+          iconShadow="rgba(45, 184, 121, 0.35)"
           title="Access"
           lines={["Connect with the right", "people, knowledge and resources."]}
           href="#how-we-engage"
           label="Access — Connect with the right people, knowledge and resources."
-          arrowTop
         />
+        <HandNote />
       </div>
-
-      <Connectors />
-      <HandNote />
     </section>
   );
 }

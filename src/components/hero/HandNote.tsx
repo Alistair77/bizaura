@@ -1,30 +1,23 @@
 import styles from "./Hero.module.css";
 
 /**
- * Top-right handwritten note: "Real people, real conversations."
- * Rotated −13°, with spark accents and an underline swoosh.
+ * Upper-right pencil note: "Real people, real conversations."
+ * Rotated with the writing, three emphasis strokes and an underline swoosh.
  */
 export function HandNote() {
   return (
-    <div className={styles.note} aria-label="Real people, real conversations.">
-      <svg className={styles.sparks} viewBox="0 0 60 60" aria-hidden="true" focusable="false">
-        <path d="M30 52 L40 30" stroke="#2E2E34" strokeWidth="1.6" strokeLinecap="round" />
-        <path d="M18 50 L34 32" stroke="#2E2E34" strokeWidth="1.6" strokeLinecap="round" />
-        <path d="M8 44 L30 36" stroke="#2E2E34" strokeWidth="1.6" strokeLinecap="round" />
+    <div className={styles.note} role="note" aria-label="Real people, real conversations.">
+      <svg className={styles.sparks} viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path className={styles.drawStroke} d="M33 4 C33.5 10, 33.2 15, 34 21" />
+        <path className={styles.drawStroke} d="M12 12 C16 16, 19 20, 23 25" />
+        <path className={styles.drawStroke} d="M2 33 C7 33.5, 12 33, 18 33.6" />
       </svg>
       <p className={styles.noteText} aria-hidden="true">
-        Real people,
-        <br />
-        <span className={styles.noteIndent}>real conversations.</span>
+        <span className={styles.noteLine}>Real people,</span>
+        <span className={`${styles.noteLine} ${styles.noteIndent}`}>real conversations.</span>
       </p>
-      <svg className={styles.swoosh} viewBox="0 0 240 80" aria-hidden="true" focusable="false">
-        <path
-          d="M20 68 C90 62, 170 40, 228 8"
-          fill="none"
-          stroke="#2E2E34"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
+      <svg className={styles.swoosh} viewBox="0 0 220 30" aria-hidden="true" focusable="false">
+        <path className={styles.drawStroke} d="M4 26 C60 22, 130 14, 216 3" />
       </svg>
     </div>
   );

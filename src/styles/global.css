@@ -188,9 +188,16 @@ button {
 .btn {
   box-shadow: 0 4px 0 rgb(17 17 17 / 0.22);
 }
-.btn--ghost,
-.btn--outline-light {
+.btn--ghost {
   box-shadow: none;
+}
+/* Outline-light on dark: visible white key edge. */
+.btn--outline-light {
+  box-shadow: 0 4px 0 rgb(255 255 255 / 0.35);
+}
+/* Yellow key: deeper retro edge. */
+.btn--yellow {
+  box-shadow: 0 5px 0 rgb(17 17 17 / 0.45);
 }
 .btn:hover {
   transform: translateY(-2px);

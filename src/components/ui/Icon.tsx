@@ -10,6 +10,8 @@ const PATHS = {
   handshake: "M3 11l4-4 5 2 5-2 4 4-4 5-3-2-2 2-2-2-2 2-5-5Z",
   spark: "M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8",
   chat: "M4 5h16v10H9l-5 4V5Z",
+  copy: "M9 9h11v11H9zM5 15V4h11",
+  check: "M4 12l5 5L20 7",
   chatDots:
     "M4 5h16v10H9l-5 4V5ZM8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01",
   sprout:

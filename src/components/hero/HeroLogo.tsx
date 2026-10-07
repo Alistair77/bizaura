@@ -12,9 +12,8 @@ function Letter({ ch, i }: { ch: string; i: number }) {
 
 /**
  * Hero BIZORA wordmark — "BIZ" + eye-O + "RA" + ®.
- * Reference: Inter Tight 900, 100px, -0.045em, line-height 1, ≈420px wide.
- * Letters ink in one by one like marker strokes, idle with a gentle bounce,
- * and bounce harder under the cursor. The eye keeps its own life.
+ * Letters rise in staggered, idle with a gentle bounce,
+ * and pop under the cursor. The eye keeps its own life.
  */
 export function HeroLogo() {
   return (
@@ -23,16 +22,12 @@ export function HeroLogo() {
       <Letter ch="I" i={1} />
       <Letter ch="Z" i={2} />
       <span className={styles.lIn} style={{ "--i": 3 } as CSSProperties} aria-hidden="true">
-        <EyeO live />
+        <EyeO live className={styles.logoEye} />
       </span>
       <Letter ch="R" i={4} />
       <Letter ch="A" i={5} />
-      <span
-        className={`${styles.lIn} ${styles.regWrap}`}
-        style={{ "--i": 6 } as CSSProperties}
-        aria-hidden="true"
-      >
-        <span className={styles.reg}>®</span>
+      <span className={styles.reg} aria-hidden="true">
+        ®
       </span>
     </a>
   );

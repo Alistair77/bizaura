@@ -1,6 +1,6 @@
 /* Quiet by design — it must never compete with the final invitation. */
 .footer {
-  padding-block: clamp(2.5rem, 4.5vw, 4rem) 28px;
+  padding-block: clamp(1.25rem, 2.5vw, 2rem) 28px;
   background: #ffffff;
   color: var(--color-ink-soft);
   border-top: 1px solid rgb(17 17 17 / 0.1);
@@ -9,7 +9,7 @@
 
 /* Animated Amour brand banner: full-bleed, same height. */
 .amourBand {
-  margin-top: clamp(24px, 3vw, 36px);
+  margin-top: clamp(12px, 1.5vw, 18px);
 }
 .amourWrap {
   min-height: 320px;
@@ -22,7 +22,7 @@
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)) minmax(0, 1.5fr);
-  gap: 40px 32px;
+  gap: 16px;
 }
 
 .brand {
@@ -44,7 +44,7 @@
   color: var(--color-ink-muted);
 }
 .tagline {
-  margin-top: 16px;
+  margin-top: 8px;
   font-size: var(--text-micro);
   font-weight: 700;
   letter-spacing: var(--tracking-label);
@@ -55,17 +55,17 @@
 /* Hand-inked Amour accents: stroke-in like wet marker. */
 .sunMark {
   display: block;
-  width: 104px;
-  height: 68px;
-  margin-top: 18px;
+  width: 80px;
+  height: 52px;
+  margin-top: 10px;
   overflow: visible;
   color: var(--color-ink-soft);
 }
 .squiggle {
   display: block;
-  width: 150px;
-  height: 20px;
-  margin-top: 10px;
+  width: 120px;
+  height: 16px;
+  margin-top: 6px;
   overflow: visible;
 }
 .drawAmr {
@@ -90,7 +90,7 @@ svg[data-reveal].is-in .drawAmr {
 }
 
 .colHead {
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   font-size: var(--text-micro);
   font-weight: 700;
   letter-spacing: var(--tracking-label);
@@ -103,7 +103,7 @@ svg[data-reveal].is-in .drawAmr {
 .link {
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
+  min-height: 26px;
   transition: color var(--duration-fast) ease;
 }
 .link:hover {
@@ -113,7 +113,7 @@ svg[data-reveal].is-in .drawAmr {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 34px;
+  min-height: 26px;
 }
 @media (pointer: coarse) {
   .link,
@@ -124,32 +124,37 @@ svg[data-reveal].is-in .drawAmr {
 
 .social {
   display: flex;
-  gap: 6px;
-  margin-top: 10px;
+  gap: 4px;
+  margin-top: 4px;
 }
 .socialLink {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid rgb(17 17 17 / 0.2);
+  box-shadow: 0 3px 0 rgb(17 17 17 / 0.16);
   transition:
     background-color var(--duration-fast) ease,
     color var(--duration-fast) ease,
-    transform var(--duration-fast) var(--ease-out);
+    transform 120ms ease,
+    box-shadow 120ms ease;
 }
 .socialLink:hover {
   background: var(--color-ink);
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 rgb(17 17 17 / 0.16);
 }
 .socialLink:active {
-  transform: scale(0.94);
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 0 0 0 transparent;
 }
 
 .bottom {
-  margin-top: clamp(24px, 3vw, 36px);
-  padding-top: 22px;
+  margin-top: clamp(12px, 1.5vw, 18px);
+  padding-top: 10px;
   border-top: 1px solid rgb(17 17 17 / 0.1);
   font-size: var(--text-micro);
   color: var(--color-ink-muted);

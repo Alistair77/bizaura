@@ -323,6 +323,20 @@
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
 }
+/* Live pulse endlessly travelling the journey line. */
+.flowPulse {
+  stroke-dasharray: 0.06 0.94;
+  opacity: 0.9;
+  animation: flowGo 10s linear infinite;
+}
+@keyframes flowGo {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
+}
 .nodes {
   position: relative;
   display: grid;
@@ -740,6 +754,10 @@
 @media (prefers-reduced-motion: reduce) {
   .halo {
     animation: none;
+  }
+  .flowPulse {
+    animation: none;
+    opacity: 0;
   }
   .section.is-in .kicker,
   .section.is-in .heading,

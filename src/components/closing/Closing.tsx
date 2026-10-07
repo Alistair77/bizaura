@@ -5,6 +5,7 @@ import { Icon } from "@/components/ui/Icon";
 import { TornEdge } from "@/components/ui/TornEdge";
 import { CONTACT, PHOTOS } from "@/content/home";
 import styles from "./Closing.module.css";
+import { EmailCopy } from "./EmailCopy";
 
 const MAILTO = `mailto:${CONTACT.email}?subject=${encodeURIComponent("Starting a conversation with Bizora")}`;
 
@@ -98,13 +99,11 @@ export function AdmitOne() {
           </h2>
           <p className={styles.admitLead}>
             Have an idea, event or partnership in mind?
-            <br />
-            We’d love to hear from you.
           </p>
-          <a className={styles.email} href={MAILTO}>
-            <Icon name="mail" size={18} />
-            {CONTACT.email}
-          </a>
+          <div className={styles.leadRow}>
+            <span>We’d love to hear from you.</span>
+            <EmailCopy />
+          </div>
         </div>
 
         <ConversationTicket />

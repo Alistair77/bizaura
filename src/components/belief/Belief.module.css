@@ -5,6 +5,8 @@
   position: relative;
   display: flex;
   align-items: center;
+  /* Contains the cards' off-screen slide-in so it never widens the page on phones. */
+  overflow-x: clip;
   min-height: min(92svh, 900px);
   padding-block: clamp(3.5rem, 7vw, 6rem);
   background:
@@ -115,6 +117,7 @@
 .statement {
   --accent: var(--color-violet);
   --accent-deep: var(--color-violet-deep);
+  --accent-dark: #3a239e;
   --tint: rgb(149 117 255 / 0.12);
   --tint-soft: rgb(149 117 255 / 0.03);
   position: relative;
@@ -127,8 +130,37 @@
   background: linear-gradient(165deg, var(--tint) 0%, var(--tint-soft) 55%, #fff 100%);
   transition:
     transform var(--duration-medium) var(--ease-out),
+    translate var(--duration-slow) var(--ease-out),
+    rotate var(--duration-slow) var(--ease-out),
+    opacity var(--duration-slow) var(--ease-out),
     box-shadow var(--duration-medium) ease,
     border-color var(--duration-fast) ease;
+}
+.statements > :last-child {
+  --reveal-delay: 140ms;
+}
+:global(.js) .statements .statement[data-reveal] {
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-medium) var(--ease-out),
+    translate var(--duration-slow) var(--ease-out),
+    rotate var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-medium) ease,
+    border-color var(--duration-fast) ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+/* Directional scroll entrance: Mission sweeps from the left, Vision from the right. */
+:global(.js) .statements .statement[data-reveal]:not(:global(.is-in)) {
+  opacity: 0;
+  transform: none;
+}
+:global(.js) .statements .statement[data-reveal]:not(:global(.is-in)):first-child {
+  translate: -48px 20px;
+  rotate: -2deg;
+}
+:global(.js) .statements .statement[data-reveal]:not(:global(.is-in)):last-child {
+  translate: 48px 20px;
+  rotate: 2deg;
 }
 /* Proper panel feel on hover: lift, deepen border, accent glow, richer colour. */
 .statement:hover {
@@ -147,8 +179,27 @@
 .statement[data-accent="pink"] {
   --accent: var(--color-pink);
   --accent-deep: var(--color-pink-deep);
+  --accent-dark: #8f1458;
   --tint: rgb(255 63 164 / 0.1);
   --tint-soft: rgb(255 63 164 / 0.025);
+}
+/* Dark wash that floods the panel on hover. */
+.statement::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(165deg, var(--accent-deep) 0%, var(--accent-dark) 100%);
+  opacity: 0;
+  transition: opacity 320ms ease;
+  pointer-events: none;
+}
+.statement:hover::before {
+  opacity: 1;
+}
+.statement > * {
+  position: relative;
+  z-index: 1;
 }
 .statementHead {
   display: flex;
@@ -170,10 +221,24 @@
     border-color var(--duration-fast) ease;
 }
 .statement:hover .statementIcon {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+  background: #fff;
+  border-color: #fff;
+  color: var(--accent-deep);
   transform: rotate(-8deg) scale(1.05);
+}
+.statementTitle,
+.statementBody,
+.statementLabel {
+  transition: color 240ms ease;
+}
+.statement:hover .statementTitle {
+  color: #fff;
+}
+.statement:hover .statementBody {
+  color: rgb(255 255 255 / 0.85);
+}
+.statement:hover .statementLabel {
+  color: #fff;
 }
 .statementLabel {
   font-size: var(--text-micro);
@@ -201,6 +266,10 @@
   color: var(--accent);
   opacity: 0.3;
   pointer-events: none;
+  transition: opacity 320ms ease;
+}
+.statement:hover .arc {
+  opacity: 0.55;
 }
 
 @media (max-width: 1023px) {

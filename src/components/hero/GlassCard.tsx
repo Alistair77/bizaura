@@ -10,15 +10,12 @@ interface GlassCardProps {
   lines: [string, string];
   href: string;
   label: string;
-  /** Arrow aligned top-right with the title instead of vertically centred. */
-  arrowTop?: boolean;
   className?: string;
 }
 
 /**
- * Floating glassmorphism card over the plasma.
- * The whole card is a single link. Outer positions/rotates,
- * inner floats; hover lifts and nudges the arrow.
+ * Floating card in the plasma field. The whole card is one link.
+ * Outer element places + tilts it, inner element floats; hover lifts and straightens it.
  */
 export function GlassCard({
   icon,
@@ -29,7 +26,6 @@ export function GlassCard({
   lines,
   href,
   label,
-  arrowTop = false,
   className,
 }: GlassCardProps) {
   return (
@@ -54,10 +50,7 @@ export function GlassCard({
               {lines[1]}
             </span>
           </span>
-          <span
-            className={`${styles.cardArrow} ${arrowTop ? styles.arrowTop : ""}`}
-            aria-hidden="true"
-          >
+          <span className={styles.cardArrow} aria-hidden="true">
             <Icon name="arrow" size={18} strokeWidth={2} />
           </span>
         </span>

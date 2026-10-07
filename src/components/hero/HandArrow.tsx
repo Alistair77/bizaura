@@ -1,31 +1,31 @@
 import styles from "./Hero.module.css";
 
 /**
- * Long hand-drawn arrow trailing the left tagline.
- * Near-straight shallow rise with an open V head, drawn on load.
+ * Pencil arrow leaving the handwritten tagline: a shallow curve that lifts toward the
+ * plasma with an open, slightly uneven arrowhead. Drawn on load.
  */
 export function HandArrow({ className }: { className?: string }) {
   return (
     <svg
       className={`${styles.handArrow} ${className ?? ""}`}
-      viewBox="0 0 190 56"
+      viewBox="0 0 140 56"
       aria-hidden="true"
       focusable="false"
     >
       <path
         className={styles.drawStroke}
-        d="M5 46 C58 44, 112 30, 170 9"
+        d="M2 50 C38 53, 86 42, 132 7"
         fill="none"
-        stroke="#3E3E44"
-        strokeWidth="1.6"
+        stroke="#353535"
+        strokeWidth="1.5"
         strokeLinecap="round"
       />
       <path
-        className={styles.drawStroke}
-        d="M149 3 L171 8 L156 27"
+        className={`${styles.drawStroke} ${styles.drawHead}`}
+        d="M113 6.5 L133 6 L125.5 24"
         fill="none"
-        stroke="#3E3E44"
-        strokeWidth="1.6"
+        stroke="#353535"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

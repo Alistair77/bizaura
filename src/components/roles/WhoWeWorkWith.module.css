@@ -192,11 +192,12 @@
 /* Branded fabric lanyard running off above. */
 .lanyard {
   position: absolute;
-  top: -12px;
+  /* Length grows with the card's stagger drop so every strap still reaches the rail. */
+  top: calc(-12px - var(--drop, 0px));
   left: 50%;
   z-index: 1;
   width: 48px;
-  height: 294px;
+  height: calc(294px + var(--drop, 0px));
   translate: -50% 0;
   overflow: hidden;
   background:

@@ -1,243 +1,187 @@
 /* =========================================================
-   NAVBAR — absolute over the hero, transparent, 80px.
-   Reference 1672px: logo x75 · links centred · CTA right.
+   Minimal control (hero reference): black circular menu, top-right,
+   with a compact white social stack beneath it. No navigation bar.
    ========================================================= */
 .header {
+  --edge-top: clamp(16px, 3.5vh, 33px);
+  --edge-right: clamp(16px, 2.7vw, 45px);
+  --menu-size: 52px;
   position: absolute;
   inset: 0 0 auto;
-  z-index: 10;
-  height: 80px;
-  background: transparent;
+  z-index: 50;
+  height: 0;
 }
 
-.bar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  padding-inline: clamp(20px, 4.49vw, 75px) clamp(16px, 4.37vw, 73px);
+/* Fixed so the menu stays reachable on every section. */
+.menuBtn {
+  position: fixed;
+  top: var(--edge-top);
+  right: var(--edge-right);
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: var(--menu-size);
+  height: var(--menu-size);
+  border-radius: 50%;
+  background: #050505;
+  color: #fff;
+  /* A faint light ring keeps it legible over the dark sections too. */
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.18),
+    0 10px 26px -12px rgb(0 0 0 / 0.55),
+    0 4px 0 rgb(0 0 0 / 0.55);
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 120ms ease;
+  animation: navIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 200ms both;
 }
-
-/* ---------- Small logo: 36px, same construction ---------- */
-.brand {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 6px;
-  font-family: var(--font-tight), "Inter Tight", sans-serif;
-  font-weight: 900;
-  font-size: 36px;
-  letter-spacing: -0.045em;
-  line-height: 1;
-  color: #0b0b0f;
-  font-optical-sizing: auto;
+.menuBtn:hover {
+  transform: translateY(-2px);
+  background: #1b1b1f;
 }
-.reg {
-  align-self: flex-start;
-  margin-top: 0.32em;
-  margin-left: 0.06em;
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 9px;
-  letter-spacing: 0;
-  line-height: 1;
+.menuBtn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.18),
+    0 0 0 transparent;
 }
-
-/* ---------- Centre links ---------- */
-.links {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
-  display: flex;
-  align-items: center;
-  gap: clamp(28px, 3.11vw, 52px);
+.burger {
+  display: grid;
+  gap: 5px;
+  width: 20px;
 }
-.link {
-  position: relative;
-  display: inline-block;
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 80px;
-  color: #111;
-  white-space: nowrap;
-}
-.link::after {
-  content: "";
-  position: absolute;
-  left: -4px;
-  right: -4px;
-  bottom: 22px;
-  height: 2px;
+.burger span {
+  display: block;
+  height: 1.75px;
   border-radius: 2px;
-  background: #0b0b0f;
-  transform: scaleX(0);
-  transition: transform 200ms ease;
+  background: currentColor;
+  transition:
+    transform 260ms ease,
+    opacity 200ms ease;
 }
-.link:hover::after {
-  transform: scaleX(1);
+.menuOpen .burger span:nth-child(1) {
+  transform: translateY(6.75px) rotate(45deg);
 }
-.link[aria-current="page"]::after {
-  transform: scaleX(1);
+.menuOpen .burger span:nth-child(2) {
+  opacity: 0;
 }
-
-/* Ink-in entrance: brand, links, pill and CTA stage in like wet ink. */
-.brand,
-.links li,
-.social,
-.cta,
-.menuBtn {
-  animation: navIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-.links li {
-  animation-delay: calc(80ms + var(--i, 0) * 80ms);
-}
-.social {
-  animation-delay: 400ms;
-}
-.actions .cta {
-  animation-delay: 480ms;
-}
-.menuBtn {
-  animation-delay: 480ms;
-}
-@keyframes navIn {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
+.menuOpen .burger span:nth-child(3) {
+  transform: translateY(-6.75px) rotate(-45deg);
 }
 
-/* ---------- Social capsule (same shape language as the nav) ---------- */
+/* Social stack: belongs to the hero, scrolls away with it. */
 .social {
+  position: absolute;
+  top: calc(var(--edge-top) + var(--menu-size) + 11px);
+  right: calc(var(--edge-right) + (var(--menu-size) - 44px) / 2);
   display: flex;
-  align-items: center;
-  gap: 2px;
-  height: 48px;
-  padding: 0 8px;
-  border-radius: 24px;
-  border: 1px solid rgb(17 17 17 / 0.1);
-  background: rgb(255 255 255 / 0.92);
-  box-shadow: 0 8px 24px -18px rgb(0 0 0 / 0.25);
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
   list-style: none;
+}
+.social li {
+  animation: navIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(320ms + var(--i, 0) * 80ms);
 }
 .socialBtn {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  color: #111;
-  transition:
-    background-color 160ms ease,
-    color 160ms ease,
-    transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.socialBtn:hover {
-  background: var(--color-ink);
-  color: #fff;
-  transform: translateY(-1px);
-}
-.socialBtn:active {
-  transform: scale(0.94);
-}
-.sheetSocial {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  list-style: none;
-}
-.sheetSocial .socialBtn {
-  border: 1px solid rgb(17 17 17 / 0.14);
   width: 44px;
   height: 44px;
-}
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 176px;
-  height: 50px;
-  border-radius: 9999px;
-  background: #0b0b0f;
-  color: #fff;
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  white-space: nowrap;
-  box-shadow: 0 4px 0 rgb(255 255 255 / 0.4);
+  border: 1px solid rgb(0 0 0 / 0.1);
+  border-radius: 50%;
+  background: #fff;
+  color: #222;
+  box-shadow:
+    0 6px 16px -8px rgb(17 17 17 / 0.3),
+    0 3px 0 rgb(17 17 17 / 0.16);
   transition:
-    background-color 200ms ease,
-    transform 120ms ease,
+    transform 220ms ease,
     box-shadow 120ms ease;
 }
-.cta:hover {
-  background: #000;
+.socialBtn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 20px -10px rgb(17 17 17 / 0.4),
+    0 5px 0 rgb(17 17 17 / 0.16);
 }
-.cta:active {
-  transform: translateY(4px);
+.socialBtn:active {
+  transform: translateY(3px);
   box-shadow: 0 0 0 transparent;
 }
-.ctaArrow {
-  transition: transform 200ms ease;
-}
-.cta:hover .ctaArrow {
-  transform: translateX(3px);
-}
-.cta:focus-visible,
-.link:focus-visible,
-.brand:focus-visible,
-.menuBtn:focus-visible {
-  outline: 3px solid #7b3cf0;
-  outline-offset: 3px;
-}
-.menuBtn {
-  display: none;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  color: #0b0b0f;
-}
 
-/* ---------- Mobile sheet ---------- */
+/* ---------- Full-screen menu ---------- */
 .sheet {
   position: fixed;
-  inset: 80px 0 0;
-  z-index: 9;
+  inset: 0;
+  z-index: 55;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding: 24px clamp(20px, 4.6vw, 77px) 48px;
+  justify-content: center;
+  gap: 40px;
+  padding: 96px clamp(24px, 8vw, 140px) 64px;
   background: #fff;
   overflow-y: auto;
+  animation: sheetIn 260ms ease-out;
 }
 .sheet[hidden] {
   display: none;
 }
-.sheetOpen {
-  animation: sheetIn 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
 .sheetList {
   display: grid;
   gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sheetList li {
+  animation: navIn 500ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(60ms + var(--i, 0) * 50ms);
 }
 .sheetLink {
-  display: block;
-  padding-block: 10px;
+  display: inline-block;
+  padding-block: 6px;
   font-family: var(--font-tight), "Inter Tight", sans-serif;
-  font-size: clamp(2rem, 9vw, 2.75rem);
   font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-  color: #0b0b0f;
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  color: #050505;
+  transition:
+    color 180ms ease,
+    transform 220ms ease;
+}
+.sheetLink:hover {
+  color: #6b4ee6;
+  transform: translateX(6px);
+}
+.sheetCta {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  padding: 0 32px;
+  border-radius: 999px;
+  background: #050505;
+  color: #fff;
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  transition: transform 220ms ease;
+}
+.sheetCta:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes navIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 @keyframes sheetIn {
   from {
@@ -245,24 +189,31 @@
   }
 }
 
-@media (max-width: 960px) {
-  .links {
-    display: none;
+@media (max-width: 760px) {
+  .header {
+    --menu-size: 48px;
   }
-  .actions .social {
-    display: none;
+  .social {
+    gap: 8px;
+    right: calc(var(--edge-right) + (var(--menu-size) - 40px) / 2);
   }
-  .menuBtn {
-    display: grid;
+  .socialBtn {
+    width: 40px;
+    height: 40px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .brand,
-  .links li,
-  .social,
-  .cta,
-  .menuBtn {
+  .menuBtn,
+  .social li,
+  .sheet,
+  .sheetList li {
     animation: none;
+  }
+  .menuBtn:hover,
+  .socialBtn:hover,
+  .sheetCta:hover,
+  .sheetLink:hover {
+    transform: none;
   }
 }
