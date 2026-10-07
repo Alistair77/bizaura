@@ -303,28 +303,47 @@
   font-weight: 600;
   white-space: nowrap;
   transition:
-    transform 220ms ease,
+    transform 120ms ease,
     background-color 220ms ease,
-    box-shadow 220ms ease;
+    box-shadow 120ms ease;
 }
 .btn:hover {
   transform: translateY(-2px);
 }
+.btn:active {
+  transform: translateY(6px) scale(0.99);
+}
 .primary {
   background: #050505;
   color: #fff;
-  box-shadow: 0 12px 26px -16px rgb(0 0 0 / 0.6);
+  box-shadow:
+    0 12px 26px -16px rgb(0 0 0 / 0.6),
+    0 6px 0 rgb(0 0 0 / 0.85);
 }
 .primary:hover {
   background: #1b1b1f;
-  box-shadow: 0 16px 30px -16px rgb(0 0 0 / 0.6);
+  box-shadow:
+    0 16px 30px -16px rgb(0 0 0 / 0.6),
+    0 8px 0 rgb(0 0 0 / 0.85);
+}
+.primary:active {
+  box-shadow: 0 0 0 transparent;
 }
 .secondary {
   background: #fff;
   color: #050505;
+  box-shadow:
+    0 12px 26px -16px rgb(0 0 0 / 0.35),
+    0 6px 0 #050505;
 }
 .secondary:hover {
   background: #f6f6f7;
+  box-shadow:
+    0 16px 30px -16px rgb(0 0 0 / 0.35),
+    0 8px 0 #050505;
+}
+.secondary:active {
+  box-shadow: 0 0 0 transparent;
 }
 .btnArrow {
   transition: transform 220ms ease;
