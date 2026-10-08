@@ -6,7 +6,7 @@ import styles from "./Footer.module.css";
 
 /**
  * Footer brand banner: the BIZORA wordmark hand-inked stroke by stroke
- * over a rising cobalt sun (Amour poster, showcase loop).
+ * over a rising sun in the hero's "outcomes." gradient (Amour poster, showcase loop).
  * Mounts only once the footer scrolls near the viewport.
  */
 export function FooterAmour() {
@@ -40,7 +40,15 @@ export function FooterAmour() {
           loop
           word="BIZORA"
           caption="where access turns into outcomes"
-          palette={{ paper: "#ffffff" }}
+          palette={{
+            paper: "#ffffff",
+            ink: "#111111",
+            // Same stops as the hero "outcomes." gradient (--gradient-outcomes).
+            sunStops: ["#7b42ff", "#315bff", "#c435ff", "#f02b82"],
+            sun: "#7b42ff",
+            core: "#3a1a8f",
+            glow: "#ffffff",
+          }}
           height="320px"
         />
       ) : null}

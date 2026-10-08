@@ -149,10 +149,8 @@ export function HowWeEngage() {
 
         <div className={styles.viewport}>
           {/* A. Left column */}
-          <p className={styles.brand} data-reveal>
-            <span className={styles.brandNum}>06</span>
-            <span className={styles.brandLabel}>How we engage</span>
-            <span className={styles.brandRule} aria-hidden="true" />
+          <p className={`eyebrow ${styles.brand}`} data-reveal>
+            <span className="eyebrow__num">06</span> How we engage <span className="eyebrow__rule" />
           </p>
           <span className={styles.spine} aria-hidden="true" />
           <div className={styles.copy} data-reveal>
@@ -160,7 +158,7 @@ export function HowWeEngage() {
               <span className={styles.hLine}>From insight</span>
               <span className={styles.hLine}>to opportunity,</span>
               <span className={styles.hLine}>we help you</span>
-              <span className={`${styles.hLine} ${styles.hPink}`}>go further.</span>
+              <span className={`${styles.hLine} accent-text`}>go further.</span>
             </h2>
             <p className={styles.para}>
               A structured approach that turns conversations into meaningful engagement and real opportunities.
@@ -234,7 +232,7 @@ export function HowWeEngage() {
           {/* D. Step detail */}
           <div id="engage-panel" data-reveal role="tabpanel" aria-labelledby={`engage-tab-${active}`} className={styles.detail}>
             <div key={stage.num} className={styles.detailInner} aria-live="polite">
-              <p className={styles.bigNum}>{stage.num}</p>
+              <p className={`${styles.bigNum} accent-text`}>{stage.num}</p>
               <h3 className={styles.detailTitle}>{stage.title}</h3>
               <p className={styles.detailSub}>{stage.summary}</p>
               <span className={styles.divider} aria-hidden="true" />

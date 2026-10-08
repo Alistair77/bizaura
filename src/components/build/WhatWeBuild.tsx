@@ -30,7 +30,7 @@ export function WhatWeBuild() {
             </p>
             <h2 id="build-heading" className={`display ${styles.heading}`}>
               <span>Some we build.</span> <span className={styles.soft}>Some we bring to the markets.</span>{" "}
-              <span>Some we build with others.</span> <span className={styles.emphasis}>Some we make happen.</span>
+              <span>Some we build with others.</span> <span className="accent-text">Some we make happen.</span>
             </h2>
           </div>
           <p className={styles.note} data-reveal style={{ "--reveal-delay": "160ms" } as React.CSSProperties}>
@@ -46,7 +46,7 @@ export function WhatWeBuild() {
               className={styles.card}
               data-accent={card.accent}
               data-reveal
-              style={{ "--reveal-delay": `${i * 70}ms` } as React.CSSProperties}
+              style={{ "--reveal-delay": `${i * 120}ms` } as React.CSSProperties}
             >
               <div className={styles.cardTop}>
                 <span className={styles.pill}>{card.pill}</span>

@@ -51,22 +51,6 @@
 .marker {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #111;
-}
-.markerNum {
-  font-variant-numeric: tabular-nums;
-}
-.markerRule {
-  width: 84px;
-  height: 1px;
-  background: #6a6a6a;
 }
 
 /* ---------- Layout: editorial + passes ---------- */
@@ -94,14 +78,6 @@
 }
 .hLine {
   display: block;
-}
-.hGradient {
-  width: fit-content;
-  padding-right: 0.06em;
-  background: linear-gradient(92deg, #7a45ff 0%, #176fea 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 .lead {
   margin-top: 22px;

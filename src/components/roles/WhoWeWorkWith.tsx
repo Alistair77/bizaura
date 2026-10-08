@@ -77,10 +77,8 @@ export function WhoWeWorkWith() {
       </div>
 
       <div className="container">
-        <p className={styles.marker} data-reveal>
-          <span className={styles.markerNum}>05</span>
-          <span className={styles.markerLabel}>Who we work with</span>
-          <span className={styles.markerRule} aria-hidden="true" />
+        <p className={`eyebrow ${styles.marker}`} data-reveal>
+          <span className="eyebrow__num">05</span> Who we work with <span className="eyebrow__rule" />
         </p>
 
         <div className={styles.layout}>
@@ -89,8 +87,8 @@ export function WhoWeWorkWith() {
               <h2 id="roles-heading" className={`display ${styles.heading}`}>
                 <span className={styles.hLine}>Different</span>
                 <span className={styles.hLine}>roles.</span>
-                <span className={`${styles.hLine} ${styles.hGradient}`}>A shared</span>
-                <span className={`${styles.hLine} ${styles.hGradient}`}>purpose.</span>
+                <span className={`${styles.hLine} accent-text`}>A shared</span>
+                <span className={`${styles.hLine} accent-text`}>purpose.</span>
               </h2>
               <p className={styles.lead}>
                 Different passes.

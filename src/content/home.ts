@@ -56,6 +56,16 @@ export const PHOTOS = {
   ),
 } as const;
 
+/**
+ * Hero editorial clip: Pexels video 19540281 (free Pexels licence), hotlinked like the
+ * Unsplash photos above. 960×540 (~680 KB) — sharp at the ~300px frame on 2× screens.
+ */
+export const HERO_CLIP = {
+  src: "https://videos.pexels.com/video-files/19540281/19540281-sd_960_540_24fps.mp4",
+  poster:
+    "https://images.pexels.com/videos/19540281/pexels-photo-19540281.jpeg?auto=compress&cs=tinysrgb&w=720&h=405&fit=crop",
+} as const;
+
 export const NAV_LINKS = [
   { label: "Intelligence", href: "#spine" },
   { label: "Forums", href: "#platforms" },
@@ -206,9 +216,9 @@ export const BUILD_CARDS = [
 ] as const;
 
 export const PLATFORM_TIMELINE = [
-  { num: "01", text: "Ideas get challenged.", accent: "red" },
-  { num: "02", text: "Connections get made.", accent: "blue" },
-  { num: "03", text: "Opportunities take shape.", accent: "pink" },
+  { num: "01", text: "Ideas get challenged.", accent: "red", icon: "bulb" },
+  { num: "02", text: "Connections get made.", accent: "blue", icon: "handshake" },
+  { num: "03", text: "Opportunities take shape.", accent: "pink", icon: "spark" },
 ] as const;
 
 export const ROLES = [

@@ -199,14 +199,6 @@
   background: linear-gradient(165deg, var(--vivid) 0%, var(--deep) 78%);
   color: #fff;
   box-shadow: 0 24px 48px -24px rgb(17 17 17 / 0.35);
-  transition:
-    opacity var(--duration-medium) ease,
-    transform var(--duration-medium) var(--ease-out),
-    box-shadow var(--duration-medium) ease;
-}
-.pillar:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 32px 56px -24px rgb(17 17 17 / 0.45);
 }
 .pillar[data-accent="blue"] {
   --vivid: #5b8cff;
@@ -223,10 +215,6 @@
   --deep: #c22a20;
   --accent: var(--a-red);
 }
-/* Dim siblings on hover. */
-.pillars:has(> :hover) > :not(:hover) {
-  opacity: 0.75;
-}
 .pillarImgWrap {
   position: relative;
   flex: none;
@@ -234,10 +222,6 @@
 }
 .pillarImg {
   object-fit: cover;
-  transition: transform 900ms var(--ease-out);
-}
-.pillar:hover .pillarImg {
-  transform: scale(1.06);
 }
 /* Soft legibility scrim over the photo's lower half. */
 .pillarImgWrap::after {
@@ -440,15 +424,6 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-ink-muted);
-}
-/* Hovering a panel pulses its node. */
-.stage:has(.pillars > :nth-child(1):hover) .nodes > :nth-child(1) .dot,
-.stage:has(.pillars > :nth-child(2):hover) .nodes > :nth-child(2) .dot,
-.stage:has(.pillars > :nth-child(3):hover) .nodes > :nth-child(3) .dot,
-.stage:has(.pillars > :nth-child(4):hover) .nodes > :nth-child(4) .dot {
-  box-shadow:
-    0 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent),
-    0 0 26px var(--accent);
 }
 
 /* Vertical journey (small screens only). */

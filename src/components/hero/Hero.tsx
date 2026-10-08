@@ -5,7 +5,7 @@ import { INDUSTRIES } from "@/content/home";
 import { Icon } from "@/components/ui/Icon";
 import { GlassCard } from "./GlassCard";
 import { HandArrow } from "./HandArrow";
-import { HandNote } from "./HandNote";
+import { HeroClip } from "./HeroClip";
 import { HeroLogo } from "./HeroLogo";
 import { Plasma } from "./Plasma";
 import styles from "./Hero.module.css";
@@ -169,7 +169,7 @@ export function Hero() {
           href="#how-we-engage"
           label="Access — Connect with the right people, knowledge and resources."
         />
-        <HandNote />
+        <HeroClip />
       </div>
     </section>
   );

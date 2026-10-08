@@ -22,6 +22,8 @@ export interface AmourPalette {
   ink: string
   /** The sun at its rim. */
   sun: string
+  /** Optional diagonal gradient across the sun; overrides `sun` when set. */
+  sunStops?: readonly string[]
   /** The sun at its heart, where it is darkest. */
   core: string
   /** The count, heart and caption set inside the sun. */
@@ -889,6 +891,13 @@ export default function AmourSunrisePreloader({
                 <stop offset="0.55" stopColor={colors.core} stopOpacity="0.55" />
                 <stop offset="1" stopColor={colors.core} stopOpacity="0" />
               </radialGradient>
+              {colors.sunStops ? (
+                <linearGradient id={uid + "-fill"} x1="0" y1="0" x2="1" y2="1">
+                  {colors.sunStops.map((c, i, all) => (
+                    <stop key={i} offset={i / Math.max(1, all.length - 1)} stopColor={c} />
+                  ))}
+                </linearGradient>
+              ) : null}
             </defs>
 
             <g transform={"translate(" + layout.cx.toFixed(1) + " " + layout.cy.toFixed(1) + ")"}>
@@ -898,7 +907,7 @@ export default function AmourSunrisePreloader({
                   <circle className="amr-ring amr-ring-2" r={R} strokeWidth={Math.max(1.5, layout.stroke * 0.09)} />
                   <circle className="amr-ring amr-ring-3" r={R} strokeWidth={Math.max(1, layout.stroke * 0.06)} />
                   <g className="amr-sun">
-                    <circle r={R} fill={colors.sun} />
+                    <circle r={R} fill={colors.sunStops ? "url(#" + uid + "-fill)" : colors.sun} />
                     <circle r={R} fill={"url(#" + uid + "-sun)"} />
                   </g>
                 </g>

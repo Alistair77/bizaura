@@ -37,7 +37,7 @@ function SocialGlyph({ name }: { name: SocialName }) {
 
 /**
  * Minimal control from the hero reference: a black circular menu button (fixed, so the
- * menu is always one tap away) with a compact social stack beneath it.
+ * menu is always one tap away) with a compact social row to its left.
  */
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);

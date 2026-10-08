@@ -49,7 +49,7 @@ export function LetsBuild() {
         </p>
       </div>
 
-      <TornEdge edge="bottom" fill="var(--color-blue-deep)" seed={91} depth={26} />
+      <TornEdge edge="bottom" fill="var(--color-paper)" seed={91} depth={26} />
     </section>
   );
 }
@@ -84,7 +84,7 @@ export function AdmitOne() {
       <div className={styles.admitMedia}>
         <CinematicPhoto photo={PHOTOS.admitOne} sizes="(min-width: 900px) 55vw, 100vw" position="50% 45%" depth={1} />
         <div className={styles.admitShade} />
-        <TornEdge edge="left" fill="var(--color-blue-deep)" seed={113} depth={30} />
+        <TornEdge edge="left" fill="var(--color-paper)" seed={113} depth={30} />
       </div>
 
       <div className={`container ${styles.admitLayout}`}>
@@ -95,7 +95,7 @@ export function AdmitOne() {
           <h2 id="admit-heading" className={`display ${styles.admitHeading}`}>
             Admit one
             <br />
-            conversation.
+            <span className="accent-text">conversation.</span>
           </h2>
           <p className={styles.admitLead}>
             Have an idea, event or partnership in mind?

@@ -26,7 +26,6 @@
     radial-gradient(34% 30% at 6% 88%, rgb(76 123 255 / 0.07), transparent 70%),
     var(--bg);
   color: var(--white);
-  font-family: var(--font-tight), "Inter", system-ui, sans-serif;
   overflow: clip;
   isolation: isolate;
 }
@@ -109,55 +108,29 @@
 
 /* ---------- A. Left column ---------- */
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 18px;
   margin: 0;
-}
-.brandNum {
-  font-size: clamp(0.9rem, 1.109vw, 1.375rem);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--grey-muted);
-}
-.brandLabel {
-  font-size: clamp(0.8rem, 1.009vw, 1.25rem);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.brandRule {
-  width: clamp(60px, 6.5vw, 128px);
-  height: 1.5px;
-  background: var(--grey-muted);
-  opacity: 0.6;
 }
 .spine {
   display: none;
 }
 .headline {
   margin: 26px 0 0;
-  font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(2.2rem, 2.925vw, 3.625rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  letter-spacing: -0.032em;
   text-shadow: 0 0 24px rgb(255 255 255 / 0.8);
 }
 .hLine {
   display: block;
 }
-.hPink {
-  color: var(--pink);
-}
 .para {
   max-width: 44ch;
   margin: 26px 0 0;
-  font-size: clamp(1.05rem, 1.311vw, 1.625rem);
+  font-size: clamp(1.0625rem, 0.9rem + 0.45vw, 1.375rem);
   font-weight: 400;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
   color: var(--text-soft);
 }
 .cta {
@@ -262,9 +235,9 @@
   }
 }
 .nodeLabel {
-  font-size: clamp(0.95rem, 1.21vw, 1.5rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: clamp(0.875rem, 0.7rem + 0.5vw, 1.125rem);
+  font-weight: 700;
+  letter-spacing: -0.005em;
   text-align: center;
 }
 
@@ -372,25 +345,24 @@
 .bigNum {
   margin: 0;
   font-size: clamp(2.4rem, 3.227vw, 4rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--pink);
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 .detailTitle {
-  margin: 10px 0 0;
-  font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
+  margin: 8px 0 0;
   font-size: clamp(2rem, 2.623vw, 3.25rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  letter-spacing: -0.032em;
 }
 .detailSub {
   margin: 12px 0 0;
-  font-size: clamp(1.3rem, 1.614vw, 2rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.125rem, 0.95rem + 0.55vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
 }
 .divider {
   display: block;
@@ -412,9 +384,9 @@
 .detailBody {
   max-width: 42ch;
   margin: 22px 0 0;
-  font-size: clamp(1.05rem, 1.311vw, 1.625rem);
+  font-size: clamp(1rem, 0.88rem + 0.35vw, 1.25rem);
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.55;
   color: var(--text-soft);
 }
 .nextRow {
@@ -425,7 +397,10 @@
   margin-top: 30px;
   padding: 0;
   color: var(--grey-muted);
-  font-size: clamp(0.95rem, 1.21vw, 1.5rem);
+  font-size: var(--text-micro);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   text-align: left;
   border-radius: 8px;
 }
@@ -433,8 +408,9 @@ a.nextRow {
   text-decoration: none;
 }
 .nextText strong {
+  margin-left: 4px;
   color: var(--color-ink);
-  font-weight: 400;
+  font-weight: 800;
 }
 .nextLine {
   flex: 1;
@@ -493,7 +469,7 @@ a.nextRow {
     font-size: 44px;
   }
   .para {
-    font-size: 22px;
+    font-size: 19px;
     max-width: 60ch;
   }
   .stepper {
@@ -674,10 +650,10 @@ a.nextRow {
     font-size: 36px;
   }
   .detailSub {
-    font-size: 22px;
+    font-size: 19px;
   }
   .detailBody {
-    font-size: 18px;
+    font-size: 17px;
   }
   .cardWrap {
     position: relative;

@@ -1,6 +1,6 @@
 /* =========================================================
    Minimal control (hero reference): black circular menu, top-right,
-   with a compact white social stack beneath it. No navigation bar.
+   with a compact white social row beside it. No navigation bar.
    ========================================================= */
 .header {
   --edge-top: clamp(16px, 3.5vh, 33px);
@@ -70,14 +70,14 @@
   transform: translateY(-6.75px) rotate(-45deg);
 }
 
-/* Social stack: belongs to the hero, scrolls away with it. */
+/* Social row: left of the menu, centred on it; belongs to the hero, scrolls away with it. */
 .social {
+  --social-size: 44px;
   position: absolute;
-  top: calc(var(--edge-top) + var(--menu-size) + 11px);
-  right: calc(var(--edge-right) + (var(--menu-size) - 44px) / 2);
+  top: calc(var(--edge-top) + (var(--menu-size) - var(--social-size)) / 2);
+  right: calc(var(--edge-right) + var(--menu-size) + 12px);
   display: flex;
-  flex-direction: column;
-  gap: 11px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -89,8 +89,8 @@
 .socialBtn {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: var(--social-size);
+  height: var(--social-size);
   border: 1px solid rgb(0 0 0 / 0.1);
   border-radius: 50%;
   background: #fff;
@@ -194,12 +194,9 @@
     --menu-size: 48px;
   }
   .social {
+    --social-size: 40px;
     gap: 8px;
-    right: calc(var(--edge-right) + (var(--menu-size) - 40px) / 2);
-  }
-  .socialBtn {
-    width: 40px;
-    height: 40px;
+    right: calc(var(--edge-right) + var(--menu-size) + 10px);
   }
 }
 

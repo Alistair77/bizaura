@@ -29,36 +29,50 @@ export function Platforms() {
 
       <div className={`container ${styles.layout}`}>
         <div className={styles.story} data-reveal>
-          <p className={styles.label}>Bespoke experiences</p>
+          <p className="eyebrow">
+            <span className="eyebrow__num">04</span> Bespoke experiences <span className="eyebrow__rule" />
+          </p>
           <h2 id="platforms-heading" className={`display ${styles.heading}`}>
-            <span className={styles.row}>We create</span>
-            <span className={`${styles.row} ${styles.violet}`}>platforms</span>
-            <span className={styles.row}>where things</span>
-            <span className={`${styles.row} ${styles.pink}`}>happen.</span>
+            We create platforms where things <span className="accent-text">happen.</span>
           </h2>
           <a className="btn" href="#admit-one">
             Get in the room <Icon name="arrow" size={16} className="btn__arrow" />
           </a>
         </div>
 
-        <ol className={styles.timeline} data-reveal aria-label="What happens in the room">
+        <ol className={styles.steps} aria-label="What happens in the room">
           {PLATFORM_TIMELINE.map((step, i) => (
             <li
               key={step.num}
               className={styles.step}
               data-accent={step.accent}
-              style={{ "--i": i } as React.CSSProperties}
+              data-reveal
+              style={{ "--reveal-delay": `${i * 120}ms` } as React.CSSProperties}
             >
-              <span className={styles.node} aria-hidden="true">
-                {step.num}
-              </span>
+              <div className={styles.stepHead}>
+                <span className={styles.stepIcon} aria-hidden="true">
+                  <Icon name={step.icon} size={22} />
+                </span>
+                <span className={styles.stepLabel}>In the room · {step.num}</span>
+              </div>
               <p className={styles.stepText}>{step.text}</p>
+              <svg className={styles.stepArc} viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="90 300" />
+              </svg>
             </li>
           ))}
-          <li className={`${styles.step} ${styles.closing}`} style={{ "--i": PLATFORM_TIMELINE.length } as React.CSSProperties}>
-            <span className={styles.node} aria-hidden="true">
-              →
-            </span>
+          <li
+            className={`${styles.step} ${styles.closing}`}
+            data-reveal
+            style={{ "--reveal-delay": `${PLATFORM_TIMELINE.length * 120}ms` } as React.CSSProperties}
+          >
+            <div className={styles.stepHead}>
+              <span className={styles.stepIcon} aria-hidden="true">
+                <Icon name="arrow" size={22} />
+              </span>
+              <span className={styles.stepLabel}>Where things happen</span>
+            </div>
             <p className={styles.closingText}>
               We like putting interesting people in <em>interesting rooms</em>. Because that’s where things happen.
             </p>

@@ -77,6 +77,10 @@ button {
 
 /* ---------- Layout primitives ---------- */
 .container {
+  /* Lifted above the absolutely positioned plasma/grain washes, which would otherwise
+     paint over static content and grey it out. */
+  position: relative;
+  z-index: 1;
   width: min(100% - 2 * var(--gutter), var(--container-max));
   margin-inline: auto;
 }
@@ -133,6 +137,16 @@ button {
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
   text-wrap: balance;
+}
+
+/* The one heading accent (hero/spine language): a single violet → pink word per headline. */
+.accent-text {
+  width: fit-content;
+  padding-right: 0.06em;
+  background: linear-gradient(92deg, var(--color-violet-deep) 0%, var(--color-pink-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hand {
@@ -316,7 +330,7 @@ button {
 /* ---------- Scroll reveal (only armed when JS is running) ---------- */
 .js [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, var(--reveal-y, 18px), 0);
+  transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 18px), 0);
   transition:
     opacity var(--duration-slow) var(--ease-out),
     transform var(--duration-slow) var(--ease-out);

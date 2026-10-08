@@ -185,9 +185,9 @@
 }
 .tagArrow {
   position: absolute;
-  left: calc(100% + 0.45em);
-  top: 0.05em;
-  width: clamp(86px, 8.1vw, 138px);
+  left: calc(100% + 0.35em);
+  top: 0.55em;
+  width: 2.7em;
   height: auto;
 }
 .handArrow {
@@ -439,7 +439,7 @@
 .cardAccess {
   --rot: 10deg;
   left: 72.3%;
-  top: 56%;
+  top: 69%;
   animation-delay: 1250ms;
 }
 .cardFloat {
@@ -541,9 +541,9 @@
 /* Pencil note, upper right */
 .note {
   position: absolute;
-  left: 79.6%;
-  top: 33.6%;
-  font-size: clamp(24px, 1.98vw, 34px);
+  left: -4.4em;
+  top: -9.27em;
+  font-size: inherit;
   rotate: -16deg;
   transform-origin: 0 50%;
   pointer-events: none;
@@ -582,6 +582,53 @@
 }
 .note .drawStroke {
   animation-delay: 1600ms;
+}
+
+/* Right-side group (note → arrow → video), anchored at the video's centre in the note's em. */
+.clip {
+  position: absolute;
+  left: 83.7%;
+  top: 51.2%;
+  width: 0;
+  height: 0;
+  /* Scales with height too, so the group keeps clear of the header on short laptops. */
+  font-size: clamp(22px, min(1.98vw, 3.3vh), 34px);
+}
+.clipVideo {
+  position: absolute;
+  left: -5.6em;
+  top: -3.15em;
+  width: 11.2em;
+  max-width: none;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 18px;
+  rotate: 9deg;
+  pointer-events: none;
+  background: #ece8f3;
+  /* Softened, slightly warm, restrained — sits in the plasma rather than on it. */
+  filter: saturate(0.86) contrast(0.95) sepia(0.06);
+  box-shadow:
+    0 22px 40px -26px rgb(48 28 110 / 0.45),
+    0 1px 3px rgb(17 17 17 / 0.08);
+  animation: riseIn 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 1450ms both;
+}
+.clipArrow {
+  position: absolute;
+  left: -5.95em;
+  top: -7.25em;
+  width: 2em;
+  max-width: none;
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+}
+.clipArrow .drawStroke {
+  animation-delay: 2000ms;
+}
+.clipArrow .drawHead {
+  animation-delay: 2750ms;
 }
 
 /* ---------- Entrance ---------- */
@@ -628,7 +675,7 @@
   .cardReach {
     --rot: -2deg;
   }
-  .note {
+  .clip {
     display: none;
   }
 }
@@ -695,7 +742,8 @@
   .chip,
   .cardPos,
   .cardFloat,
-  .note {
+  .note,
+  .clipVideo {
     animation: none;
   }
   .chip {
