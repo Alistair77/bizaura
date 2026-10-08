@@ -58,10 +58,11 @@ export const PHOTOS = {
 
 /**
  * Hero editorial clip: Pexels video 19540281 (free Pexels licence), hotlinked like the
- * Unsplash photos above. 960×540 (~680 KB) — sharp at the ~300px frame on 2× screens.
+ * Unsplash photos above. 1280×720 (~2.7 MB, 20 s loop): Pexels' "sd_960" file is really
+ * 426×240 and goes soft at the ~280px frame on 2× screens.
  */
 export const HERO_CLIP = {
-  src: "https://videos.pexels.com/video-files/19540281/19540281-sd_960_540_24fps.mp4",
+  src: "https://videos.pexels.com/video-files/19540281/19540281-hd_1280_720_24fps.mp4",
   poster:
     "https://images.pexels.com/videos/19540281/pexels-photo-19540281.jpeg?auto=compress&cs=tinysrgb&w=720&h=405&fit=crop",
 } as const;

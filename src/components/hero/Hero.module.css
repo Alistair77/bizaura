@@ -185,9 +185,9 @@
 }
 .tagArrow {
   position: absolute;
-  left: calc(100% + 0.35em);
-  top: 0.55em;
-  width: 2.7em;
+  left: calc(100% - 0.55em);
+  top: -0.49em;
+  width: 2.6em;
   height: auto;
 }
 .handArrow {
@@ -424,22 +424,30 @@
   transition: rotate 280ms ease;
   animation: riseIn 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
+/* Placed by centre so the two rows mirror each other across the headline:
+   Opportunities ↔ video (top row), Reach ↔ Access (bottom row). */
+.cardOpp,
+.cardReach,
+.cardAccess {
+  translate: -50% -50%;
+}
 .cardOpp {
   --rot: 7.5deg;
-  left: 9.1%;
-  top: 19.4%;
+  left: 16.3%;
+  top: 33%;
   animation-delay: 1050ms;
 }
 .cardReach {
   --rot: -10deg;
-  left: 5.1%;
-  top: 46.8%;
+  /* Never closer than ~18px to the screen edge (the card barely shrinks below 1440px). */
+  left: max(13.3%, 184px);
+  top: 73%;
   animation-delay: 1150ms;
 }
 .cardAccess {
   --rot: 10deg;
-  left: 72.3%;
-  top: 69%;
+  left: min(85.3%, calc(100% - 206px));
+  top: 73%;
   animation-delay: 1250ms;
 }
 .cardFloat {
@@ -541,8 +549,8 @@
 /* Pencil note, upper right */
 .note {
   position: absolute;
-  left: -4.4em;
-  top: -9.27em;
+  left: -5.64em;
+  top: 5.85em;
   font-size: inherit;
   rotate: -16deg;
   transform-origin: 0 50%;
@@ -564,11 +572,13 @@
 .noteIndent {
   padding-left: 0.85em;
 }
+/* Emphasis strokes at the video's top-left corner (clip-group em). */
 .sparks {
   position: absolute;
-  left: -1.45em;
-  top: -0.95em;
+  left: -6.25em;
+  top: -5.35em;
   width: 1.4em;
+  max-width: none;
   height: 1.4em;
   overflow: visible;
 }
@@ -580,7 +590,8 @@
   height: 1.05em;
   overflow: visible;
 }
-.note .drawStroke {
+.note .drawStroke,
+.sparks .drawStroke {
   animation-delay: 1600ms;
 }
 
@@ -588,37 +599,42 @@
 .clip {
   position: absolute;
   left: 83.7%;
-  top: 51.2%;
+  top: 33%;
   width: 0;
   height: 0;
   /* Scales with height too, so the group keeps clear of the header on short laptops. */
   font-size: clamp(22px, min(1.98vw, 3.3vh), 34px);
 }
-.clipVideo {
+/* The footage is the frame: crisp edge, soft radius, a lilac-tinted drop shadow. */
+.clipFrame {
   position: absolute;
   left: -5.6em;
   top: -3.15em;
   width: 11.2em;
-  max-width: none;
-  height: auto;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
+  overflow: hidden;
   border-radius: 18px;
-  rotate: 9deg;
-  pointer-events: none;
   background: #ece8f3;
-  /* Softened, slightly warm, restrained — sits in the plasma rather than on it. */
-  filter: saturate(0.86) contrast(0.95) sepia(0.06);
   box-shadow:
-    0 22px 40px -26px rgb(48 28 110 / 0.45),
-    0 1px 3px rgb(17 17 17 / 0.08);
+    0 26px 46px -26px rgb(48 28 110 / 0.5),
+    0 2px 6px rgb(17 17 17 / 0.08);
+  rotate: 10deg;
+  pointer-events: none;
   animation: riseIn 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 1450ms both;
 }
+.clipVideo {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+/* Pencil arrow from the end of "people," curving up into the video. */
 .clipArrow {
   position: absolute;
-  left: -5.95em;
-  top: -7.25em;
-  width: 2em;
+  left: -0.77em;
+  top: 3.55em;
+  width: 2.7em;
   max-width: none;
   height: auto;
   overflow: visible;
@@ -644,8 +660,21 @@
   }
 }
 
-/* ---------- ≤1199px: cards leave the ring and line up beneath the content ---------- */
-@media (max-width: 1199px) {
+/* ---------- 1280–1359px: cards a touch smaller so the mirrored rows clear the CTAs and pills ---------- */
+@media (min-width: 1280px) and (max-width: 1359px) {
+  .cardPos {
+    scale: 0.84;
+  }
+  .cardReach {
+    left: max(13.3%, 158px);
+  }
+  .cardAccess {
+    left: min(85.3%, calc(100% - 180px));
+  }
+}
+
+/* ---------- ≤1279px: cards leave the ring and line up beneath the content ---------- */
+@media (max-width: 1279px) {
   .hero {
     padding-bottom: 64px;
   }
@@ -666,6 +695,7 @@
     position: relative;
     left: auto;
     top: auto;
+    translate: none;
     max-width: 100%;
   }
   .cardOpp,
@@ -743,7 +773,7 @@
   .cardPos,
   .cardFloat,
   .note,
-  .clipVideo {
+  .clipFrame {
     animation: none;
   }
   .chip {
