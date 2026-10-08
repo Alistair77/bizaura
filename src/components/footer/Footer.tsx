@@ -50,7 +50,7 @@ export function Footer() {
               strokeLinecap="round"
             />
           </svg>
-          <p className={styles.tagline}>Where access turns into outcomes.</p>
+          <p className={styles.tagline}>Access turns into outcomes.</p>
           <svg
             className={styles.squiggle}
             viewBox="0 0 180 20"

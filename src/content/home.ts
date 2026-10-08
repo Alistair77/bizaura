@@ -12,7 +12,7 @@ export const SITE_URL = "https://www.bizoramedia.com";
 /** Base path the site is served from (GitHub Pages project site). */
 export const BASE_PATH = "/bizaura";
 
-export type Accent = "violet" | "pink" | "blue" | "red" | "navy" | "yellow";
+export type Accent = "violet" | "pink" | "blue" | "red" | "navy" | "slate" | "yellow";
 
 export interface Photo {
   src: string;
@@ -167,30 +167,30 @@ export const EVENTS: EventItem[] = [
 export const SPINE_PILLARS = [
   {
     num: "01",
-    title: "Right Intelligence",
+    title: "Intelligence",
     body: "Research, insights and industry intelligence that keeps you ahead.",
     accent: "violet",
     image: photo("1551288049-bebda4e38f71", "Analytics dashboard on a tablet screen"),
   },
   {
     num: "02",
-    title: "Right Media",
+    title: "Media",
     body: "Video, photo, audio and content that tell your story with impact.",
     accent: "blue",
     image: photo("1475721027785-f74eccf877e2", "Microphone in front of a live audience"),
   },
   {
     num: "03",
-    title: "Right People",
+    title: "People",
     body: "Communities, leaders and industry voices in one place.",
     accent: "pink",
     image: photo("1515169067868-5387ec356754", "Professionals in conversation at an evening event"),
   },
   {
     num: "04",
-    title: "Right Opportunities",
+    title: "Opportunity",
     body: "Events, partnerships and market access that create real outcomes.",
-    accent: "red",
+    accent: "navy",
     image: photo("1561489396-888724a1543d", "Panel discussion on a round stage before an audience"),
   },
 ] as const;
@@ -209,7 +209,7 @@ export const BUILD_CARDS = [
     pill: "We bring to new markets",
     title: "Licensed Brands",
     body: ["Global ideas.", "Local markets."],
-    accent: "pink",
+    accent: "navy",
     icon: "globe",
   },
   {
@@ -217,7 +217,7 @@ export const BUILD_CARDS = [
     pill: "We build with others",
     title: "Partner Platforms",
     body: ["Joint ventures.", "Shared growth."],
-    accent: "blue",
+    accent: "slate",
     icon: "handshake",
   },
   {
@@ -231,7 +231,7 @@ export const BUILD_CARDS = [
 ] as const;
 
 export const PLATFORM_TIMELINE = [
-  { num: "01", text: "Ideas get challenged.", accent: "red", icon: "bulb" },
+  { num: "01", text: "Ideas get challenged.", accent: "navy", icon: "bulb" },
   { num: "02", text: "Connections get made.", accent: "blue", icon: "handshake" },
   { num: "03", text: "Opportunities take shape.", accent: "pink", icon: "spark" },
 ] as const;
@@ -266,36 +266,36 @@ export const ROLES = [
 export const ENGAGE_STAGES = [
   {
     num: "01",
-    title: "Understand",
-    summary: "Your goals and audience.",
+    title: "We Understand",
+    summary: "We understand your goals and audience.",
     detail: "We start by understanding your business, your markets and the people you want to reach.",
     image: photo("1517245386807-bb43f82c33c4", "Hands and a laptop around a meeting table during a briefing"),
   },
   {
     num: "02",
-    title: "Plan",
-    summary: "The right format and partners.",
+    title: "We Plan",
+    summary: "We plan the right format and partners.",
     detail: "We shape the format, the room and the partners that fit what you want to achieve.",
     image: photo("1552664730-d307ca884978", "A team planning in front of a wall of sticky notes"),
   },
   {
     num: "03",
-    title: "Create",
-    summary: "Events, content and community.",
+    title: "We Create",
+    summary: "We create events, content and community.",
     detail: "We produce the events, the content and the community moments that carry your story.",
     image: photo("1559523161-0fc0d8b38a7a", "A podcast being recorded with microphones and studio lighting"),
   },
   {
     num: "04",
-    title: "Activate",
-    summary: "Amplify across your platforms.",
+    title: "We Activate",
+    summary: "We activate and amplify across platforms.",
     detail: "We take it live and amplify it across your platforms and ours.",
     image: photo("1544531586-fde5298cdd40", "A speaker addressing a large live audience"),
   },
   {
     num: "05",
-    title: "Deliver",
-    summary: "Real engagement and access.",
+    title: "We Deliver",
+    summary: "We deliver real engagement and access.",
     detail: "We close the loop with real engagement, real introductions and real access.",
     image: photo("1600880292089-90a7e086ee0c", "Colleagues joining hands over a table"),
   },

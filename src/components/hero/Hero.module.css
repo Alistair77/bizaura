@@ -54,7 +54,7 @@
   inset: 0;
   background:
     radial-gradient(
-      ellipse 31% 41% at 50% 51%,
+      ellipse 31% 41% at 42% 51%,
       rgb(255 255 255 / 0.97) 0%,
       rgb(255 255 255 / 0.9) 45%,
       rgb(255 255 255 / 0.5) 75%,
@@ -69,22 +69,39 @@
   overflow: hidden;
 }
 
-/* ---------- Editorial stack (z 10) ---------- */
+/* ---------- Editorial composition (z 10): left-aligned copy, video right ---------- */
 .stack {
   position: relative;
   z-index: 10;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+  column-gap: clamp(32px, 4vw, 72px);
   align-items: center;
   width: 100%;
-  padding: clamp(88px, 13.2vh, 130px) 20px clamp(56px, 11vh, 120px);
-  text-align: center;
+  max-width: 1440px;
+  flex: 1;
+  margin: 0 auto;
+  padding: clamp(88px, 13.2vh, 130px) clamp(24px, 6vw, 96px) clamp(56px, 11vh, 120px);
+  text-align: left;
   /* The stack spans the hero width; only its own controls take the pointer. */
   pointer-events: none;
 }
 .stack a,
 .stack li {
   pointer-events: auto;
+}
+/* Left column: the reading flow. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+/* Right column: hosts the pencil video group. */
+.media {
+  position: relative;
+  width: 100%;
+  height: clamp(420px, 37vw, 540px);
 }
 
 /* Logo — still; only the pupil follows the pointer */
@@ -150,11 +167,11 @@
   letter-spacing: 0;
 }
 
-/* Pencil tagline: slightly left of the axis, rising gently to the right */
+/* Pencil tagline above the logo block, rising gently to the right */
 .tagline {
   position: relative;
   margin-top: clamp(8px, 1.3vh, 16px);
-  translate: -2.1vw 0;
+  translate: none;
   rotate: -3.4deg;
   animation: fadeIn 700ms ease-out 380ms both;
 }
@@ -284,7 +301,7 @@
   z-index: 20;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: clamp(12px, 1.15vw, 19px);
   margin-top: clamp(20px, 3.3vh, 32px);
   animation: riseIn 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 860ms both;
@@ -294,12 +311,12 @@
   align-items: center;
   justify-content: center;
   gap: 14px;
-  height: clamp(52px, 3.5vw, 60px);
-  padding: 0 clamp(28px, 2.8vw, 48px);
+  height: clamp(56px, 3.8vw, 64px);
+  padding: 0 clamp(32px, 3vw, 52px);
   border: 1.5px solid #050505;
   border-radius: 999px;
   font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: clamp(15px, 1.02vw, 17.5px);
+  font-size: clamp(16px, 1.05vw, 18px);
   font-weight: 600;
   white-space: nowrap;
   transition:
@@ -311,20 +328,20 @@
   transform: translateY(-2px);
 }
 .btn:active {
-  transform: translateY(6px) scale(0.99);
+  transform: translateY(8px) scale(0.99);
 }
 .primary {
   background: #050505;
   color: #fff;
   box-shadow:
     0 12px 26px -16px rgb(0 0 0 / 0.6),
-    0 6px 0 rgb(0 0 0 / 0.85);
+    0 8px 0 rgb(0 0 0 / 0.85);
 }
 .primary:hover {
   background: #1b1b1f;
   box-shadow:
     0 16px 30px -16px rgb(0 0 0 / 0.6),
-    0 8px 0 rgb(0 0 0 / 0.85);
+    0 10px 0 rgb(0 0 0 / 0.85);
 }
 .primary:active {
   box-shadow: 0 0 0 transparent;
@@ -334,13 +351,13 @@
   color: #050505;
   box-shadow:
     0 12px 26px -16px rgb(0 0 0 / 0.35),
-    0 6px 0 #050505;
+    0 8px 0 #050505;
 }
 .secondary:hover {
   background: #f6f6f7;
   box-shadow:
     0 16px 30px -16px rgb(0 0 0 / 0.35),
-    0 8px 0 #050505;
+    0 10px 0 #050505;
 }
 .secondary:active {
   box-shadow: 0 0 0 transparent;
@@ -352,12 +369,13 @@
   transform: translateX(3px);
 }
 
-/* Industry chips — quiet metadata */
+/* Industry chips — quiet metadata, full row beneath the copy + video */
 .chips {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: clamp(8px, 0.9vw, 15px);
+  grid-column: 1 / -1;
   max-width: 900px;
   margin: clamp(18px, 2.9vh, 27px) 0 0;
   padding: 0;
@@ -596,15 +614,17 @@
   animation-delay: 1600ms;
 }
 
-/* Right-side group (note → arrow → video), anchored at the video's centre in the note's em. */
+/* Video group anchored in the right column: the em-sized unit (video 11.2em
+   wide, note + arrow below) stays centred on its origin, so the origin sits a
+   touch above middle to balance the note hanging underneath. */
 .clip {
   position: absolute;
-  left: 83.7%;
-  top: 33%;
+  left: 50%;
+  top: calc(50% - 1.75em);
   width: 0;
   height: 0;
-  /* Scales with height too, so the group keeps clear of the header on short laptops. */
-  font-size: clamp(22px, min(1.98vw, 3.3vh), 34px);
+  /* Video lands at ~column width (11.2em), growing with the viewport. */
+  font-size: clamp(26px, 2.75vw, 41px);
 }
 /* Frame look comes from EditorialVideo; here only its place and size in the group. */
 .clipFrame {
@@ -665,17 +685,17 @@
     padding-bottom: 64px;
   }
   .stack {
-    padding-bottom: 40px;
-  }
-  .field {
-    position: relative;
-    inset: auto;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 22px 28px;
-    width: 100%;
-    padding: 8px 24px 0;
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 40px;
+    text-align: left;
+  }
+  /* Video stacks beneath the copy, centred. */
+  .media {
+    width: min(100%, 440px);
+    height: auto;
+    margin: 32px auto 0;
   }
   .cardPos {
     position: relative;
@@ -691,8 +711,41 @@
   .cardReach {
     --rot: -2deg;
   }
+  /* Video group flows as a normal block beneath the copy. */
   .clip {
+    display: block;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+  }
+  .clipFrame {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    pointer-events: auto;
+  }
+  .sparks,
+  .clipArrow {
     display: none;
+  }
+  .note {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin-top: 14px;
+    text-align: center;
+  }
+  .noteText {
+    white-space: normal;
+  }
+  .swoosh {
+    left: 50%;
+    top: 100%;
+    translate: -50% 0;
   }
 }
 

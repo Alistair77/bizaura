@@ -15,7 +15,7 @@
 .head {
   display: grid;
   /* Headline keeps room for "Some we build with others." on one line beside the video. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
   gap: var(--space-between);
   align-items: end;
 }
@@ -47,7 +47,7 @@
 .visual {
   position: relative;
   justify-self: end;
-  width: min(100%, 400px);
+  width: min(100%, 480px);
   margin-bottom: 28px;
 }
 :global(.js) .visual[data-reveal] {
@@ -199,6 +199,11 @@
   --vivid: #1d3f8f;
   --deep: #1d3f8f;
   --dark: var(--color-navy);
+}
+.card[data-accent="slate"] {
+  --vivid: #7c8698;
+  --deep: #414a5e;
+  --dark: #232936;
 }
 
 .cardTop {

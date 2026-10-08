@@ -171,7 +171,9 @@
   opacity: 0;
   transform: scale(0.6) rotate(-90deg);
 }
-/* Hover: lift, deepen border, accent glow; the colour arrives as a growing shape (below). */
+/* Alternating spotlight: Mission carries the filled look until the pointer lands on
+   Vision — then the fill swaps across. Only one panel is ever lit. */
+.statements:not(:has(.statement:hover)) > .statement:first-child,
 .statement:hover {
   transform: translateY(-5px);
   border-color: var(--accent-deep);
@@ -197,6 +199,7 @@
   transition: clip-path 720ms cubic-bezier(0.65, 0, 0.35, 1);
   pointer-events: none;
 }
+.statements:not(:has(.statement:hover)) > .statement:first-child::before,
 .statement:hover::before {
   clip-path: circle(160% at var(--origin));
 }
@@ -216,6 +219,7 @@
   border-radius: var(--radius-pill);
   transition: border-color 400ms ease 120ms;
 }
+.statements:not(:has(.statement:hover)) > .statement:first-child .statementHead,
 .statement:hover .statementHead {
   border-color: #fff;
 }
@@ -232,6 +236,7 @@
     background-color 400ms ease,
     color 400ms ease;
 }
+.statements:not(:has(.statement:hover)) > .statement:first-child .statementIcon,
 .statement:hover .statementIcon {
   background: #fff;
   color: var(--accent-deep);
@@ -243,15 +248,19 @@
 .statementLabel {
   transition: color 420ms ease 200ms;
 }
+.statements:not(:has(.statement:hover)) > .statement:first-child :is(.statementTitle, .statementBody, .statementLabel),
 .statement:hover :is(.statementTitle, .statementBody, .statementLabel) {
   transition-delay: 120ms;
 }
+.statements:not(:has(.statement:hover)) > .statement:first-child .statementTitle,
 .statement:hover .statementTitle {
   color: #fff;
 }
+.statements:not(:has(.statement:hover)) > .statement:first-child .statementBody,
 .statement:hover .statementBody {
   color: rgb(255 255 255 / 0.85);
 }
+.statements:not(:has(.statement:hover)) > .statement:first-child .statementLabel,
 .statement:hover .statementLabel {
   color: #fff;
 }
@@ -288,6 +297,7 @@
     color 500ms ease;
 }
 /* The rings zoom in and turn as the panel fills, then ease back out. */
+.statements:not(:has(.statement:hover)) > .statement:first-child .arc,
 .statement:hover .arc {
   opacity: 0.6;
   color: #fff;

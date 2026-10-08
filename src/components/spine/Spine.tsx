@@ -23,6 +23,9 @@ const ICONS = {
   red: (
     <path d="M3 10.5 7 7l4.5 1.8L16.5 7l4.5 3.5-3.5 4.5-2.8-1.8-2.2 1.8-2.2-1.8-1.8 1.8L3 10.5Z" />
   ),
+  navy: (
+    <path d="M3 10.5 7 7l4.5 1.8L16.5 7l4.5 3.5-3.5 4.5-2.8-1.8-2.2 1.8-2.2-1.8-1.8 1.8L3 10.5Z" />
+  ),
 } as const;
 
 type Accent = keyof typeof ICONS;
@@ -62,8 +65,8 @@ export function Spine() {
           </p>
           <h2 id="spine-heading" className={`display ${styles.heading}`}>
             <span className={styles.hLine}>
-              <span className={styles.rightFx}>Right</span> things. In the <span className={styles.rightFx}>right</span>{" "}
-              <span className={styles.hOrder}>order.</span>
+              Everything <span className={styles.rightFx}>right.</span> In the{" "}
+              <span className={styles.rightFx}>right</span> <span className={styles.hOrder}>order.</span>
             </span>
           </h2>
           <p className={styles.lead}>
@@ -86,6 +89,7 @@ export function Spine() {
           <ol className={styles.pillars}>
             {SPINE_PILLARS.map((pillar, i) => {
               const [first, ...rest] = pillar.title.split(" ");
+              const remainder = rest.join(" ");
               return (
                 <li
                   key={pillar.num}
@@ -115,8 +119,12 @@ export function Spine() {
                     </span>
                     <h3 className={styles.pillarTitle}>
                       <span className={styles.rightFx}>{first}</span>
-                      <br />
-                      {rest.join(" ")}
+                      {remainder ? (
+                        <>
+                          <br />
+                          {remainder}
+                        </>
+                      ) : null}
                     </h3>
                     <p className={styles.pillarBody}>{pillar.body}</p>
                   </div>

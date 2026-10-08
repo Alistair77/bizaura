@@ -49,7 +49,7 @@
   grid-column: 8 / -1;
   align-self: end;
   justify-self: end;
-  width: min(100%, 460px);
+  width: min(100%, 540px);
 }
 :global(.js) .visual[data-reveal] {
   --reveal-x: 64px;
@@ -124,6 +124,11 @@
 .step[data-accent="pink"] {
   --accent-deep: var(--color-pink-deep);
   --accent-dark: #8f1458;
+}
+.step[data-accent="navy"] {
+  --accent-deep: #1d3f8f;
+  --accent-dark: #00205b;
+  --icon-ink: #1d3f8f;
 }
 .step > :not(.stepArc) {
   position: relative;

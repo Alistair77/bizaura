@@ -8,8 +8,7 @@
   --a-pink: #d61f82;
   --a-red: #d92d20;
   position: relative;
-  padding-top: clamp(3.5rem, 6vw, 5.5rem);
-  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
   background:
     radial-gradient(42% 34% at 88% 6%, rgb(154 107 255 / 0.08), transparent 70%),
     radial-gradient(36% 30% at 4% 42%, rgb(76 123 255 / 0.07), transparent 70%),
@@ -102,6 +101,7 @@
 }
 .hLine {
   display: inline;
+  white-space: nowrap;
 }
 /* The repeated "Right" — identical white everywhere,
    except journey labels which take their node's accent underline. */
@@ -244,6 +244,12 @@
   --dark: #7d1a13;
   --accent: var(--a-red);
 }
+.pillar[data-accent="navy"] {
+  --vivid: #1d3f8f;
+  --deep: #1d3f8f;
+  --dark: #00205b;
+  --accent: #1d3f8f;
+}
 .pillarImgWrap {
   position: relative;
   flex: none;
@@ -370,6 +376,9 @@
 }
 .node[data-accent="red"] {
   --accent: var(--a-red);
+}
+.node[data-accent="navy"] {
+  --accent: #1d3f8f;
 }
 .connector {
   position: absolute;
@@ -650,6 +659,9 @@
 
 /* ---------- Tablet: stacked intro, scaled journey ---------- */
 @media (max-width: 1279px) {
+  .hLine {
+    white-space: normal;
+  }
   .intro {
     grid-column: 1 / -1;
     max-width: 640px;
@@ -732,6 +744,9 @@
   }
   .nodeV[data-accent="red"] {
     --accent: var(--a-red);
+  }
+  .nodeV[data-accent="navy"] {
+    --accent: #1d3f8f;
   }
   .dotV {
     position: absolute;

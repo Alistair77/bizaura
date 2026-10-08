@@ -182,13 +182,13 @@ button {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 52px;
-  padding: 0 26px;
+  min-height: 56px;
+  padding: 0 30px;
   border-radius: 16px;
   border: 2px solid var(--btn-border);
   background: var(--btn-bg);
   color: var(--btn-fg);
-  font-size: var(--text-small);
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -198,27 +198,35 @@ button {
     color var(--duration-fast) ease,
     box-shadow var(--duration-medium) var(--ease-out);
 }
-/* Retro press physics: chunky key shadow that compresses on click. */
+/* Chunky 3D key: a solid base edge plus a soft ambient lift. */
 .btn {
-  box-shadow: 0 4px 0 rgb(17 17 17 / 0.22);
+  box-shadow:
+    0 6px 0 rgb(17 17 17 / 0.25),
+    0 18px 28px -18px rgb(0 0 0 / 0.5);
 }
 .btn--ghost {
   box-shadow: none;
 }
 /* Outline-light on dark: visible white key edge. */
 .btn--outline-light {
-  box-shadow: 0 4px 0 rgb(255 255 255 / 0.35);
+  box-shadow:
+    0 6px 0 rgb(255 255 255 / 0.35),
+    0 18px 28px -18px rgb(0 0 0 / 0.6);
 }
 /* Yellow key: deeper retro edge. */
 .btn--yellow {
-  box-shadow: 0 5px 0 rgb(17 17 17 / 0.45);
+  box-shadow:
+    0 6px 0 rgb(17 17 17 / 0.45),
+    0 18px 28px -18px rgb(0 0 0 / 0.5);
 }
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px -12px rgb(0 0 0 / 0.5);
+  box-shadow:
+    0 8px 0 rgb(17 17 17 / 0.25),
+    0 24px 34px -18px rgb(0 0 0 / 0.55);
 }
 .btn:active {
-  transform: translateY(4px) scale(0.98);
+  transform: translateY(6px) scale(0.98);
   box-shadow: 0 0 0 transparent;
 }
 .btn__arrow {

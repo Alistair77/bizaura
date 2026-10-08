@@ -72,7 +72,7 @@ const organizationJsonLd = JSON.stringify({
   "@type": "Organization",
   name: "Bizora Media",
   url: SITE_URL,
-  slogan: "Where access turns into outcomes.",
+  slogan: "Access turns into outcomes.",
   email: CONTACT.email,
 });
 

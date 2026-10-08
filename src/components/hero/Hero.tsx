@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { INDUSTRIES } from "@/content/home";
 import { Icon } from "@/components/ui/Icon";
-import { GlassCard } from "./GlassCard";
 import { HandArrow } from "./HandArrow";
 import { HeroClip } from "./HeroClip";
 import { HeroLogo } from "./HeroLogo";
@@ -75,49 +74,54 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* z 10: the editorial stack — the headline is the visual axis */}
+      {/* z 10: left-aligned copy with the video docked on the right */}
       <div className={styles.stack}>
-        <HeroLogo />
+        <div className={styles.copy}>
+          <HeroLogo />
 
-        <div className={styles.tagline}>
-          <p className={styles.tagText}>
-            {TAGLINE.map((line, i) => (
-              <span key={i} className={styles.tagLine}>
-                {line.map((word) => (
-                  <span
-                    key={word.text}
-                    className={styles.tagWord}
-                    style={{ "--dy": `${word.dy}px`, "--rot": `${word.rot}deg` } as React.CSSProperties}
-                  >
-                    {word.text}
-                  </span>
-                ))}
-              </span>
-            ))}
+          <div className={styles.tagline}>
+            <p className={styles.tagText}>
+              {TAGLINE.map((line, i) => (
+                <span key={i} className={styles.tagLine}>
+                  {line.map((word) => (
+                    <span
+                      key={word.text}
+                      className={styles.tagWord}
+                      style={{ "--dy": `${word.dy}px`, "--rot": `${word.rot}deg` } as React.CSSProperties}
+                    >
+                      {word.text}
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </p>
+            <HandArrow className={styles.tagArrow} />
+          </div>
+
+          <h1 id="hero-heading" className={styles.headline}>
+            <span className={styles.line}>Access</span>{" "}
+            <span className={styles.line}>turns into</span>{" "}
+            <span className={`${styles.line} ${styles.gradient}`}>outcomes.</span>
+          </h1>
+
+          <p className={styles.sub}>
+            We bring the right intelligence, with the right media, to the right people, for the right
+            opportunities.
           </p>
-          <HandArrow className={styles.tagArrow} />
+
+          <div className={styles.ctas}>
+            <a className={`${styles.btn} ${styles.primary}`} href="#what-we-build">
+              See what we build
+              <Icon name="arrow" size={18} strokeWidth={2} className={styles.btnArrow} />
+            </a>
+            <a className={`${styles.btn} ${styles.secondary}`} href="#admit-one">
+              Start a conversation
+            </a>
+          </div>
         </div>
 
-        <h1 id="hero-heading" className={styles.headline}>
-          <span className={styles.line}>Where access</span>{" "}
-          <span className={styles.line}>turns into</span>{" "}
-          <span className={`${styles.line} ${styles.gradient}`}>outcomes.</span>
-        </h1>
-
-        <p className={styles.sub}>
-          We bring the right intelligence, with the right media,{" "}
-          <br />
-          to the right people, for the right opportunities.
-        </p>
-
-        <div className={styles.ctas}>
-          <a className={`${styles.btn} ${styles.primary}`} href="#what-we-build">
-            See what we build
-            <Icon name="arrow" size={18} strokeWidth={2} className={styles.btnArrow} />
-          </a>
-          <a className={`${styles.btn} ${styles.secondary}`} href="#admit-one">
-            Start a conversation
-          </a>
+        <div className={styles.media}>
+          <HeroClip />
         </div>
 
         <ul className={styles.chips} aria-label="Industries we work across">
@@ -132,44 +136,6 @@ export function Hero() {
           ))}
           <li className={styles.chip}>+ more</li>
         </ul>
-      </div>
-
-      {/* z 5: the plasma ecosystem — cards and the pencil note */}
-      <div className={styles.field}>
-        <GlassCard
-          className={styles.cardOpp}
-          icon="people"
-          gradientFrom="#FF9A62"
-          gradientTo="#FF6A5C"
-          iconShadow="rgba(255, 106, 92, 0.35)"
-          title="Opportunities"
-          lines={["Discover and access", "meaningful opportunities."]}
-          href="#what-we-build"
-          label="Opportunities — Discover and access meaningful opportunities."
-        />
-        <GlassCard
-          className={styles.cardReach}
-          icon="chatDots"
-          gradientFrom="#7C6DF3"
-          gradientTo="#5048DE"
-          iconShadow="rgba(80, 72, 222, 0.35)"
-          title="Reach"
-          lines={["Get in front of the right", "audience and stakeholders."]}
-          href="#platforms"
-          label="Reach — Get in front of the right audience and stakeholders."
-        />
-        <GlassCard
-          className={styles.cardAccess}
-          icon="sprout"
-          gradientFrom="#58D99D"
-          gradientTo="#2DB879"
-          iconShadow="rgba(45, 184, 121, 0.35)"
-          title="Access"
-          lines={["Connect with the right", "people, knowledge and resources."]}
-          href="#how-we-engage"
-          label="Access — Connect with the right people, knowledge and resources."
-        />
-        <HeroClip />
       </div>
     </section>
   );
