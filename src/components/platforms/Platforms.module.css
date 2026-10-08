@@ -203,7 +203,7 @@
 }
 .closingText em {
   font-style: normal;
-  color: var(--color-yellow);
+  color: #fff;
   font-weight: 800;
 }
 

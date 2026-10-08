@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import { Plasma } from "@/components/hero/Plasma";
-import { HandArrow } from "@/components/ui/HandArrow";
-import { Icon } from "@/components/ui/Icon";
 import { SPINE_PILLARS } from "@/content/home";
 import styles from "./Spine.module.css";
 
@@ -56,32 +54,19 @@ export function Spine() {
         />
       </div>
       <div className={styles.dust} aria-hidden="true" />
-      <div className={styles.tornTL} aria-hidden="true" />
 
       <div className={`container ${styles.layout}`}>
         <div className={styles.intro}>
-          <p className={`eyebrow ${styles.kicker}`}>
-            <span className="eyebrow__num">02</span> Our spine <span className="eyebrow__rule" />
-          </p>
+          <p className={`eyebrow ${styles.kicker}`}>Our spine</p>
           <h2 id="spine-heading" className={`display ${styles.heading}`}>
             <span className={styles.hLine}>
-              Everything <span className={styles.rightFx}>right.</span> In the{" "}
-              <span className={styles.rightFx}>right</span> <span className={styles.hOrder}>order.</span>
+              Everything in the right <span className={styles.hOrder}>order.</span>
             </span>
           </h2>
           <p className={styles.lead}>
             Intelligence, media, people and opportunities — working together to create real outcomes across
             industries.
           </p>
-          <a className={styles.approach} href="#how-we-engage">
-            <span className={styles.circle}>
-              <Icon name="arrow" size={18} className={styles.circleArrow} />
-            </span>
-            <span className={styles.approachText}>Explore our approach</span>
-            <span className={styles.approachTail} aria-hidden="true">
-              →
-            </span>
-          </a>
           <span className={styles.spineRule} aria-hidden="true" />
         </div>
 
@@ -188,19 +173,6 @@ export function Spine() {
                 </li>
               ))}
             </ul>
-            <span className={styles.finishTag}>The right finish →</span>
-            <p className={`hand ${styles.note}`} aria-hidden="true">
-              <span className={styles.startTag}>Start right</span>
-              Ideas.
-              <br />
-              People.
-              <br />
-              Industries.
-              <br />
-              Opportunities.
-              <span className={styles.noteUnderline} />
-              <HandArrow variant="curlDownLeft" className={styles.noteArrow} />
-            </p>
           </div>
 
           {/* Vertical journey for small screens (horizontal wave hidden). */}

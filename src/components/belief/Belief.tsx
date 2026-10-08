@@ -36,7 +36,7 @@ function Statement({ label, title, body, icon, accent }: StatementProps) {
 
 export function Belief() {
   return (
-    <section id="belief" className={styles.section} aria-labelledby="belief-heading">
+    <section id="belief" className={styles.section} aria-label="Our belief">
       <div className="grain" />
       {/* Faint hero-plasma wash — light, never hyper. */}
       <div className={styles.beliefPlasma} aria-hidden="true">
@@ -55,10 +55,6 @@ export function Belief() {
       </div>
       <div className={`container ${styles.layout}`}>
         <div className={styles.stairArea}>
-          <h2 id="belief-heading" className="eyebrow" data-reveal>
-            <span className="eyebrow__num">07</span> Our belief <span className="eyebrow__rule" />
-          </h2>
-
           <div className={styles.stairWrap}>
             <ol className={styles.stairs}>
               {BELIEF_STEPS.map((step, i) => {

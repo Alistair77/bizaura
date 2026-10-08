@@ -47,10 +47,14 @@
   pointer-events: none;
 }
 
-/* ---------- Section marker ---------- */
-.marker {
+/* ---------- Section marker: words only, set larger ---------- */
+.markerTitle {
   position: relative;
   z-index: 1;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #101010;
 }
 
 /* ---------- Layout: editorial + passes ---------- */
@@ -139,6 +143,9 @@
 }
 .passWrap[data-accent="red"] {
   --sheet: #f0443d;
+}
+.passWrap[data-accent="navy"] {
+  --sheet: #1d3f8f;
 }
 
 /* Coloured backing paper — secondary, mostly covered by the badge. */
@@ -281,14 +288,13 @@
   border-radius: 4px;
   background: var(--sheet);
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
+  line-height: 1.25;
   letter-spacing: 0.02em;
   text-align: center;
   text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-wrap: balance;
 }
 .desc {
   min-height: 3.75em;

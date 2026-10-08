@@ -107,8 +107,12 @@
 }
 
 /* ---------- A. Left column ---------- */
-.brand {
+.brandTitle {
   margin: 0;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
 }
 .spine {
   display: none;
@@ -530,7 +534,7 @@ a.nextRow {
     top: 66%;
     margin-top: 0;
   }
-  .brand {
+  .brandTitle {
     position: absolute;
     left: 3.7%;
     top: 12%;

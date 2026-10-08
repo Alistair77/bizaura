@@ -63,7 +63,7 @@ button {
   cursor: pointer;
 }
 
-/* Two-tone ring: the ink line reads on paper, the yellow halo on navy and blue. */
+/* Two-tone ring: the ink line reads on paper, the blue halo on navy and blue. */
 :focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: 2px;
@@ -72,7 +72,7 @@ button {
 
 ::selection {
   background: var(--color-yellow);
-  color: var(--color-ink);
+  color: #fff;
 }
 
 /* ---------- Layout primitives ---------- */
@@ -259,7 +259,7 @@ button {
 }
 .btn--yellow {
   --btn-bg: var(--color-yellow);
-  --btn-fg: var(--color-ink);
+  --btn-fg: #fff;
   --btn-border: var(--color-yellow);
 }
 .btn--sm {

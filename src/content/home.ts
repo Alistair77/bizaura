@@ -91,10 +91,10 @@ export const NAV_LINKS = [
 ] as const;
 
 export const INDUSTRIES = [
-  "Automotive & Mobility",
-  "Technology",
-  "Manufacturing",
-  "Infrastructure",
+  "Business",
+  "Opportunity",
+  "Reach",
+  "Access",
 ] as const;
 
 export const HERO_INSIGHTS = [
@@ -238,27 +238,27 @@ export const PLATFORM_TIMELINE = [
 
 export const ROLES = [
   {
-    role: "Delegate",
+    role: "Businesses",
     body: "Be part of the right conversations.",
     accent: "blue",
     image: photo("1531058020387-3be344556be6", "Placeholder: delegates seated in a conference hall"),
   },
   {
-    role: "Leader",
+    role: "Industry leaders",
     body: "Share ideas and shape what’s next.",
     accent: "violet",
     image: photo("1544531586-fde5298cdd40", "Placeholder: speaker addressing a large audience"),
   },
   {
-    role: "Partner",
+    role: "Industry associates",
     body: "Collaborate on events, content and communities.",
     accent: "pink",
     image: photo("1515187029135-18ee286d815b", "Placeholder: group discussion in a creative space"),
   },
   {
-    role: "Global Brand",
+    role: "Global brands and media",
     body: "Enter, expand and build in India.",
-    accent: "red",
+    accent: "navy",
     image: photo("1582192730841-2a682d7375f9", "Placeholder: conference stage with large screen"),
   },
 ] as const;

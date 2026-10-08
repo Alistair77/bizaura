@@ -77,23 +77,18 @@ export function WhoWeWorkWith() {
       </div>
 
       <div className="container">
-        <p className={`eyebrow ${styles.marker}`} data-reveal>
-          <span className="eyebrow__num">05</span> Who we work with <span className="eyebrow__rule" />
+        <p className={styles.markerTitle} data-reveal>
+          Who we work with
         </p>
 
         <div className={styles.layout}>
           <div className={styles.editorial}>
             <div data-reveal style={{ "--reveal-delay": "100ms" } as React.CSSProperties}>
               <h2 id="roles-heading" className={`display ${styles.heading}`}>
-                <span className={styles.hLine}>Different</span>
-                <span className={styles.hLine}>roles.</span>
-                <span className={`${styles.hLine} accent-text`}>A shared</span>
-                <span className={`${styles.hLine} accent-text`}>purpose.</span>
+                <span className={styles.hLine}>The people shaping</span>
+                <span className={styles.hLine}>business, industry,</span>
+                <span className={`${styles.hLine} accent-text`}>and what’s next.</span>
               </h2>
-              <p className={styles.lead}>
-                Different passes.
-                <br />A shared purpose.
-              </p>
             </div>
             <p
               className={`hand ${styles.note}`}
@@ -102,8 +97,6 @@ export function WhoWeWorkWith() {
               style={{ "--reveal-delay": "220ms" } as React.CSSProperties}
             >
               Same room.
-              <br />
-              Different roles.
               <br />
               Bigger outcomes.
               <HandArrow variant="sweepDownRight" className={styles.noteArrow} />

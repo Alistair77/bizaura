@@ -19,13 +19,10 @@ export function LetsBuild() {
 
       <div className={`container ${styles.letsLayout}`}>
         <div className={styles.letsCopy} data-reveal>
-          <p className="eyebrow">
-            <span className="eyebrow__num">08</span> Let’s build what’s next <span className="eyebrow__rule" />
-          </p>
           <h2 id="lets-heading" className={`display ${styles.letsHeading}`}>
-            Let’s build something worth being part of.
+            Let’s build what’s next.
           </h2>
-          <p className={styles.letsLead}>Ideas. Industries. People. Real outcomes.</p>
+          <p className={styles.letsLead}>Insights. People. Real outcomes.</p>
           <div className={styles.ctas}>
             <a className="btn btn--yellow" href="#admit-one">
               Start a conversation <Icon name="arrow" size={16} className="btn__arrow" />
@@ -77,16 +74,13 @@ export function AdmitOne() {
 
       <div className={`container ${styles.admitLayout}`}>
         <div className={styles.admitCopy} data-reveal>
-          <p className="eyebrow">
-            <span className="eyebrow__num">09</span> Admit one conversation <span className="eyebrow__rule" />
-          </p>
           <h2 id="admit-heading" className={`display ${styles.admitHeading}`}>
             Admit one
             <br />
             <span className="accent-text">conversation.</span>
           </h2>
           <p className={styles.admitLead}>
-            Have an idea, event or partnership in mind?
+            Tell us about your idea, event, or partnership.
           </p>
           <div className={styles.leadRow}>
             <span>We’d love to hear from you.</span>

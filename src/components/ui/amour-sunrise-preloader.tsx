@@ -4,7 +4,7 @@
 // Fat, wobbly marker letters arch over a rising cobalt sun. They are written
 // stroke by stroke as the load climbs, the sun climbs with them, and a count
 // in cream rides inside it. At 100% the letters boing in a wave, the count
-// turns into a heart that beats, and on the way out the sun swells until it
+// turns into an emblem that beats, and on the way out the sun swells until it
 // swallows the screen.
 //
 // One file, React only. The letters come from a built-in single-stroke
@@ -26,7 +26,7 @@ export interface AmourPalette {
   sunStops?: readonly string[]
   /** The sun at its heart, where it is darkest. */
   core: string
-  /** The count, heart and caption set inside the sun. */
+  /** The count, emblem and caption set inside the sun. */
   glow: string
 }
 
@@ -46,6 +46,8 @@ export interface AmourSunrisePreloaderProps {
   durationMs?: number
   /** The word arched over the sun. A–Z, 0–9 and ! ? . , ' - ♥ (accents are dropped). */
   word?: string
+  /** Shape drawn inside the sun at 100%: the classic beating heart, or concentric rings. */
+  emblem?: "heart" | "rings"
   /** Line set inside the sun. */
   caption?: string
   /** Colour overrides, merged over the defaults. */
@@ -432,6 +434,9 @@ const AMR_CSS = `
 }
 .amr-root[data-phase="lift"] .amr-heart { stroke-dashoffset: 0; fill-opacity: 1; animation: none; }
 .amr-root[data-phase="set"] .amr-heart { opacity: 0; stroke-dashoffset: 0; fill-opacity: 1; transition: opacity 0.4s ease; }
+/* Rings emblem variant: outer circle stays unfilled, inner dot fills in. */
+.amr-heart-ring { fill: none; }
+.amr-heart-dot { stroke: none; }
 .amr-caption {
   fill: var(--amr-glow);
   font-family: var(--amr-serif);
@@ -535,6 +540,7 @@ export default function AmourSunrisePreloader({
   durationMs = 4200,
   word = "AMOUR",
   caption = "loading, with love",
+  emblem = "heart",
   palette,
   weight = 1,
   fan = 1,
@@ -838,6 +844,9 @@ export default function AmourSunrisePreloader({
   const jitter0 = layout.stroke * 0.05 * boil
   const count = amrLine(amrCounter(pct), 0, -R * 0.6, R * 0.25)
   const heart = amrLine("♥", 0, -R * 0.6, R * 0.34)
+  const orbitCY = -R * 0.6
+  const orbitR = R * 0.16
+  const orbitDotR = R * 0.062
   const label = word.trim() || "Page"
 
   return (
@@ -918,7 +927,14 @@ export default function AmourSunrisePreloader({
                 {counter ? (
                   <path className="amr-count" d={count.d} strokeWidth={Math.max(3, R * 0.25 * 0.24)} />
                 ) : null}
-                <path className="amr-heart" d={heart.d} pathLength={1} strokeWidth={Math.max(3, R * 0.34 * 0.2)} />
+                {emblem === "rings" ? (
+                  <g>
+                    <circle className="amr-heart amr-heart-ring" cx={0} cy={orbitCY} r={orbitR} pathLength={1} strokeWidth={Math.max(3, R * 0.05)} />
+                    <circle className="amr-heart amr-heart-dot" cx={0} cy={orbitCY} r={orbitDotR} />
+                  </g>
+                ) : (
+                  <path className="amr-heart" d={heart.d} pathLength={1} strokeWidth={Math.max(3, R * 0.34 * 0.2)} />
+                )}
                 {caption ? (
                   <text className="amr-caption" x={0} y={-R * 0.25} textAnchor="middle" fontSize={Math.max(12, R * 0.075)}>
                     {caption}

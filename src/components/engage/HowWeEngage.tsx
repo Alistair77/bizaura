@@ -149,8 +149,8 @@ export function HowWeEngage() {
 
         <div className={styles.viewport}>
           {/* A. Left column */}
-          <p className={`eyebrow ${styles.brand}`} data-reveal>
-            <span className="eyebrow__num">06</span> How we engage <span className="eyebrow__rule" />
+          <p className={styles.brandTitle} data-reveal>
+            How we engage
           </p>
           <span className={styles.spine} aria-hidden="true" />
           <div className={styles.copy} data-reveal>

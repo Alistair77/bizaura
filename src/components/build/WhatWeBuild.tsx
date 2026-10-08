@@ -26,9 +26,6 @@ export function WhatWeBuild() {
       <div className="container">
         <div className={styles.head}>
           <div data-reveal>
-            <p className="eyebrow">
-              <span className="eyebrow__num">03</span> What we build <span className="eyebrow__rule" />
-            </p>
             <h2 id="build-heading" className={`display ${styles.heading}`}>
               <span>Some we build.</span> <span className={styles.soft}>Some we bring to the markets.</span>{" "}
               <span>Some we build with others.</span> <span className="accent-text">Some we make happen.</span>

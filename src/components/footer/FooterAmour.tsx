@@ -40,8 +40,9 @@ export function FooterAmour() {
         <AmourSunrisePreloader
           loop
           paused={!near}
-          word="BIZORA"
-          caption="where access turns into outcomes"
+          word="BIZ-ORA"
+          caption="access turns into outcomes"
+          emblem="rings"
           palette={{
             paper: "#ffffff",
             ink: "#111111",

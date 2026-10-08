@@ -31,9 +31,6 @@ export function Platforms() {
 
       <div className={`container ${styles.layout}`}>
         <div className={styles.story} data-reveal>
-          <p className="eyebrow">
-            <span className="eyebrow__num">04</span> Bespoke experiences <span className="eyebrow__rule" />
-          </p>
           <h2 id="platforms-heading" className={`display ${styles.heading}`}>
             We create platforms where things <span className="accent-text">happen.</span>
           </h2>
