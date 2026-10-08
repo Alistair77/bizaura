@@ -3,11 +3,14 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { isScrolling } from "@/lib/scrollActivity";
 
 /** Must match `.cine__img` scale so the swap from <img> to canvas is seamless. */
 const BASE_ZOOM = 1.06;
 const POINTER_EASE = 4; // per-second lerp factor
-const MAX_DPR = 1.5;
+const MAX_DPR = 1.25;
+/** Even ~60fps cadence on any refresh rate (every 2nd frame at 120Hz); 3ms slack avoids judder. */
+const FRAME_MS = 1000 / 60 - 3;
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -88,6 +91,21 @@ interface PhotoShaderProps {
 
 function PhotoPlane({ src, focus, depth, trackRef, onReady }: PhotoShaderProps) {
   const size = useThree((s) => s.size);
+  const invalidate = useThree((s) => s.invalidate);
+
+  // frameloop="demand": request frames ourselves, capped at an even ~60fps.
+  useEffect(() => {
+    let raf = 0;
+    let last = 0;
+    const tick = (t: number) => {
+      raf = requestAnimationFrame(tick);
+      if (isScrolling(t) || t - last < FRAME_MS) return;
+      last = t;
+      invalidate();
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [invalidate]);
   const [texture, setTexture] = useState<THREE.Texture | null>(null);
   const onReadyRef = useRef(onReady);
   onReadyRef.current = onReady;
@@ -164,7 +182,8 @@ function PhotoPlane({ src, focus, depth, trackRef, onReady }: PhotoShaderProps) 
 
   useFrame((_, delta) => {
     const u = material.uniforms;
-    u.uTime.value += delta;
+    // Clamped: after a scroll pause, delta spans the whole pause and would jump the drift.
+    u.uTime.value += Math.min(delta, 1 / 30);
     u.uRes.value.set(size.width, size.height);
     u.uPointer.value.lerp(target, Math.min(1, delta * POINTER_EASE));
   });
@@ -184,6 +203,7 @@ export default function PhotoShader(props: PhotoShaderProps) {
     <Canvas
       className="cine__canvas"
       dpr={[1, MAX_DPR]}
+      frameloop="demand"
       flat
       linear
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}

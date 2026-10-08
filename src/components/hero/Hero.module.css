@@ -432,8 +432,8 @@
   translate: -50% -50%;
 }
 .cardOpp {
-  /* Mirrors the video's +10° tilt, as Reach mirrors Access. */
-  --rot: -10deg;
+  /* Level, like the video it mirrors. */
+  --rot: 0deg;
   left: 16.3%;
   top: 33%;
   animation-delay: 1050ms;
@@ -576,8 +576,8 @@
 /* Emphasis strokes at the video's top-left corner (clip-group em). */
 .sparks {
   position: absolute;
-  left: -6.25em;
-  top: -5.35em;
+  left: -6.9em;
+  top: -4.45em;
   width: 1.4em;
   max-width: none;
   height: 1.4em;
@@ -619,7 +619,6 @@
   box-shadow:
     0 26px 46px -26px rgb(48 28 110 / 0.5),
     0 2px 6px rgb(17 17 17 / 0.08);
-  rotate: 10deg;
   pointer-events: none;
   animation: riseIn 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 1450ms both;
 }
@@ -634,7 +633,7 @@
 .clipArrow {
   position: absolute;
   left: -0.77em;
-  top: 3.55em;
+  top: 3.3em;
   width: 2.7em;
   max-width: none;
   height: auto;

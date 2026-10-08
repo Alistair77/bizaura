@@ -58,9 +58,9 @@ export function Hero() {
             scale={0.8}
             opacity={1}
             mouseInteractive
-            renderScale={0.55}
-            maxDpr={1.5}
-            targetFps={50}
+            renderScale={0.45}
+            maxDpr={1.25}
+            targetFps={60}
             iterations={40}
             timeOffset={PLASMA_TIME_OFFSET}
           />

@@ -35,6 +35,8 @@ export interface AmourSunrisePreloaderProps {
   children?: React.ReactNode
   /** Run forever as a showcase: children are never revealed, onComplete never fires. */
   loop?: boolean
+  /** Stop the per-frame loops (e.g. while off-screen) so the poster costs nothing. */
+  paused?: boolean
   /**
    * Real loading progress, 0–100. Leave undefined to run the built-in
    * simulated load over `durationMs`. The letters hold until this hits 100.
@@ -528,6 +530,7 @@ const deg = (r: number) => (r * 180) / Math.PI
 export default function AmourSunrisePreloader({
   children,
   loop = false,
+  paused = false,
   progress,
   durationMs = 4200,
   word = "AMOUR",
@@ -645,7 +648,7 @@ export default function AmourSunrisePreloader({
 
   // ---- load and set: drive the pen and the sun from progress -------------------------
   React.useEffect(() => {
-    if (phase !== "load" && phase !== "set") return
+    if (paused || (phase !== "load" && phase !== "set")) return
     const root = rootRef.current
     let raf = 0
     let shown = phase === "load" ? 0 : 1
@@ -693,7 +696,7 @@ export default function AmourSunrisePreloader({
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [phase, cycle, durationMs, paint])
+  }, [phase, cycle, durationMs, paint, paused])
 
   // ---- holds between phases -----------------------------------------------------------
   React.useEffect(() => {
@@ -731,6 +734,7 @@ export default function AmourSunrisePreloader({
 
   // ---- the life loop: pointer light, springs and line boil ----------------------------
   React.useEffect(() => {
+    if (paused) return
     const still = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches
     let raf = 0
     let last = performance.now()
@@ -807,7 +811,7 @@ export default function AmourSunrisePreloader({
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [boil, sway])
+  }, [boil, sway, paused])
 
   const onActivate = () => {
     if (phase === "load") rushRef.current = true

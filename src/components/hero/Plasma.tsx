@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
+import { isScrolling } from '@/lib/scrollActivity';
 import styles from './Plasma.module.css';
 
 type Direction = 'forward' | 'reverse' | 'pingpong';
@@ -352,12 +353,25 @@ export const Plasma = ({
     let isVisible = true;
     let tabVisible = document.visibilityState !== 'hidden';
     const t0 = performance.now();
-    const frameInterval = 1000 / targetFps;
+    // Slack keeps an even cadence on any refresh rate (30fps = every 2nd frame at 60Hz,
+    // every 4th at 120Hz) instead of alternating 1- and 2-frame gaps, which reads as judder.
+    const frameInterval = 1000 / targetFps - 3;
     let lastFrameTime = 0;
+    // Hold the frame while the page scrolls; the clock pauses too, so motion resumes in place.
+    let pausedAt = 0;
+    let pausedTotal = 0;
 
     const loop = (t: number) => {
       if (contextLost || !isVisible || !tabVisible) return;
       raf = requestAnimationFrame(loop);
+      if (isScrolling(t)) {
+        if (!pausedAt) pausedAt = t;
+        return;
+      }
+      if (pausedAt) {
+        pausedTotal += t - pausedAt;
+        pausedAt = 0;
+      }
       if (t - lastFrameTime < frameInterval) return;
       lastFrameTime = t;
 
@@ -368,7 +382,7 @@ export const Plasma = ({
         pendingMouse = null;
       }
 
-      const timeValue = (t - t0) * 0.001;
+      const timeValue = (t - t0 - pausedTotal) * 0.001;
       if (direction === 'pingpong') {
         const dur = 10;
         const seg = timeValue % dur;

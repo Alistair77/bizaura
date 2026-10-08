@@ -45,10 +45,10 @@ export function Spine() {
           scale={1.5}
           opacity={0.3}
           mouseInteractive={false}
-          renderScale={0.35}
+          renderScale={0.28}
           maxDpr={1.2}
-          targetFps={24}
-          iterations={40}
+          targetFps={30}
+          iterations={32}
           lightMode={true}
         />
       </div>
@@ -144,6 +144,10 @@ export function Spine() {
                 strokeLinecap="round"
                 pathLength={1}
               />
+            </svg>
+            {/* Pulse lives in its own filter-free layer: animating it inside the glowing
+                (drop-shadow) SVG repainted the whole filtered line every frame. */}
+            <svg className={styles.pulse} viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
               {/* Live pulse travelling the journey, independent of scroll. */}
               <path
                 className={styles.flowPulse}

@@ -133,10 +133,10 @@ export function HowWeEngage() {
             scale={1.4}
             opacity={0.35}
             mouseInteractive={false}
-            renderScale={0.4}
+            renderScale={0.28}
             maxDpr={1.25}
             targetFps={30}
-            iterations={45}
+            iterations={32}
             lightMode={true}
           />
         </div>

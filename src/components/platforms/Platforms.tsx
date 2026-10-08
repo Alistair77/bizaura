@@ -19,10 +19,10 @@ export function Platforms() {
           scale={1.5}
           opacity={0.28}
           mouseInteractive={false}
-          renderScale={0.35}
+          renderScale={0.28}
           maxDpr={1.2}
-          targetFps={24}
-          iterations={40}
+          targetFps={30}
+          iterations={32}
           lightMode={true}
         />
       </div>

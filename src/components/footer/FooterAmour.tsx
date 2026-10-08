@@ -7,25 +7,26 @@ import styles from "./Footer.module.css";
 /**
  * Footer brand banner: the BIZORA wordmark hand-inked stroke by stroke
  * over a rising sun in the hero's "outcomes." gradient (Amour poster, showcase loop).
- * Mounts only once the footer scrolls near the viewport.
+ * Mounts once the footer first nears the viewport; its per-frame loops pause whenever it
+ * scrolls away, so it never costs frames elsewhere on the page.
  */
 export function FooterAmour() {
   const ref = useRef<HTMLDivElement>(null);
   const [live, setLive] = useState(false);
+  const [near, setNear] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
       setLive(true);
+      setNear(true);
       return;
     }
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setLive(true);
-          io.disconnect();
-        }
+        setNear(entry.isIntersecting);
+        if (entry.isIntersecting) setLive(true);
       },
       { rootMargin: "240px" },
     );
@@ -38,6 +39,7 @@ export function FooterAmour() {
       {live ? (
         <AmourSunrisePreloader
           loop
+          paused={!near}
           word="BIZORA"
           caption="where access turns into outcomes"
           palette={{
