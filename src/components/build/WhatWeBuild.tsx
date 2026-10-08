@@ -1,6 +1,7 @@
 import { Plasma } from "@/components/hero/Plasma";
+import { EditorialVideo } from "@/components/ui/EditorialVideo";
 import { Icon } from "@/components/ui/Icon";
-import { BUILD_CARDS } from "@/content/home";
+import { BUILD_CARDS, CLIPS } from "@/content/home";
 import styles from "./WhatWeBuild.module.css";
 
 export function WhatWeBuild() {
@@ -33,10 +34,14 @@ export function WhatWeBuild() {
               <span>Some we build with others.</span> <span className="accent-text">Some we make happen.</span>
             </h2>
           </div>
-          <p className={styles.note} data-reveal style={{ "--reveal-delay": "160ms" } as React.CSSProperties}>
-            <span className={styles.tape} aria-hidden="true" />
-            Different ways to create what’s next.
-          </p>
+          {/* The video sits beside the headline; the taped note flies in and lands on its corner. */}
+          <div className={styles.visual} data-reveal>
+            <EditorialVideo className={styles.clip} src={CLIPS.build.src} poster={CLIPS.build.poster} />
+            <p className={styles.note} data-reveal style={{ "--reveal-delay": "160ms" } as React.CSSProperties}>
+              <span className={styles.tape} aria-hidden="true" />
+              Different ways to create what’s next.
+            </p>
+          </div>
         </div>
 
         <ul className={styles.cards}>

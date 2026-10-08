@@ -57,14 +57,28 @@ export const PHOTOS = {
 } as const;
 
 /**
- * Hero editorial clip: Pexels video 19540281 (free Pexels licence), hotlinked like the
- * Unsplash photos above. 1280×720 (~2.7 MB, 20 s loop): Pexels' "sd_960" file is really
- * 426×240 and goes soft at the ~280px frame on 2× screens.
+ * Editorial clips (free Pexels licence), hotlinked like the Unsplash photos above.
+ * Resolutions verified from the files: Pexels "sd_960" labels are not always 960 wide.
  */
-export const HERO_CLIP = {
-  src: "https://videos.pexels.com/video-files/19540281/19540281-hd_1280_720_24fps.mp4",
-  poster:
-    "https://images.pexels.com/videos/19540281/pexels-photo-19540281.jpeg?auto=compress&cs=tinysrgb&w=720&h=405&fit=crop",
+export const CLIPS = {
+  /** Hero: two people talking outdoors — 1280×720, ~2.7 MB, 20 s loop. */
+  hero: {
+    src: "https://videos.pexels.com/video-files/19540281/19540281-hd_1280_720_24fps.mp4",
+    poster:
+      "https://images.pexels.com/videos/19540281/pexels-photo-19540281.jpeg?auto=compress&cs=tinysrgb&w=720&h=405&fit=crop",
+  },
+  /** What we build: mapping ideas on a sticky-note wall — 960×540, ~1.2 MB, 7 s loop. */
+  build: {
+    src: "https://videos.pexels.com/video-files/7659665/7659665-sd_960_540_25fps.mp4",
+    poster:
+      "https://images.pexels.com/videos/7659665/adult-business-computer-diagnosis-7659665.jpeg?auto=compress&cs=tinysrgb&w=960&h=540&fit=crop",
+  },
+  /** Bespoke experiences: delegates talking at a live event — 960×540, ~3.2 MB, 22 s loop. */
+  room: {
+    src: "https://videos.pexels.com/video-files/8716795/8716795-sd_960_540_25fps.mp4",
+    poster:
+      "https://images.pexels.com/videos/8716795/pexels-photo-8716795.jpeg?auto=compress&cs=tinysrgb&w=960&h=540&fit=crop",
+  },
 } as const;
 
 export const NAV_LINKS = [

@@ -1,7 +1,9 @@
 import { CinematicPhoto } from "@/components/cinematic/CinematicPhoto";
 import { Plasma } from "@/components/hero/Plasma";
+import { EditorialVideo } from "@/components/ui/EditorialVideo";
+import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
-import { PHOTOS, PLATFORM_TIMELINE } from "@/content/home";
+import { CLIPS, PHOTOS, PLATFORM_TIMELINE } from "@/content/home";
 import styles from "./Platforms.module.css";
 
 export function Platforms() {
@@ -38,6 +40,14 @@ export function Platforms() {
           <a className="btn" href="#admit-one">
             Get in the room <Icon name="arrow" size={16} className="btn__arrow" />
           </a>
+        </div>
+
+        <div className={styles.visual} data-reveal>
+          <p className={`hand ${styles.roomNote}`} aria-hidden="true">
+            Inside the room.
+            <HandArrow variant="sweepDownRight" className={styles.roomArrow} />
+          </p>
+          <EditorialVideo className={styles.clip} src={CLIPS.room.src} poster={CLIPS.room.poster} />
         </div>
 
         <ol className={styles.steps} aria-label="What happens in the room">

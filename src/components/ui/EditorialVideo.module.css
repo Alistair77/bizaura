@@ -1,0 +1,18 @@
+/* The hero's video language: the footage is the frame — crisp edge, soft radius,
+   a lilac-tinted drop shadow. Sizing and position come from the caller. */
+.frame {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  background: #ece8f3;
+  box-shadow:
+    0 26px 46px -26px rgb(48 28 110 / 0.5),
+    0 2px 6px rgb(17 17 17 / 0.08);
+}
+.video {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
