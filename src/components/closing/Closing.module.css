@@ -50,18 +50,6 @@
   gap: 12px;
   margin-top: 18px;
 }
-.letsNote {
-  grid-column: 10 / span 3;
-  justify-self: end;
-  align-self: start;
-  font-size: 1.5rem;
-  color: #fff;
-  rotate: -6deg;
-}
-.letsNoteArrow {
-  width: 52px;
-  margin: 10px 0 0 6px;
-}
 
 /* =========================================================
    ADMIT ONE CONVERSATION — the final physical invitation
@@ -295,10 +283,6 @@
 @media (max-width: 899px) {
   .letsCopy {
     grid-column: 1 / -1;
-  }
-  .letsNote {
-    grid-column: 1 / -1;
-    margin-top: 40px;
   }
   .admit {
     min-height: 0;

@@ -1,6 +1,5 @@
 import { Wordmark } from "@/components/brand/Wordmark";
 import { CinematicPhoto } from "@/components/cinematic/CinematicPhoto";
-import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
 import { TornEdge } from "@/components/ui/TornEdge";
 import { CONTACT, PHOTOS } from "@/content/home";
@@ -36,17 +35,6 @@ export function LetsBuild() {
             </a>
           </div>
         </div>
-
-        <p className={`hand ${styles.letsNote}`} aria-hidden="true">
-          Ideas
-          <br />
-          People
-          <br />
-          Opportunities
-          <br />
-          Outcomes.
-          <HandArrow variant="curlDownLeft" className={styles.letsNoteArrow} />
-        </p>
       </div>
 
       <TornEdge edge="bottom" fill="var(--color-paper)" seed={91} depth={26} />

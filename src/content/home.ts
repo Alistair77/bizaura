@@ -47,8 +47,8 @@ export const PHOTOS = {
   ),
   /** Approved Section 08 stage photograph (local asset). */
   closingStage: {
-    src: `${BASE_PATH}/images/section08-stage.jpg`,
-    alt: "Bizora conference stage with blue and purple lighting, speaker and audience before a Bizora screen",
+    src: `${BASE_PATH}/images/lets-build-stage.webp`,
+    alt: "Bizora conference stage under blue and violet lights: a speaker before screens reading “Let’s build something worth being a part of” and the Bizora logo, with the audience in silhouette",
   } as Photo,
   admitOne: photo(
     "1551818255-e6e10975bc17",
@@ -301,11 +301,12 @@ export const ENGAGE_STAGES = [
   },
 ] as const;
 
+/** Rendered bottom-up (column-reverse staircase): reads top to bottom as insight → opportunity. */
 export const BELIEF_STEPS = [
-  { text: "One insight", icon: "bulb" },
-  { text: "One introduction", icon: "people" },
-  { text: "One conversation", icon: "chat" },
   { text: "One opportunity", icon: "star" },
+  { text: "One conversation", icon: "chat" },
+  { text: "One introduction", icon: "people" },
+  { text: "One insight", icon: "bulb" },
 ] as const;
 
 export const MISSION = {
