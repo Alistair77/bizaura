@@ -66,65 +66,34 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
 }
+/* Mission/Vision in its coloured state, at rest: deep accent gradient, white type,
+   white icon disc, white rings. No hover effect (that stays unique to Mission/Vision). */
 .step {
-  --accent: var(--color-red);
   --accent-deep: #c22a20;
   --accent-dark: #7d1a13;
-  --tint: rgb(255 59 48 / 0.1);
   --icon-ink: var(--accent-deep);
-  --wash: linear-gradient(165deg, var(--accent-deep) 0%, var(--accent-dark) 100%);
-  --pad: clamp(22px, 2.2vw, 30px);
-  /* Centre of the icon badge: the hover wash grows out of it. */
-  --origin: calc(var(--pad) + 22px) calc(var(--pad) + 22px);
   position: relative;
   overflow: hidden;
   display: grid;
   align-content: space-between;
   gap: 28px;
   min-height: clamp(180px, 15vw, 220px);
-  padding: var(--pad);
-  border: 2px solid var(--accent);
+  padding: clamp(22px, 2.2vw, 30px);
+  border: 2px solid var(--accent-deep);
   border-radius: 22px;
-  background: linear-gradient(165deg, var(--tint) 0%, rgb(255 255 255 / 0) 60%), rgb(255 255 255 / 0.9);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 18px 36px -24px rgb(17 17 17 / 0.32);
-  transition:
-    translate var(--duration-medium) var(--ease-out),
-    box-shadow var(--duration-medium) ease;
+  background: linear-gradient(165deg, var(--accent-deep) 0%, var(--accent-dark) 100%);
+  color: #fff;
+  box-shadow:
+    0 24px 48px -22px color-mix(in srgb, var(--accent-deep) 50%, transparent),
+    0 2px 6px rgb(17 17 17 / 0.06);
 }
 .step[data-accent="blue"] {
-  --accent: var(--color-blue);
   --accent-deep: var(--color-blue-deep);
   --accent-dark: #1b3a94;
-  --tint: rgb(79 134 255 / 0.12);
 }
 .step[data-accent="pink"] {
-  --accent: var(--color-pink);
   --accent-deep: var(--color-pink-deep);
   --accent-dark: #8f1458;
-  --tint: rgb(255 63 164 / 0.1);
-}
-/* Hover — same feel as Mission/Vision: lift, then the accent arrives as a circle that
-   eases out of the icon to fill the card, and eases back in on leave. */
-.step::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: var(--wash);
-  clip-path: circle(0 at var(--origin));
-  transition: clip-path 720ms cubic-bezier(0.65, 0, 0.35, 1);
-  pointer-events: none;
-}
-.step:hover::before {
-  clip-path: circle(160% at var(--origin));
-}
-.step:hover {
-  translate: 0 -5px;
-  box-shadow:
-    0 24px 48px -20px color-mix(in srgb, var(--accent-deep) 50%, transparent),
-    0 2px 6px rgb(17 17 17 / 0.06);
 }
 .step > :not(.stepArc) {
   position: relative;
@@ -134,11 +103,7 @@
 :global(.js) .step[data-reveal] {
   --reveal-x: 0px;
   --reveal-y: 64px;
-  transition:
-    opacity 900ms var(--ease-out) var(--reveal-delay, 0ms),
-    transform 900ms var(--ease-out) var(--reveal-delay, 0ms),
-    translate var(--duration-medium) var(--ease-out),
-    box-shadow var(--duration-medium) ease;
+  transition-duration: 900ms;
 }
 :global(.js) .step[data-reveal]:first-child {
   --reveal-x: -80px;
@@ -160,35 +125,15 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 2px solid var(--accent);
-  color: var(--accent-deep);
-  transition:
-    transform 640ms var(--ease-spring),
-    background-color 400ms ease,
-    color 400ms ease,
-    border-color 400ms ease;
-}
-.step:hover .stepIcon {
   background: #fff;
-  border-color: #fff;
   color: var(--icon-ink);
-  transform: rotate(-8deg) scale(1.14);
-}
-/* Text cross-fades just behind the wash: light once covered, dark once uncovered. */
-.stepLabel,
-.stepText {
-  transition: color 420ms ease 200ms;
-}
-.step:hover :is(.stepLabel, .stepText) {
-  color: #fff;
-  transition-delay: 120ms;
 }
 .stepLabel {
   font-size: var(--text-micro);
   font-weight: 800;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--accent-deep);
+  color: #fff;
 }
 .stepText {
   max-width: 14ch;
@@ -196,7 +141,7 @@
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: var(--color-ink);
+  color: #fff;
 }
 .stepArc {
   position: absolute;
@@ -204,34 +149,16 @@
   bottom: -96px;
   width: 210px;
   max-width: none;
-  color: var(--accent);
-  opacity: 0.28;
-  pointer-events: none;
-  transform-origin: 50% 50%;
-  transition:
-    transform 1100ms var(--ease-out),
-    opacity 500ms ease,
-    color 500ms ease;
-}
-/* The rings zoom in and turn as the card fills, then ease back out. */
-.step:hover .stepArc {
-  opacity: 0.6;
   color: #fff;
-  transform: scale(1.35) rotate(40deg);
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 /* Finale: the room where things happen. */
 .closing {
-  --accent: #fff;
-  --accent-deep: #fff;
-  --icon-ink: var(--color-violet-deep);
-  --wash: linear-gradient(165deg, #3a239e 0%, #8f1458 100%);
+  --accent-deep: var(--color-violet-deep);
   border-color: transparent;
   background: linear-gradient(135deg, var(--color-violet-deep), var(--color-pink-deep));
-  color: #fff;
-}
-.closing .stepIcon {
-  border-color: rgb(255 255 255 / 0.7);
 }
 .closingText {
   font-size: var(--text-lead);

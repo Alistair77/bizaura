@@ -432,7 +432,8 @@
   translate: -50% -50%;
 }
 .cardOpp {
-  --rot: 7.5deg;
+  /* Mirrors the video's +10° tilt, as Reach mirrors Access. */
+  --rot: -10deg;
   left: 16.3%;
   top: 33%;
   animation-delay: 1050ms;

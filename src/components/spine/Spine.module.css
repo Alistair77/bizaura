@@ -195,24 +195,53 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 20px;
-  background: linear-gradient(165deg, var(--vivid) 0%, var(--deep) 78%);
+  /* Mission/Vision in its coloured state: deep accent gradient, white type and icon disc. */
+  --dark: #3a239e;
+  isolation: isolate;
+  border: 2px solid var(--deep);
+  border-radius: 22px;
+  background: linear-gradient(165deg, var(--deep) 0%, var(--dark) 100%);
   color: #fff;
-  box-shadow: 0 24px 48px -24px rgb(17 17 17 / 0.35);
+  box-shadow:
+    0 24px 48px -24px color-mix(in srgb, var(--deep) 55%, transparent),
+    0 2px 6px rgb(17 17 17 / 0.06);
+}
+/* Mission/Vision-style double ring, bottom-right of the text area. */
+.pillar::after {
+  content: "";
+  position: absolute;
+  right: -78px;
+  bottom: -78px;
+  z-index: -1;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    transparent 0 57px,
+    rgb(255 255 255 / 0.32) 58px 59.5px,
+    transparent 60.5px 79px,
+    rgb(255 255 255 / 0.32) 80px 81.5px,
+    transparent 82.5px
+  );
+  pointer-events: none;
 }
 .pillar[data-accent="blue"] {
   --vivid: #5b8cff;
   --deep: var(--a-blue);
+  --dark: #1b3a94;
   --accent: var(--a-blue);
 }
 .pillar[data-accent="pink"] {
   --vivid: #ff6eb0;
   --deep: var(--a-pink);
+  --dark: #8f1458;
   --accent: var(--a-pink);
 }
 .pillar[data-accent="red"] {
   --vivid: #f0564a;
   --deep: #c22a20;
+  --dark: #7d1a13;
   --accent: var(--a-red);
 }
 .pillarImgWrap {
@@ -266,10 +295,9 @@
   place-items: center;
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 50%;
   background: #fff;
   color: var(--deep);
-  box-shadow: 0 6px 16px rgb(0 0 0 / 0.18);
 }
 .badge svg {
   width: 22px;
@@ -285,7 +313,7 @@
 .pillarBody {
   font-size: clamp(1rem, 0.92rem + 0.3vw, 1.125rem);
   line-height: 1.5;
-  color: rgb(255 255 255 / 0.9);
+  color: rgb(255 255 255 / 0.85);
 }
 
 /* ---------- Zone 2: journey (clean band below the panels) ---------- */

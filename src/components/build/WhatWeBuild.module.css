@@ -142,10 +142,15 @@
   gap: 40px;
   min-height: clamp(300px, 27vw, 380px);
   padding: 20px 20px 26px;
-  border-radius: 20px;
-  background: radial-gradient(130% 95% at 100% 0%, var(--vivid) 0%, var(--deep) 62%);
+  /* Mission/Vision in its coloured state: deep accent gradient, white type and icon disc. */
+  --dark: #3a239e;
+  border: 2px solid var(--deep);
+  border-radius: 22px;
+  background: linear-gradient(165deg, var(--deep) 0%, var(--dark) 100%);
   color: #fff;
-  box-shadow: var(--shadow-card);
+  box-shadow:
+    0 24px 48px -22px color-mix(in srgb, var(--deep) 50%, transparent),
+    0 2px 6px rgb(17 17 17 / 0.06);
 }
 /* Scroll-in: outer cards slide from their side, inner two rise from below. */
 :global(.js) .card[data-reveal] {
@@ -164,14 +169,17 @@
 .card[data-accent="pink"] {
   --vivid: var(--color-pink);
   --deep: var(--color-pink-deep);
+  --dark: #8f1458;
 }
 .card[data-accent="blue"] {
   --vivid: var(--color-blue);
   --deep: var(--color-blue-deep);
+  --dark: #1b3a94;
 }
 .card[data-accent="navy"] {
   --vivid: #1d3f8f;
-  --deep: var(--color-navy);
+  --deep: #1d3f8f;
+  --dark: var(--color-navy);
 }
 
 .cardTop {
@@ -181,10 +189,11 @@
   gap: 12px;
 }
 .pill {
-  padding: 6px 10px;
-  border-radius: var(--radius-pill);
-  background: #fff;
-  color: var(--color-ink);
+  padding: 6px 12px;
+  border: 2px solid rgb(255 255 255 / 0.85);
+  /* Pill on one line; a soft rounded box if a long label wraps. */
+  border-radius: 14px;
+  color: #fff;
   font-size: var(--text-micro);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -195,11 +204,11 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   background: #fff;
-  color: var(--color-ink);
+  color: var(--deep);
 }
 
 .cardBottom {
@@ -214,7 +223,7 @@
 }
 .cardBody {
   font-size: var(--text-small);
-  color: rgb(255 255 255 / 0.9);
+  color: rgb(255 255 255 / 0.85);
 }
 
 .bigNum {
@@ -235,7 +244,7 @@
   z-index: -1;
   width: 230px;
   color: #fff;
-  opacity: 0.2;
+  opacity: 0.32;
 }
 
 @media (max-width: 1100px) {
