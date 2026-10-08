@@ -209,7 +209,7 @@ export const BUILD_CARDS = [
     pill: "We bring to new markets",
     title: "Licensed Brands",
     body: ["Global ideas.", "Local markets."],
-    accent: "navy",
+    accent: "blue",
     icon: "globe",
   },
   {
@@ -217,7 +217,7 @@ export const BUILD_CARDS = [
     pill: "We build with others",
     title: "Partner Platforms",
     body: ["Joint ventures.", "Shared growth."],
-    accent: "slate",
+    accent: "pink",
     icon: "handshake",
   },
   {
