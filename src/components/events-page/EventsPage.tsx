@@ -95,10 +95,10 @@ function Hero() {
         </div>
         <figure className={styles.heroMedia}>
           <Image
-            src={PHOTOS.audience.src}
-            alt={PHOTOS.audience.alt}
-            width={1200}
-            height={900}
+            src={PHOTOS.closingStage.src}
+            alt={PHOTOS.closingStage.alt}
+            width={1671}
+            height={941}
             priority
             sizes="(max-width: 900px) 100vw, 46vw"
           />
