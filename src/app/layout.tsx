@@ -7,7 +7,7 @@ import {
   Shadows_Into_Light_Two,
 } from "next/font/google";
 import { ExperienceShell } from "@/components/providers/ExperienceShell";
-import { CONTACT, SITE_URL } from "@/content/home";
+import { BASE_PATH, CONTACT, SITE_URL } from "@/content/home";
 import "@/styles/global.css";
 
 const sans = Schibsted_Grotesk({
@@ -66,6 +66,14 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+/**
+ * Hero intro: homepage only, every load, never for reduced motion. Default variant assembles the
+ * BIZ·O·RA logo and swells the O into the plasma; ?intro=plasma plays the plasma-orb variant.
+ * Runs before first paint so the hero's entrance is held (data-intro="on") until the intro
+ * gives way ("out", keyed off its own animationend); no JS → no intro.
+ */
+const INTRO_SCRIPT = `(function(d){d.classList.add('js');try{var p=location.pathname.replace(/\\/+$/,'');if(p!==''&&p!=='${BASE_PATH}')return;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var plasma=/[?&]intro=plasma/.test(location.search),done=0,go=function(){if(done)return;done=1;d.dataset.intro='out';setTimeout(function(){delete d.dataset.intro;delete d.dataset.introV},900)};d.dataset.introV=plasma?'plasma':'logo';d.dataset.intro='on';d.addEventListener('animationend',function(e){if(e.animationName.indexOf(plasma?'introOrbIn':'introLetters')>-1)setTimeout(go,plasma?150:450)});setTimeout(go,4000)}catch(e){delete d.dataset.intro}})(document.documentElement)`;
+
 // Static, author-controlled JSON — safe to inline.
 const organizationJsonLd = JSON.stringify({
   "@context": "https://schema.org",
@@ -80,8 +88,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${hand.variable} ${tight.variable} ${body.variable} ${script.variable}`} suppressHydrationWarning>
       <head>
-        {/* Arms scroll reveals only when JS runs, so no-JS visitors see everything. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Arms scroll reveals (and the hero intro) only when JS runs, so no-JS visitors see everything. */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJsonLd }} />

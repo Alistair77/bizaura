@@ -374,3 +374,8 @@ button {
 .cine--live .cine__canvas {
   opacity: 1;
 }
+
+/* Hero intro: hold every entrance animation at its first frame until the eye dives away. */
+html[data-intro="on"] body *:not([data-intro-layer], [data-intro-layer] *) {
+  animation-play-state: paused !important;
+}

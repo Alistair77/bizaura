@@ -63,6 +63,28 @@ export function Hero() {
   }, []);
 
   return (
+    <>
+    {/* Load intro variants, shown only while the head script sets html[data-intro]. */}
+    <div className={`${styles.intro} ${styles.introPlasma}`} data-intro-layer aria-hidden="true">
+      <div className={styles.introOrb} />
+    </div>
+    <div className={`${styles.intro} ${styles.introLogo}`} data-intro-layer aria-hidden="true">
+      <div className={styles.introMark}>
+        <span className={styles.introBiz}>BIZ</span>
+        <svg className={styles.introO} viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="intro-o" x1="0" x2="1" y1="0" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+              <stop offset="0" stopColor="#4b6cd6" />
+              <stop offset="0.5" stopColor="#9b47a8" />
+              <stop offset="1" stopColor="#e3337e" />
+            </linearGradient>
+          </defs>
+          <circle className={styles.introORing} cx="50" cy="50" r="41" pathLength={1} />
+          <circle className={styles.introODot} cx="50" cy="50" r="10" />
+        </svg>
+        <span className={styles.introRa}>RA</span>
+      </div>
+    </div>
     <section ref={heroRef} id="top" className={styles.hero} aria-labelledby="hero-heading">
       {/* z 0–2: living plasma under a soft white falloff — decorative */}
       <div className={styles.heroBg} aria-hidden="true">
@@ -157,5 +179,6 @@ export function Hero() {
         </ul>
       </div>
     </section>
+    </>
   );
 }
