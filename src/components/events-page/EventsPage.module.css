@@ -1,11 +1,12 @@
 /* =========================================================
    Bizora Events — built to the approved Events reference.
-   Serif display (Playfair) + sans interface, white canvas, slate
+   Homepage hero display face (Inter Tight) + sans interface, white canvas, slate
    secondary text, hairline borders. Buttons use the homepage's
    raised "key" treatment: a solid bottom edge that presses in.
    ========================================================= */
 .page {
-  --serif: var(--font-events-serif), "Playfair Display", Georgia, "Times New Roman", serif;
+  /* Display face = the homepage hero headline (Inter Tight, heavy, tight tracking). */
+  --serif: var(--font-tight), "Inter Tight", sans-serif;
   --ink: #111111;
   --muted: #6b7280;
   --line: #e5e7eb;
@@ -67,8 +68,9 @@
 }
 .brandLabel {
   font-family: var(--serif);
+  letter-spacing: -0.035em;
   font-size: 1.55rem;
-  font-weight: 500;
+  font-weight: 800;
   color: #6b7280;
 }
 
@@ -92,14 +94,17 @@
   text-transform: uppercase;
   color: var(--muted);
 }
+/* Same face as the homepage hero headline (Inter Tight 800, tight tracking). */
 .headline {
   margin-top: 18px;
-  font-family: var(--serif);
-  font-weight: 500;
+  font-family: var(--font-tight), "Inter Tight", sans-serif;
+  font-weight: 800;
   font-size: clamp(2.6rem, 5.4vw, 5.2rem);
-  line-height: 0.92;
-  letter-spacing: -0.015em;
-  color: var(--ink);
+  line-height: 0.875;
+  letter-spacing: -0.04em;
+  word-spacing: 0.06em;
+  color: #050505;
+  font-optical-sizing: auto;
 }
 .gradient {
   padding-right: 0.04em;
@@ -158,8 +163,9 @@
   order: -1;
   margin: 0;
   font-family: var(--serif);
+  letter-spacing: -0.035em;
   font-size: clamp(1.8rem, 3.1vw, 2.9rem);
-  font-weight: 500;
+  font-weight: 800;
   line-height: 1;
   font-variant-numeric: lining-nums tabular-nums;
 }
@@ -381,8 +387,8 @@
 .sectionTitle {
   font-family: var(--serif);
   font-size: clamp(1.25rem, 2vw, 1.95rem);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  letter-spacing: -0.035em;
 }
 .seeAll {
   display: inline-flex;
@@ -423,7 +429,8 @@
 }
 .dateDay {
   font-family: var(--serif);
-  font-weight: 500;
+  letter-spacing: -0.035em;
+  font-weight: 800;
   line-height: 1;
   font-variant-numeric: lining-nums tabular-nums;
 }
@@ -480,9 +487,9 @@
   margin-top: 10px;
   font-family: var(--serif);
   font-size: clamp(1.25rem, 2.05vw, 2rem);
-  font-weight: 500;
+  font-weight: 800;
   line-height: 1.12;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.035em;
 }
 .featuredDesc {
   max-width: 52ch;
@@ -634,9 +641,9 @@
   margin-top: 8px;
   font-family: var(--serif);
   font-size: clamp(0.95rem, 1.38vw, 1.3rem);
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.2;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.035em;
 }
 .cardDesc {
   margin-top: 6px;
@@ -667,8 +674,9 @@
 }
 .emptyTitle {
   font-family: var(--serif);
+  letter-spacing: -0.035em;
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: 800;
 }
 .emptyText {
   margin-bottom: 12px;
@@ -736,9 +744,9 @@
   margin-top: 10px;
   font-family: var(--serif);
   font-size: clamp(1.55rem, 2.6vw, 2.4rem);
-  font-weight: 500;
+  font-weight: 800;
   line-height: 1.08;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.035em;
 }
 .partnerDivider {
   align-self: stretch;
