@@ -81,6 +81,26 @@ export const CLIPS = {
   },
 } as const;
 
+/**
+ * Brands in the Bizora network — the "Our network" ticket marquee. Add brands here; the
+ * marquee repeats the list as needed to fill a seamless loop.
+ */
+export const BRAND_NETWORK = [
+  {
+    name: "Autodesk",
+    logo: { src: `${BASE_PATH}/images/brands/autodesk.png`, width: 845, height: 215, alt: "Autodesk Platinum Partner" },
+  },
+  {
+    name: "Microgenesis",
+    logo: {
+      src: `${BASE_PATH}/images/brands/microgenesis.webp`,
+      width: 1500,
+      height: 314,
+      alt: "Microgenesis — Building Trust. Delivering Value.",
+    },
+  },
+] as const;
+
 export const NAV_LINKS = [
   { label: "Intelligence", href: "#spine" },
   { label: "Forums", href: "#platforms" },

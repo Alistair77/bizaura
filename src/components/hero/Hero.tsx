@@ -31,8 +31,27 @@ const TAGLINE: { text: string; dy: number; rot: number }[][] = [
   ],
 ];
 
+/** Design canvas the hero composition is laid out on (scaled evenly to fit on ≥1100px). */
+const STAGE_W = 1440;
+const STAGE_H = 900;
+
 export function Hero() {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Same scale as the CSS --s (min of width/height fit), set from JS for browsers without
+  // CSS trig and so the page scrollbar is excluded from the width.
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const fit = () => {
+      const s = Math.min(document.documentElement.clientWidth / STAGE_W, window.innerHeight / STAGE_H);
+      hero.style.setProperty("--s", s.toFixed(4));
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, []);
 
   // Static fallback shows ONLY when WebGL failed: Plasma appends no <canvas> then.
   useEffect(() => {
@@ -44,7 +63,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="top" className={styles.hero} aria-labelledby="hero-heading">
+    <section ref={heroRef} id="top" className={styles.hero} aria-labelledby="hero-heading">
       {/* z 0–2: living plasma under a soft white falloff — decorative */}
       <div className={styles.heroBg} aria-hidden="true">
         <div ref={wrapRef} className={styles.plasmaWrap}>

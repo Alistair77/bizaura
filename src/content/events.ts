@@ -33,6 +33,16 @@ export interface DetailedEvent {
 /** Route pattern for event details (GitHub Pages static export). */
 const eventHref = (slug: string) => `${BASE_PATH}/events/#${slug}`;
 
+/**
+ * Events hero clip: speaker on a lit stage (Pexels 20320583, free licence), hotlinked.
+ * Verified 1280×720, ~1.1 MB, 7 s loop — sharp at the ~520px hero frame on 2× screens.
+ */
+export const EVENTS_HERO_CLIP = {
+  src: "https://videos.pexels.com/video-files/20320583/20320583-hd_1280_720_60fps.mp4",
+  poster:
+    "https://images.pexels.com/videos/20320583/pexels-photo-20320583.jpeg?auto=compress&cs=tinysrgb&w=1040&h=623&fit=crop",
+} as const;
+
 /** Register-interest route — reuses the existing closing contact section. */
 export const REGISTER_HREF = `${BASE_PATH}/#admit-one`;
 

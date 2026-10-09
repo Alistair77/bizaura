@@ -6,6 +6,7 @@ import { UpcomingEvents } from "@/components/events/UpcomingEvents";
 import { Footer } from "@/components/footer/Footer";
 import { Header } from "@/components/header/Header";
 import { Hero } from "@/components/hero/Hero";
+import { BrandNetwork } from "@/components/network/BrandNetwork";
 import { Platforms } from "@/components/platforms/Platforms";
 import { WhoWeWorkWith } from "@/components/roles/WhoWeWorkWith";
 import { Spine } from "@/components/spine/Spine";
@@ -22,6 +23,7 @@ export default function Home() {
         <WhatWeBuild />
         <Platforms />
         <WhoWeWorkWith />
+        <BrandNetwork />
         <HowWeEngage />
         <Belief />
         <LetsBuild />

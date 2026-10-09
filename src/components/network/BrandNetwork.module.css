@@ -1,0 +1,75 @@
+/* "Our network" marquee. Tab, section and ticket styles come from UpcomingEvents.module.css;
+   this file only adds the endless strip. */
+.marquee {
+  grid-column: 4 / span 9;
+  margin-right: calc(-1 * var(--bleed));
+  padding: 28px 0;
+  overflow: hidden;
+  /* Tickets slide in from under a soft left edge, beside the tab. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px);
+  mask-image: linear-gradient(90deg, transparent 0, #000 48px);
+}
+.track {
+  display: flex;
+  width: max-content;
+  /* ~70px/s with the default eight tickets per copy: easy to read, never stalls. */
+  animation: networkLoop 48s linear infinite;
+}
+.marquee:hover .track,
+.marquee[data-paused="true"] .track {
+  animation-play-state: paused;
+}
+/* Each copy ends with the same gap that separates tickets, so the seam is invisible. */
+.list {
+  display: flex;
+  gap: 20px;
+  padding-right: 20px;
+}
+.slot {
+  perspective: 900px;
+}
+@keyframes networkLoop {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Brand ticket: logo centred on the left, a slim tear-off stub on the right (notches sit on
+   its dashed line). */
+.brandTicket.brandTicket {
+  --stub: calc(100% - 52px);
+  grid-template-columns: minmax(0, 1fr) 52px;
+}
+.logoCell {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 24px 22px 24px 26px;
+}
+/* Same visual height for every logo; wide marks cap at the cell width. */
+.logo {
+  width: auto;
+  max-width: 100%;
+  height: 54px;
+  object-fit: contain;
+}
+.stub {
+  align-self: stretch;
+  border-left: 2px dashed rgb(17 17 17 / 0.2);
+}
+
+@media (max-width: 899px) {
+  .marquee {
+    margin-inline: calc(-1 * var(--gutter));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .track {
+    animation: none;
+  }
+}

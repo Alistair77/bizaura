@@ -4,13 +4,15 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { Header } from "@/components/header/Header";
+import { EditorialVideo } from "@/components/ui/EditorialVideo";
 import { Icon } from "@/components/ui/Icon";
-import { BASE_PATH, PHOTOS } from "@/content/home";
+import { BASE_PATH } from "@/content/home";
 import {
   ALL_EVENTS,
   EVENT_CATEGORIES,
   EVENT_CITIES,
   EVENT_STATS,
+  EVENTS_HERO_CLIP,
   EXTRA_CATEGORIES,
   FEATURED_EVENT,
   REGISTER_HREF,
@@ -110,16 +112,12 @@ function Hero() {
             ))}
           </dl>
         </div>
-        <figure className={styles.heroMedia}>
-          <Image
-            src={PHOTOS.closingStage.src}
-            alt={PHOTOS.closingStage.alt}
-            width={1671}
-            height={941}
-            priority
-            sizes="(max-width: 1023px) 100vw, 40vw"
-          />
-        </figure>
+        <EditorialVideo
+          className={styles.heroMedia}
+          src={EVENTS_HERO_CLIP.src}
+          poster={EVENTS_HERO_CLIP.poster}
+          eager
+        />
       </div>
     </section>
   );
