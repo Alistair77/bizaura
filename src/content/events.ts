@@ -59,7 +59,8 @@ export const FEATURED_EVENT: DetailedEvent = {
 export const UPCOMING_EVENTS: DetailedEvent[] = [
   {
     slug: "ai-for-business-leaders",
-    name: "AI for Business Leaders",
+    // ponytail: placeholder name until the real event title is confirmed.
+    name: "Autodesk",
     category: "Workshops",
     dateLabel: "DEC 10, 2026",
     month: "DEC",
@@ -74,7 +75,8 @@ export const UPCOMING_EVENTS: DetailedEvent[] = [
   },
   {
     slug: "creator-economy-summit",
-    name: "Creator Economy Summit",
+    // ponytail: placeholder name until the real event title is confirmed.
+    name: "Autodesk",
     category: "Conferences",
     dateLabel: "DEC 15, 2026",
     month: "DEC",
@@ -89,7 +91,8 @@ export const UPCOMING_EVENTS: DetailedEvent[] = [
   },
   {
     slug: "founders-investors-meet",
-    name: "Founders & Investors Meet",
+    // ponytail: placeholder name until the real event title is confirmed.
+    name: "Autodesk",
     category: "Networking",
     dateLabel: "JAN 18, 2027",
     month: "JAN",
@@ -104,7 +107,8 @@ export const UPCOMING_EVENTS: DetailedEvent[] = [
   },
   {
     slug: "sustainable-business-forum",
-    name: "Sustainable Business Forum",
+    // ponytail: placeholder name until the real event title is confirmed.
+    name: "Autodesk",
     category: "Workshops",
     dateLabel: "JAN 25, 2027",
     month: "JAN",
@@ -119,7 +123,8 @@ export const UPCOMING_EVENTS: DetailedEvent[] = [
   },
   {
     slug: "india-tech-leaders-summit",
-    name: "India Tech Leaders Summit",
+    // ponytail: placeholder name until the real event title is confirmed.
+    name: "Autodesk",
     category: "Conferences",
     dateLabel: "FEB 12, 2027",
     month: "FEB",
@@ -134,7 +139,8 @@ export const UPCOMING_EVENTS: DetailedEvent[] = [
   },
   {
     slug: "women-in-business-forum",
-    name: "Women in Business Forum",
+    // ponytail: placeholder name until the real event title is confirmed.
+    name: "Autodesk",
     category: "Community",
     dateLabel: "FEB 26, 2027",
     month: "FEB",
