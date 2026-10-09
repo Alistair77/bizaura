@@ -103,6 +103,10 @@
     0 10px 20px -10px rgb(17 17 17 / 0.4),
     0 5px 0 rgb(17 17 17 / 0.16);
 }
+.backBtn {
+  gap: 7px;
+  padding-left: 18px;
+}
 .eventsBtn:active {
   transform: translateY(3px);
   box-shadow: 0 0 0 transparent;
@@ -252,6 +256,13 @@
   .social {
     gap: 8px;
     right: calc(var(--edge-right) + var(--menu-size) + 10px + 100px);
+  }
+}
+
+/* Events page on phones: the brand lockup needs the room; socials live in its footer. */
+@media (max-width: 760px) {
+  .backVariant .social {
+    display: none;
   }
 }
 

@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { Wordmark } from "@/components/brand/Wordmark";
-import { Footer } from "@/components/footer/Footer";
+import { Header } from "@/components/header/Header";
 import { Icon } from "@/components/ui/Icon";
 import { BASE_PATH, PHOTOS } from "@/content/home";
 import {
@@ -17,16 +17,35 @@ import {
   UPCOMING_EVENTS,
   type DetailedEvent,
 } from "@/content/events";
+import { EventsFooter } from "./EventsFooter";
 import styles from "./EventsPage.module.css";
 
 const HOME_HREF = `${BASE_PATH}/`;
 const PARTNER_HREF = `${BASE_PATH}/#admit-one`;
 
+/** Singular tag shown on cards; the filter pills use the plural category. */
+const TAG: Record<DetailedEvent["category"], string> = {
+  Conferences: "Conference",
+  Workshops: "Workshop",
+  Networking: "Networking",
+  Webinars: "Webinar",
+  Community: "Community",
+};
+
 const DATE_OPTIONS = Array.from(
   new Map(ALL_EVENTS.map((event) => [`${event.month} ${event.year}`, event])).values(),
 ).map((event) => ({ value: `${event.month}|${event.year}`, label: `${event.dateLabel.slice(0, 3)} ${event.year}` }));
 
-function matches(event: DetailedEvent, query: string, date: string, city: string, category: string) {
+interface FilterState {
+  query: string;
+  date: string;
+  city: string;
+  category: string;
+}
+
+const NO_FILTERS: FilterState = { query: "", date: "All dates", city: "All cities", category: "All events" };
+
+function matches(event: DetailedEvent, { query, date, city, category }: FilterState) {
   if (category !== "All events" && event.category !== category) return false;
   if (city !== "All cities" && event.city !== city) return false;
   if (date !== "All dates") {
@@ -34,28 +53,26 @@ function matches(event: DetailedEvent, query: string, date: string, city: string
     if (event.month !== month || event.year !== year) return false;
   }
   const q = query.trim().toLowerCase();
-  if (q) {
-    const haystack = `${event.name} ${event.category} ${event.city} ${event.venue} ${event.description}`.toLowerCase();
-    if (!haystack.includes(q)) return false;
-  }
-  return true;
+  if (!q) return true;
+  return `${event.name} ${event.category} ${event.city} ${event.venue} ${event.description}`.toLowerCase().includes(q);
 }
 
-function EventsHeader() {
+function Chevron({ open = false }: { open?: boolean }) {
   return (
-    <header className={styles.siteHeader}>
-      <div className={`container ${styles.siteHeaderInner}`}>
-        <a className={styles.brand} href={HOME_HREF} aria-label="Bizora Media — home">
-          <Wordmark variant="small" className={styles.wordmark} />
-          <span className={styles.divider} aria-hidden="true" />
-          <span className={styles.eventsLabel}>Events</span>
-        </a>
-        <a className={styles.homeLink} href={HOME_HREF}>
-          bizoramedia.com
-          <Icon name="arrow" size={15} strokeWidth={2.2} />
-        </a>
-      </div>
-    </header>
+    <svg className={`${styles.chev} ${open ? styles.chevOpen : ""}`} viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/** "Bizora | Events" lockup, top-left, level with the shared header controls. */
+function Brand() {
+  return (
+    <a className={styles.brand} href={HOME_HREF} aria-label="Bizora Media — home">
+      <Wordmark variant="small" className={styles.wordmark} />
+      <span className={styles.brandDivider} aria-hidden="true" />
+      <span className={styles.brandLabel}>Events</span>
+    </a>
   );
 }
 
@@ -67,22 +84,18 @@ function Hero() {
           <p className={styles.eyebrow}>Events that move business forward</p>
           <h1 id="events-title" className={styles.headline}>
             Rooms where
-            <br aria-hidden="true" />
+            <br />
             the industry
-            <br aria-hidden="true" />
+            <br />
             comes to <span className={styles.gradient}>decide.</span>
           </h1>
           <p className={styles.handNote} aria-hidden="true">
-            where the right rooms meet
-            <svg className={styles.handArrow} viewBox="0 0 120 60" focusable="false">
-              <path
-                d="M8 10 C 50 8, 90 14, 104 46 M104 46 l-12 -6 M104 46 l3 -13"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+            Real conversations.
+            <br />
+            Real opportunities.
+            <svg className={styles.handArrow} viewBox="0 0 70 60" focusable="false">
+              <path d="M3 6 C 30 4, 52 14, 60 46" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M52.5 39.5 L60.5 47.5 L64.5 37" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </p>
           <p className={styles.support}>
@@ -104,7 +117,7 @@ function Hero() {
             width={1671}
             height={941}
             priority
-            sizes="(max-width: 900px) 100vw, 46vw"
+            sizes="(max-width: 1023px) 100vw, 40vw"
           />
         </figure>
       </div>
@@ -112,28 +125,10 @@ function Hero() {
   );
 }
 
-interface FilterState {
-  query: string;
-  date: string;
-  city: string;
-  category: string;
-}
-
-function SearchBar({
-  filters,
-  onChange,
-}: {
-  filters: FilterState;
-  onChange: (patch: Partial<FilterState>) => void;
-}) {
+function SearchBar({ filters, onChange }: { filters: FilterState; onChange: (patch: Partial<FilterState>) => void }) {
   return (
-    <form
-      className={styles.searchBar}
-      role="search"
-      aria-label="Search and filter events"
-      onSubmit={(e) => e.preventDefault()}
-    >
-      <label className={`${styles.searchField} ${styles.searchQuery}`}>
+    <form className={styles.searchBar} role="search" aria-label="Search and filter events" onSubmit={(e) => e.preventDefault()}>
+      <label className={styles.searchQuery}>
         <Icon name="search" size={19} strokeWidth={2} />
         <span className="visually-hidden">Search events, topics or cities</span>
         <input
@@ -143,8 +138,7 @@ function SearchBar({
           onChange={(e) => onChange({ query: e.target.value })}
         />
       </label>
-      <span className={styles.searchSeparator} aria-hidden="true" />
-      <label className={`${styles.searchField} ${styles.searchSelect}`}>
+      <label className={styles.segment}>
         <Icon name="calendar" size={18} strokeWidth={2} />
         <span className="visually-hidden">Filter by date</span>
         <select value={filters.date} onChange={(e) => onChange({ date: e.target.value })}>
@@ -155,12 +149,9 @@ function SearchBar({
             </option>
           ))}
         </select>
-        <svg className={styles.chev} viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-          <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
+        <Chevron />
       </label>
-      <span className={styles.searchSeparator} aria-hidden="true" />
-      <label className={`${styles.searchField} ${styles.searchSelect}`}>
+      <label className={styles.segment}>
         <Icon name="pin" size={18} strokeWidth={2} />
         <span className="visually-hidden">Filter by city</span>
         <select value={filters.city} onChange={(e) => onChange({ city: e.target.value })}>
@@ -169,9 +160,7 @@ function SearchBar({
             <option key={city}>{city}</option>
           ))}
         </select>
-        <svg className={styles.chev} viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-          <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
+        <Chevron />
       </label>
       <button className={styles.searchGo} type="submit" aria-label="Search events">
         <Icon name="arrow" size={20} strokeWidth={2.4} />
@@ -191,6 +180,7 @@ function CategoryPills({
   onSelect: (category: string) => void;
   onToggleMore: () => void;
 }) {
+  const extraActive = (EXTRA_CATEGORIES as readonly string[]).includes(active);
   return (
     <div className={styles.pills} role="group" aria-label="Filter by category">
       {EVENT_CATEGORIES.map((category) => (
@@ -207,20 +197,13 @@ function CategoryPills({
       <div className={styles.moreWrap}>
         <button
           type="button"
-          className={`${styles.pill} ${EXTRA_CATEGORIES.includes(active as (typeof EXTRA_CATEGORIES)[number]) ? styles.pillActive : ""}`}
+          className={`${styles.pill} ${extraActive ? styles.pillActive : ""}`}
           aria-expanded={showMore}
           aria-haspopup="true"
           onClick={onToggleMore}
         >
           More
-          <svg
-            className={`${styles.chev} ${showMore ? styles.chevOpen : ""}`}
-            viewBox="0 0 16 16"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-          </svg>
+          <Chevron open={showMore} />
         </button>
         {showMore && (
           <ul className={styles.moreMenu} role="menu" aria-label="More categories">
@@ -234,12 +217,46 @@ function CategoryPills({
           </ul>
         )}
       </div>
-      {active !== "All events" && (
-        <button type="button" className={styles.clearFilters} onClick={() => onSelect("All events")}>
-          Clear ×
-        </button>
-      )}
     </div>
+  );
+}
+
+function SectionHead({ id, title, onSeeAll }: { id: string; title: string; onSeeAll: () => void }) {
+  return (
+    <div className={styles.sectionHead}>
+      <h2 id={id} className={styles.sectionTitle}>
+        {title}
+      </h2>
+      <button type="button" className={styles.seeAll} onClick={onSeeAll}>
+        See all events
+        <Icon name="arrow" size={15} strokeWidth={2.2} />
+      </button>
+    </div>
+  );
+}
+
+function DateBlock({ event, className }: { event: DetailedEvent; className: string }) {
+  return (
+    <div className={className} aria-label={`Event date: ${event.dateLabel}`}>
+      <span className={styles.dateMonth}>{event.month}</span>
+      <span className={styles.dateDay}>{event.day}</span>
+      <span className={styles.dateYear}>{event.year}</span>
+    </div>
+  );
+}
+
+function Facts({ event, className }: { event: DetailedEvent; className: string }) {
+  return (
+    <ul className={className}>
+      <li>
+        <Icon name="pin" size={15} strokeWidth={2} />
+        {event.venue}
+      </li>
+      <li>
+        <Icon name="people" size={15} strokeWidth={2} />
+        {event.attendees}
+      </li>
+    </ul>
   );
 }
 
@@ -248,35 +265,16 @@ function FeaturedCard() {
   return (
     <article className={styles.featured} id={event.slug} aria-labelledby={`${event.slug}-title`}>
       <div className={styles.featuredMedia}>
-        <Image
-          src={event.image.src}
-          alt={event.image.alt}
-          width={900}
-          height={700}
-          sizes="(max-width: 900px) 100vw, 34vw"
-        />
+        <Image src={event.image.src} alt={event.image.alt} width={900} height={600} sizes="(max-width: 1023px) 100vw, 36vw" />
       </div>
-      <div className={styles.featuredDateCol} aria-label={`Event date: ${event.dateLabel}`}>
-        <span className={styles.featuredMonth}>{event.month}</span>
-        <span className={styles.featuredDay}>{event.day}</span>
-        <span className={styles.featuredYear}>{event.year}</span>
-      </div>
+      <DateBlock event={event} className={styles.featuredDate} />
       <div className={styles.featuredBody}>
-        <p className={styles.featuredCat}>{event.category}</p>
+        <p className={styles.tag}>{TAG[event.category]}</p>
         <h3 id={`${event.slug}-title`} className={styles.featuredTitle}>
           {event.name}
         </h3>
         <p className={styles.featuredDesc}>{event.description}</p>
-        <ul className={styles.featuredFacts}>
-          <li>
-            <Icon name="pin" size={16} strokeWidth={2} />
-            {event.venue}
-          </li>
-          <li>
-            <Icon name="people" size={16} strokeWidth={2} />
-            {event.attendees}
-          </li>
-        </ul>
+        <Facts event={event} className={styles.featuredFacts} />
       </div>
       <div className={styles.featuredActions}>
         <a className={styles.btnPrimary} href={REGISTER_HREF}>
@@ -300,34 +298,23 @@ function GridCard({ event }: { event: DetailedEvent }) {
           src={event.image.src}
           alt={event.image.alt}
           width={800}
-          height={520}
+          height={220}
           loading="lazy"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1023px) 50vw, 33vw"
         />
-        <span className={styles.cardTag}>{event.category}</span>
       </div>
       <div className={styles.cardBody}>
-        <p className={styles.cardDate}>{event.dateLabel}</p>
-        <h3 id={`${event.slug}-title`} className={styles.cardTitle}>
-          {event.name}
-        </h3>
-        <p className={styles.cardPlace}>
-          <Icon name="pin" size={15} strokeWidth={2} />
-          {event.venue}
-        </p>
-        <p className={styles.cardMeta}>
-          <Icon name="people" size={15} strokeWidth={2} />
-          {event.attendees}
-        </p>
-        <p className={styles.cardDesc}>{event.description}</p>
-        <div className={styles.cardActions}>
-          <a className={styles.btnPrimary} href={REGISTER_HREF} aria-label={`Register for ${event.name}`}>
-            Register
-            <Icon name="arrow" size={16} strokeWidth={2.2} />
-          </a>
-          <a className={styles.textLink} href={event.href} aria-label={`View details for ${event.name}`}>
-            View details
-            <Icon name="arrow" size={14} strokeWidth={2.2} />
+        <DateBlock event={event} className={styles.cardDate} />
+        <div className={styles.cardMain}>
+          <p className={styles.tag}>{TAG[event.category]}</p>
+          <h3 id={`${event.slug}-title`} className={styles.cardTitle}>
+            {event.name}
+          </h3>
+          <p className={styles.cardDesc}>{event.description}</p>
+          <Facts event={event} className={styles.cardFacts} />
+          <a className={`${styles.btnPrimary} ${styles.btnSmall}`} href={REGISTER_HREF} aria-label={`Register for ${event.name}`}>
+            Register now
+            <Icon name="arrow" size={15} strokeWidth={2.2} />
           </a>
         </div>
       </div>
@@ -338,52 +325,42 @@ function GridCard({ event }: { event: DetailedEvent }) {
 function PartnerBanner() {
   return (
     <section className={styles.partner} aria-labelledby="partner-title">
-      <div className={`container ${styles.partnerInner}`}>
-        <div className={styles.partnerCopy}>
-          <p className={styles.partnerEyebrow}>Partner with us</p>
-          <h2 id="partner-title" className={styles.partnerTitle}>
-            Want your brand <span className={styles.gradient}>in the room?</span>
-          </h2>
-        </div>
-        <span className={styles.partnerDivider} aria-hidden="true" />
-        <p className={styles.partnerText}>
-          Partner with Bizora Events to connect with decision-makers, build meaningful relationships and generate
-          real opportunities.
-        </p>
-        <a className={styles.btnLight} href={PARTNER_HREF}>
-          Explore partnership
-          <Icon name="arrow" size={17} strokeWidth={2.2} />
-        </a>
+      <div className={styles.partnerCopy}>
+        <p className={styles.partnerEyebrow}>Partner with us</p>
+        <h2 id="partner-title" className={styles.partnerTitle}>
+          Want your brand
+          <br />
+          <span className={styles.gradient}>in the room?</span>
+        </h2>
       </div>
+      <span className={styles.partnerDivider} aria-hidden="true" />
+      <p className={styles.partnerText}>
+        Partner with Bizora Events to connect with decision-makers, build meaningful relationships and generate real
+        opportunities.
+      </p>
+      <a className={styles.btnLight} href={PARTNER_HREF}>
+        Explore partnership
+        <Icon name="arrow" size={17} strokeWidth={2.2} />
+      </a>
     </section>
   );
 }
 
 export function EventsPage() {
-  const [filters, setFilters] = useState<FilterState>({
-    query: "",
-    date: "All dates",
-    city: "All cities",
-    category: "All events",
-  });
+  const [filters, setFilters] = useState<FilterState>(NO_FILTERS);
   const [showMore, setShowMore] = useState(false);
 
   const patch = (p: Partial<FilterState>) => setFilters((f) => ({ ...f, ...p }));
-
-  const results = useMemo(
-    () => UPCOMING_EVENTS.filter((event) => matches(event, filters.query, filters.date, filters.city, filters.category)),
-    [filters],
-  );
-
-  const reset = () =>
-    setFilters({ query: "", date: "All dates", city: "All cities", category: "All events" });
-
-  const isFiltering =
-    filters.query.trim() !== "" || filters.date !== "All dates" || filters.city !== "All cities" || filters.category !== "All events";
+  const results = useMemo(() => UPCOMING_EVENTS.filter((event) => matches(event, filters)), [filters]);
+  const reset = () => setFilters(NO_FILTERS);
+  const isFiltering = JSON.stringify(filters) !== JSON.stringify(NO_FILTERS);
 
   return (
     <div id="top" className={styles.page}>
-      <EventsHeader />
+      <Header variant="back" />
+      <div className={`container ${styles.brandBar}`}>
+        <Brand />
+      </div>
       <main id="main">
         <Hero />
         <div className={`container ${styles.controls}`}>
@@ -400,22 +377,12 @@ export function EventsPage() {
         </div>
 
         <section className={`container ${styles.upcoming}`} aria-labelledby="upcoming-title">
-          <div className={styles.sectionHead}>
-            <h2 id="upcoming-title" className={styles.sectionTitle}>
-              Upcoming events
-            </h2>
-            <button type="button" className={styles.seeAll} onClick={reset}>
-              See all events
-              <Icon name="arrow" size={16} strokeWidth={2.2} />
-            </button>
-          </div>
+          <SectionHead id="upcoming-title" title="Upcoming events" onSeeAll={reset} />
           <FeaturedCard />
         </section>
 
         <section className={`container ${styles.also}`} aria-labelledby="also-title">
-          <h2 id="also-title" className={styles.sectionTitle}>
-            Also upcoming events
-          </h2>
+          <SectionHead id="also-title" title="Also upcoming events" onSeeAll={reset} />
           {results.length > 0 ? (
             <ul className={styles.grid}>
               {results.map((event) => (
@@ -445,7 +412,7 @@ export function EventsPage() {
           <PartnerBanner />
         </div>
       </main>
-      <Footer />
+      <EventsFooter />
     </div>
   );
 }

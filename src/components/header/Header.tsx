@@ -38,8 +38,12 @@ function SocialGlyph({ name }: { name: SocialName }) {
 /**
  * Minimal control from the hero reference: a black circular menu button (fixed, so the
  * menu is always one tap away) with a compact social row to its left.
+ * `variant="back"` (Events page): the pill returns home and menu links point at the homepage.
  */
-export function Header() {
+export function Header({ variant = "home" }: { variant?: "home" | "back" }) {
+  const onHome = variant === "home";
+  // Section anchors only exist on the homepage.
+  const homeHref = (href: string) => (onHome || !href.startsWith("#") ? href : `${BASE_PATH}/${href}`);
   const [isOpen, setIsOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -65,7 +69,7 @@ export function Header() {
   const close = () => setIsOpen(false);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${onHome ? "" : styles.backVariant}`}>
       <button
         ref={toggleRef}
         type="button"
@@ -82,9 +86,16 @@ export function Header() {
         </span>
       </button>
 
-      <a className={styles.eventsBtn} href={`${BASE_PATH}/events/`}>
-        Events
-      </a>
+      {onHome ? (
+        <a className={styles.eventsBtn} href={`${BASE_PATH}/events/`}>
+          Events
+        </a>
+      ) : (
+        <a className={`${styles.eventsBtn} ${styles.backBtn}`} href={`${BASE_PATH}/`} aria-label="Back to Bizora home">
+          <Icon name="arrowLeft" size={16} strokeWidth={2.2} />
+          Back
+        </a>
+      )}
 
       <ul className={styles.social} aria-label="Social media">
         {SOCIAL_LINKS.map((social, i) => (
@@ -109,14 +120,14 @@ export function Header() {
           <ul className={styles.sheetList}>
             {NAV_LINKS.map((link, i) => (
               <li key={link.label} style={{ "--i": i } as React.CSSProperties}>
-                <a className={styles.sheetLink} href={link.href} onClick={close}>
+                <a className={styles.sheetLink} href={homeHref(link.href)} onClick={close}>
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <a className={styles.sheetCta} href="#admit-one" onClick={close}>
+        <a className={styles.sheetCta} href={homeHref("#admit-one")} onClick={close}>
           Start a conversation
           <Icon name="arrow" size={18} strokeWidth={2} />
         </a>
