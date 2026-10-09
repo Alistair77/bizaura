@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { NAV_LINKS, SOCIAL_LINKS } from "@/content/home";
+import { BASE_PATH, NAV_LINKS, SOCIAL_LINKS } from "@/content/home";
 import styles from "./Header.module.css";
 
 type SocialName = (typeof SOCIAL_LINKS)[number]["icon"];
@@ -81,6 +81,10 @@ export function Header() {
           <span />
         </span>
       </button>
+
+      <a className={styles.eventsBtn} href={`${BASE_PATH}/events/`}>
+        Events
+      </a>
 
       <ul className={styles.social} aria-label="Social media">
         {SOCIAL_LINKS.map((social, i) => (

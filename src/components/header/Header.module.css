@@ -70,13 +70,51 @@
   transform: translateY(-6.75px) rotate(-45deg);
 }
 
+/* Events entry point: compact pill immediately left of the menu,
+   slightly smaller than the 60px menu button. Social row shifts left. */
+.eventsBtn {
+  --events-h: 46px;
+  position: fixed;
+  top: calc(var(--edge-top) + (var(--menu-size) - var(--events-h)) / 2);
+  right: calc(var(--edge-right) + var(--menu-size) + 12px);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  height: var(--events-h);
+  padding: 0 22px;
+  border: 1px solid rgb(0 0 0 / 0.14);
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow:
+    0 6px 16px -8px rgb(17 17 17 / 0.3),
+    0 3px 0 rgb(17 17 17 / 0.16);
+  transition:
+    transform 220ms ease,
+    box-shadow 120ms ease;
+  animation: navIn 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 260ms both;
+}
+.eventsBtn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 20px -10px rgb(17 17 17 / 0.4),
+    0 5px 0 rgb(17 17 17 / 0.16);
+}
+.eventsBtn:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 transparent;
+}
+
 /* Social row: left of the menu, centred on it; deliberate descending sizes
    (LinkedIn 43 → Instagram 47 → YouTube 50 → Menu 60). Belongs to the hero. */
 .social {
   --social-size: 44px;
   position: absolute;
   top: var(--edge-top);
-  right: calc(var(--edge-right) + var(--menu-size) + 12px);
+  right: calc(var(--edge-right) + var(--menu-size) + 12px + 118px);
   display: flex;
   align-items: center;
   height: var(--menu-size);
@@ -205,20 +243,28 @@
   .header {
     --menu-size: 52px;
   }
+  .eventsBtn {
+    --events-h: 40px;
+    padding: 0 17px;
+    font-size: 14px;
+    right: calc(var(--edge-right) + var(--menu-size) + 10px);
+  }
   .social {
     gap: 8px;
-    right: calc(var(--edge-right) + var(--menu-size) + 10px);
+    right: calc(var(--edge-right) + var(--menu-size) + 10px + 100px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .menuBtn,
+  .eventsBtn,
   .social li,
   .sheet,
   .sheetList li {
     animation: none;
   }
   .menuBtn:hover,
+  .eventsBtn:hover,
   .socialBtn:hover,
   .sheetCta:hover,
   .sheetLink:hover {
