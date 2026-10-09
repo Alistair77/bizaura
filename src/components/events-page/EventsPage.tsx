@@ -66,7 +66,11 @@ function Hero() {
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>Events that move business forward</p>
           <h1 id="events-title" className={styles.headline}>
-            Rooms where the industry comes to <span className={styles.gradient}>decide.</span>
+            Rooms where
+            <br aria-hidden="true" />
+            the industry
+            <br aria-hidden="true" />
+            comes to <span className={styles.gradient}>decide.</span>
           </h1>
           <p className={styles.handNote} aria-hidden="true">
             where the right rooms meet
@@ -252,12 +256,13 @@ function FeaturedCard() {
           sizes="(max-width: 900px) 100vw, 34vw"
         />
       </div>
+      <div className={styles.featuredDateCol} aria-label={`Event date: ${event.dateLabel}`}>
+        <span className={styles.featuredMonth}>{event.month}</span>
+        <span className={styles.featuredDay}>{event.day}</span>
+        <span className={styles.featuredYear}>{event.year}</span>
+      </div>
       <div className={styles.featuredBody}>
-        <p className={styles.featuredMeta}>
-          <span className={styles.featuredDate}>{event.dateLabel}</span>
-          <span className={styles.dot} aria-hidden="true" />
-          <span className={styles.featuredCat}>{event.category}</span>
-        </p>
+        <p className={styles.featuredCat}>{event.category}</p>
         <h3 id={`${event.slug}-title`} className={styles.featuredTitle}>
           {event.name}
         </h3>
@@ -310,6 +315,10 @@ function GridCard({ event }: { event: DetailedEvent }) {
           <Icon name="pin" size={15} strokeWidth={2} />
           {event.venue}
         </p>
+        <p className={styles.cardMeta}>
+          <Icon name="people" size={15} strokeWidth={2} />
+          {event.attendees}
+        </p>
         <p className={styles.cardDesc}>{event.description}</p>
         <div className={styles.cardActions}>
           <a className={styles.btnPrimary} href={REGISTER_HREF} aria-label={`Register for ${event.name}`}>
@@ -333,9 +342,10 @@ function PartnerBanner() {
         <div className={styles.partnerCopy}>
           <p className={styles.partnerEyebrow}>Partner with us</p>
           <h2 id="partner-title" className={styles.partnerTitle}>
-            Want your brand in the room?
+            Want your brand <span className={styles.gradient}>in the room?</span>
           </h2>
         </div>
+        <span className={styles.partnerDivider} aria-hidden="true" />
         <p className={styles.partnerText}>
           Partner with Bizora Events to connect with decision-makers, build meaningful relationships and generate
           real opportunities.
