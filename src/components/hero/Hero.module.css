@@ -103,7 +103,7 @@
   }
 }
 
-/* ---------- Logo intro (default): the gradient O draws itself, its dot lands, BIZ and RA
+/* ---------- Logo intro (default): the biz-ora O draws itself, its dot lands, "biz-" and "ra"
    slide out from behind it, then the letters part while the O swells into the plasma ring.
    "out" starts 450ms after the letters land (layout.tsx), then 900ms. */
 .introLogo {
@@ -113,55 +113,34 @@
   display: grid;
 }
 .introMark {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  width: 100%;
-  font-family: var(--font-tight), "Inter Tight", sans-serif;
-  font-weight: 900;
-  font-size: clamp(60px, 11vw, 150px);
-  letter-spacing: -0.045em;
-  line-height: 1;
+  width: min(78vw, 600px);
+  height: auto;
+  overflow: visible;
   color: #111;
 }
 .introBiz,
 .introRa {
+  fill: currentColor;
   opacity: 0;
+  transform-box: fill-box;
   animation: introLetters 480ms var(--ease-out) 540ms forwards;
 }
+/* Start tucked toward the O (drawn on top), so they appear to slide out from behind it. */
 .introBiz {
-  justify-self: end;
-  padding-right: 0.06em;
-  transform: translateX(0.6em);
-  clip-path: inset(0 0 0 100%);
+  transform: translateX(16%);
 }
 .introRa {
-  justify-self: start;
-  padding-left: 0.06em;
-  transform: translateX(-0.6em);
-  clip-path: inset(0 100% 0 0);
+  transform: translateX(-30%);
 }
 @keyframes introLetters {
   to {
     opacity: 1;
     transform: none;
-    clip-path: inset(0);
   }
 }
-.introO {
-  width: 0.92em;
-  height: 0.92em;
-  overflow: visible;
-}
-.introORing {
-  fill: none;
-  stroke: url(#intro-o);
-  stroke-width: 18;
+.introDraw {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-  transform-box: view-box;
   animation: introDraw 520ms var(--ease-out) 60ms forwards;
 }
 @keyframes introDraw {
@@ -169,12 +148,15 @@
     stroke-dashoffset: 0;
   }
 }
+.introO {
+  transform-box: fill-box;
+  transform-origin: center;
+}
 .introODot {
-  fill: #9b47a8;
   opacity: 0;
   transform: scale(0.5);
-  transform-origin: 50% 50%;
-  transform-box: view-box;
+  transform-box: fill-box;
+  transform-origin: center;
   animation: introDot 340ms var(--ease-spring) 460ms forwards;
 }
 @keyframes introDot {
@@ -202,24 +184,20 @@
   from {
     opacity: 1;
     transform: none;
-    clip-path: inset(0);
   }
   to {
     opacity: 0;
-    transform: translateX(-0.8em);
-    clip-path: inset(0);
+    transform: translateX(-24%);
   }
 }
 @keyframes introPartRight {
   from {
     opacity: 1;
     transform: none;
-    clip-path: inset(0);
   }
   to {
     opacity: 0;
-    transform: translateX(0.8em);
-    clip-path: inset(0);
+    transform: translateX(40%);
   }
 }
 @keyframes introDotOut {
@@ -344,15 +322,18 @@
   border-radius: 8px;
   font-family: var(--font-tight), "Inter Tight", sans-serif;
   font-weight: 900;
-  font-size: clamp(56px, calc(6 * var(--hvw)), 104px);
+  /* biz-ora glyphs are 1em tall (HeroLogo.tsx): ~74% of the old cap-height scale keeps the width. */
+  font-size: clamp(50px, calc(5.35 * var(--hvw)), 92px);
   letter-spacing: -0.045em;
   line-height: 1;
   color: #050505;
   font-optical-sizing: auto;
   animation: fadeIn 700ms ease-out 150ms both;
 }
-.logoEye {
-  margin-inline: 0.01em;
+.glyph {
+  display: block;
+  height: 1em;
+  overflow: visible;
 }
 /* Per-letter ink-in, idle bounce, and cursor pop. */
 .lIn {
@@ -366,10 +347,12 @@
     transform: translateY(26px) rotate(2deg);
     clip-path: inset(0 0 100% 0);
   }
+  /* Ends well outside the glyph box: the idle bounce and hover pop lift letters above it,
+     and an inset(0) end state sliced the tops off b and i. */
   to {
     opacity: 1;
     transform: none;
-    clip-path: inset(0);
+    clip-path: inset(-40% -20%);
   }
 }
 .lFloat {
@@ -390,14 +373,6 @@
 .lIn:hover .lFloat {
   animation-play-state: paused;
   transform: translateY(-8px) scale(1.07);
-}
-.reg {
-  align-self: flex-start;
-  margin: 0.04em 0 0 0.05em;
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 0.19em;
-  letter-spacing: 0;
 }
 
 /* Pencil tagline above the logo block, rising gently to the right */
@@ -620,13 +595,14 @@
   --tilt: -1.4deg;
   display: inline-flex;
   align-items: center;
-  height: clamp(38px, calc(2.6 * var(--hvw)), 42px);
-  padding: 0 clamp(18px, calc(1.4 * var(--hvw)), 22px);
-  border: 1px solid #dedee3;
+  /* ~8% up from the original chip; outline darkened so it reads on the plasma. */
+  height: clamp(41px, calc(2.8 * var(--hvw)), 45px);
+  padding: 0 clamp(19px, calc(1.5 * var(--hvw)), 24px);
+  border: 1.5px solid #a9a9b3;
   border-radius: 999px;
   background: rgb(255 255 255 / 0.92);
   font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: clamp(13px, calc(0.86 * var(--hvw)), 14.5px);
+  font-size: clamp(14px, calc(0.93 * var(--hvw)), 15.5px);
   color: #1c1c20;
   white-space: nowrap;
   rotate: var(--tilt);
@@ -993,8 +969,10 @@
     position: relative;
     left: auto;
     top: auto;
-    margin-top: 14px;
+    margin-top: 26px;
     text-align: center;
+    rotate: -4deg;
+    transform-origin: 50% 50%;
   }
   .noteText {
     white-space: normal;
@@ -1012,7 +990,7 @@
     padding-top: 104px;
   }
   .logo {
-    font-size: clamp(44px, calc(13.5 * var(--hvw)), 64px);
+    font-size: clamp(38px, calc(11.5 * var(--hvw)), 54px);
   }
   .tagText {
     font-size: clamp(19px, calc(5.2 * var(--hvw)), 23px);
@@ -1026,19 +1004,33 @@
   .sub {
     max-width: 30em;
   }
+  /* Both buttons share one row on phones. */
   .ctas {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: nowrap;
+    gap: 10px;
     width: 100%;
-    max-width: 360px;
   }
   .btn {
-    height: 60px;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 52px;
+    gap: 8px;
+    padding: 0 12px;
+    font-size: 14.5px;
   }
   .falloff {
     background:
       radial-gradient(ellipse 80% 42% at 50% 36%, rgb(255 255 255 / 0.95) 35%, rgb(255 255 255 / 0) 100%),
       linear-gradient(180deg, rgb(255 255 255 / 0) 88%, #fff 100%);
+  }
+}
+@media (max-width: 400px) {
+  .btn {
+    padding: 0 8px;
+    font-size: 13px;
+  }
+  .btnArrow {
+    display: none;
   }
 }
 @media (max-width: 520px) {
@@ -1084,5 +1076,11 @@
   }
   .cardPos:hover .card {
     translate: none;
+  }
+}
+@media (max-width: 360px) {
+  .btn {
+    padding: 0 6px;
+    font-size: 12px;
   }
 }

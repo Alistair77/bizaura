@@ -247,8 +247,11 @@
   .header {
     --menu-size: 52px;
   }
+  /* Phones: only the menu stays pinned; the pill scrolls away with the hero instead of
+     sitting on top of every section. */
   .eventsBtn {
     --events-h: 40px;
+    position: absolute;
     padding: 0 17px;
     font-size: 14px;
     right: calc(var(--edge-right) + var(--menu-size) + 10px);
@@ -260,6 +263,21 @@
 }
 
 /* Events page on phones: the brand lockup needs the room; socials live in its footer. */
+/* Narrow phones: smaller social keys so the row clears the left edge (320px). */
+@media (max-width: 400px) {
+  .social {
+    gap: 6px;
+    right: calc(var(--edge-right) + var(--menu-size) + 8px + 92px);
+  }
+  .social li:nth-child(n) {
+    --social-size: 36px;
+  }
+  .eventsBtn {
+    right: calc(var(--edge-right) + var(--menu-size) + 8px);
+    padding: 0 15px;
+  }
+}
+
 @media (max-width: 760px) {
   .backVariant .social {
     display: none;

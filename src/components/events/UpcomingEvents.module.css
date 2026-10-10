@@ -223,10 +223,11 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--color-yellow);
-  color: var(--color-ink);
-  border: 2px solid var(--color-ink);
-  box-shadow: 0 3px 0 var(--color-ink);
+  /* Brand dark pink (same as the Let's build CTA). */
+  background: var(--color-pink-deep);
+  color: #fff;
+  border: 2px solid var(--color-pink-edge);
+  box-shadow: 0 3px 0 var(--color-pink-edge);
   transition:
     transform var(--duration-fast) var(--ease-out),
     box-shadow 120ms ease;
@@ -283,5 +284,13 @@
   }
   .ticket {
     width: min(82vw, 360px);
+  }
+}
+@media (max-width: 767px) {
+  .section {
+    padding-block: 28px 24px;
+  }
+  .arrows {
+    margin-top: 4px;
   }
 }

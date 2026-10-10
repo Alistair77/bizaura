@@ -227,6 +227,16 @@ export function HowWeEngage() {
             >
               <Icon name="arrowLeft" size={28} strokeWidth={2} />
             </button>
+            {/* Phones: next sits on the card beside prev (the section-level arrow is hidden there). */}
+            <button
+              type="button"
+              className={`${styles.arrowBtn} ${styles.nextBtnCard}`}
+              aria-label="Next stage"
+              disabled={active === LAST}
+              onClick={() => goTo(active + 1)}
+            >
+              <Icon name="arrow" size={28} strokeWidth={2} />
+            </button>
           </div>
 
           {/* D. Step detail */}

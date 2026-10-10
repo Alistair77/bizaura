@@ -67,7 +67,6 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
-    "kicker kicker"
     "head cta"
     "lead cta";
   column-gap: clamp(32px, 4vw, 64px);
@@ -75,23 +74,13 @@
   padding-left: 22px;
   padding-top: 8px;
 }
-.kicker {
-  grid-area: kicker;
-  color: var(--color-ink);
-}
 .spineRule {
   position: absolute;
   left: 0;
-  top: 46px;
+  top: 14px;
   bottom: 84px;
   width: 1px;
   background: rgb(17 17 17 / 0.2);
-}
-.kicker {
-  color: var(--color-ink);
-}
-.kicker :global(.eyebrow__rule) {
-  width: 130px;
 }
 .heading {
   grid-area: head;
@@ -513,9 +502,6 @@
    ENTRANCE CHOREOGRAPHY (final state is the default;
    animations only run once .is-in lands)
    ========================================================= */
-.section.is-in .kicker {
-  animation: rise 560ms var(--ease-out) 50ms backwards;
-}
 .section.is-in .heading {
   animation: rise 560ms var(--ease-out) 110ms backwards;
 }
@@ -691,25 +677,53 @@
   }
   .pillars {
     display: flex;
-    gap: 14px;
+    /* Gap = both gutters, so the neighbouring card never peeks in. */
+    gap: calc(var(--gutter) * 2);
     height: auto;
     margin-inline: calc(-1 * var(--gutter));
     padding-inline: var(--gutter);
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
     scrollbar-width: none;
   }
   .pillars::-webkit-scrollbar {
     display: none;
   }
+  /* One card in focus at a time: full width, snapping card by card (arrows step the same). */
   .pillar {
-    flex: 0 0 78%;
+    flex: 0 0 100%;
     margin-right: 0;
     scroll-snap-align: center;
+    scroll-snap-stop: always;
   }
   .pillarImgWrap {
-    height: 200px;
+    height: 180px;
+  }
+  .num {
+    top: 12px;
+    left: 14px;
+    font-size: 1.5rem;
+  }
+  .pillarText {
+    gap: 8px;
+    padding: 16px 18px 20px;
+  }
+  .badge {
+    width: 36px;
+    height: 36px;
+  }
+  .badge svg {
+    width: 18px;
+    height: 18px;
+  }
+  .pillarTitle {
+    font-size: 1.3rem;
+  }
+  .pillarBody {
+    font-size: 0.95rem;
+    line-height: 1.45;
   }
   .journey {
     display: block;
@@ -722,19 +736,42 @@
   .journey .finishTag {
     display: none;
   }
+  /* Zig-zag journey: the desktop wave on its side, nodes on the crests (Spine.tsx ZIGZAG). */
   .journeyV {
-    display: grid;
-    gap: 0;
-    margin-top: 28px;
-    padding-left: 6px;
-    border-left: 2px solid rgb(17 17 17 / 0.14);
+    position: relative;
+    display: block;
+    height: 400px;
+    margin: 36px 0 34px;
+  }
+  .pathV {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 0 6px rgb(123 63 242 / 0.25));
+  }
+  /* Wipes in top to bottom (dash tricks break with the non-scaling stroke). */
+  .section.is-in .pathV {
+    animation: drawV 1.6s var(--ease-out) 200ms backwards;
+  }
+  .nodesV {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
   .nodeV {
     --accent: var(--a-violet);
-    position: relative;
-    display: grid;
-    gap: 2px;
-    padding: 10px 0 10px 26px;
+    --x: 18%;
+    position: absolute;
+    top: var(--ny);
+    left: 0;
+    right: 0;
+  }
+  .nodeV[data-side="right"] {
+    --x: 82%;
   }
   .nodeV[data-accent="blue"] {
     --accent: var(--a-blue);
@@ -742,29 +779,45 @@
   .nodeV[data-accent="pink"] {
     --accent: var(--a-pink);
   }
-  .nodeV[data-accent="red"] {
-    --accent: var(--a-red);
-  }
-  .nodeV[data-accent="navy"] {
-    --accent: #1d3f8f;
-  }
   .dotV {
     position: absolute;
-    left: -9px;
-    top: 20px;
-    width: 15px;
-    height: 15px;
+    left: var(--x);
+    top: 0;
+    width: 17px;
+    height: 17px;
+    translate: -50% -50%;
     border-radius: 50%;
     border: 3px solid #fff;
     background: var(--accent);
-    box-shadow: 0 0 0 2px rgb(17 17 17 / 0.12), 0 0 14px color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent), 0 0 16px color-mix(in srgb, var(--accent) 55%, transparent);
   }
   .nodeLabelV {
-    font-size: 0.8125rem;
+    position: absolute;
+    top: 0;
+    display: grid;
+    gap: 4px;
+    translate: 0 -50%;
+    font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-ink);
+    white-space: nowrap;
+  }
+  .nodeV[data-side="left"] .nodeLabelV {
+    left: calc(var(--x) + 22px);
+  }
+  .nodeV[data-side="right"] .nodeLabelV {
+    right: calc(100% - var(--x) + 22px);
+    justify-items: end;
+    text-align: right;
+  }
+  .nodeLabelV .rightFx {
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    background-position: 0 96%;
+    padding-bottom: 3px;
   }
   .note {
     position: static;
@@ -773,7 +826,42 @@
   }
 }
 
+/* Phones: the card sliding into the centre scales up into focus (scroll-driven, no JS). */
+@supports (animation-timeline: view()) {
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+    /* Matches the entrance rule's specificity (.section.is-in .pillar:nth-child) and wins by order. */
+    .section .pillar:nth-child(n),
+    .section.is-in .pillar:nth-child(n) {
+      animation: pillarFocus linear both;
+      animation-delay: 0s;
+      animation-timeline: view(inline);
+      animation-range: entry 0% cover 50%;
+    }
+  }
+}
+@keyframes pillarFocus {
+  from {
+    opacity: 0.4;
+    scale: 0.88;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes drawV {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 -10% 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .section.is-in .pathV {
+    animation: none;
+  }
   .halo {
     animation: none;
   }
@@ -781,7 +869,6 @@
     animation: none;
     opacity: 0;
   }
-  .section.is-in .kicker,
   .section.is-in .heading,
   .section.is-in .lead,
   .section.is-in .approach,

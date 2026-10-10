@@ -1,0 +1,35 @@
+/* Phone-only prev/next keys for swipeable strips; same raised-key language as the site buttons. */
+.arrows {
+  display: none;
+}
+@media (max-width: 767px) {
+  .arrows {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 14px;
+  }
+}
+.btn {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid rgb(17 17 17 / 0.18);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-ink);
+  box-shadow: 0 3px 0 var(--key-edge);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow 120ms ease,
+    opacity 200ms ease;
+}
+.btn:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 transparent;
+}
+.btn:disabled {
+  opacity: 0.35;
+  box-shadow: none;
+}

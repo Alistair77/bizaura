@@ -24,7 +24,7 @@ export function LetsBuild() {
           </h2>
           <p className={styles.letsLead}>Insights. People. Real outcomes.</p>
           <div className={styles.ctas}>
-            <a className="btn btn--yellow" href="#admit-one">
+            <a className="btn btn--pink" href="#admit-one">
               Start a conversation <Icon name="arrow" size={16} className="btn__arrow" />
             </a>
             <a className="btn btn--outline-light" href="#what-we-build">

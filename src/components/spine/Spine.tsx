@@ -1,7 +1,9 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { Plasma } from "@/components/hero/Plasma";
+import { ScrollArrows } from "@/components/ui/ScrollArrows";
 import { SPINE_PILLARS } from "@/content/home";
 import styles from "./Spine.module.css";
 
@@ -35,7 +37,15 @@ const JOURNEY = [
   { label: "Right outcomes", sub: "Real outcomes", accent: "violet", top: 35 },
 ] as const;
 
+/**
+ * Phone journey: the desktop wave turned on its side — a zig-zag in a 100×100 box whose
+ * turning points are the nodes (x 18% / 82%, y in ZIG_Y), so each dot sits on a crest.
+ */
+const ZIG_Y = [8, 36, 64, 92] as const;
+const ZIGZAG = "M 18 8 C 18 22, 82 22, 82 36 C 82 50, 18 50, 18 64 C 18 78, 82 78, 82 92";
+
 export function Spine() {
+  const pillarsRef = useRef<HTMLOListElement>(null);
   return (
     <section id="spine" className={styles.section} aria-labelledby="spine-heading" data-reveal>
       {/* Faint hero-plasma wash — light, never hyper. */}
@@ -57,7 +67,6 @@ export function Spine() {
 
       <div className={`container ${styles.layout}`}>
         <div className={styles.intro}>
-          <p className={`eyebrow ${styles.kicker}`}>Our spine</p>
           <h2 id="spine-heading" className={`display ${styles.heading}`}>
             <span className={styles.hLine}>
               Everything in the right <span className={styles.hOrder}>order.</span>
@@ -71,7 +80,7 @@ export function Spine() {
         </div>
 
         <div className={styles.stage}>
-          <ol className={styles.pillars}>
+          <ol ref={pillarsRef} className={styles.pillars}>
             {SPINE_PILLARS.map((pillar, i) => {
               const [first, ...rest] = pillar.title.split(" ");
               const remainder = rest.join(" ");
@@ -117,6 +126,7 @@ export function Spine() {
               );
             })}
           </ol>
+          <ScrollArrows targetRef={pillarsRef} label="Browse the four pillars" />
 
           <div className={styles.journey} aria-hidden="true">
             <svg className={styles.path} viewBox="0 0 1000 200" preserveAspectRatio="none">
@@ -175,18 +185,49 @@ export function Spine() {
             </ul>
           </div>
 
-          {/* Vertical journey for small screens (horizontal wave hidden). */}
-          <ol className={styles.journeyV} aria-label="Journey milestones">
-            {JOURNEY.map((node) => (
-              <li key={node.label} className={styles.nodeV} data-accent={node.accent}>
-                <span className={styles.dotV} />
-                <span className={styles.nodeLabelV}>
-                  {node.label}
-                  <span className={styles.nodeSub}>{node.sub}</span>
-                </span>
-              </li>
-            ))}
-          </ol>
+          {/* Phone journey: zig-zag wave with the same glowing nodes (horizontal wave hidden). */}
+          <div className={styles.journeyV}>
+            <svg className={styles.pathV} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="spineJourneyV" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#7B3FF2" />
+                  <stop offset="0.38" stopColor="#2563FF" />
+                  <stop offset="0.68" stopColor="#FF2E93" />
+                  <stop offset="1" stopColor="#7B3FF2" />
+                </linearGradient>
+              </defs>
+              <path
+                d={ZIGZAG}
+                fill="none"
+                stroke="url(#spineJourneyV)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+            <ol className={styles.nodesV} aria-label="Journey milestones">
+              {JOURNEY.map((node, i) => (
+                <li
+                  key={node.label}
+                  className={styles.nodeV}
+                  data-accent={node.accent}
+                  data-side={i % 2 === 0 ? "left" : "right"}
+                  style={{ "--i": i, "--ny": `${ZIG_Y[i]}%` } as React.CSSProperties}
+                >
+                  <span className={styles.dotV}>
+                    <span className={styles.halo} />
+                  </span>
+                  <span className={styles.nodeLabelV}>
+                    <span>
+                      <span className={styles.rightFx}>{node.label.split(" ")[0]}</span>{" "}
+                      {node.label.split(" ").slice(1).join(" ")}
+                    </span>
+                    <span className={styles.nodeSub}>{node.sub}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>

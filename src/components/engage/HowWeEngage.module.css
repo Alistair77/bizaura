@@ -52,17 +52,18 @@
 }
 
 /* ---------- Atmosphere (decorative) ---------- */
+/* Texture sits under the content (the section isolates), never as a veil over the text. */
 .grain {
   position: absolute;
   inset: 0;
-  z-index: 30;
+  z-index: -1;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity: 0.035;
 }
 .dust {
   position: absolute;
-  z-index: 30;
+  z-index: -1;
   width: 3px;
   height: 3px;
   border-radius: 50%;
@@ -123,7 +124,6 @@
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.032em;
-  text-shadow: 0 0 24px rgb(255 255 255 / 0.8);
 }
 .hLine {
   display: block;
@@ -436,7 +436,8 @@ a.nextRow {
   color: var(--pink);
   transform: translateX(6px);
 }
-.nextBtn {
+.nextBtn,
+.nextBtnCard {
   display: none;
 }
 
@@ -627,62 +628,95 @@ a.nextRow {
 
 /* ---------- Mobile stepper: scroll-snap row ---------- */
 @media (max-width: 767px) {
-  .stepper {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
+  .section {
+    min-height: 0;
   }
-  .stepper::-webkit-scrollbar {
-    display: none;
-  }
-  .node {
-    --node: 48px;
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-    min-width: 92px;
-  }
-  .nodeLabel {
-    font-size: 16px;
+  .copy {
+    padding-top: 14px;
   }
   .headline {
-    font-size: 36px;
+    margin-top: 0;
+    font-size: 2.1rem;
   }
-  .bigNum {
-    font-size: 48px;
+  .para {
+    margin-top: 16px;
+    font-size: 1rem;
   }
-  .detailTitle {
-    font-size: 36px;
+  .cta {
+    gap: 14px;
+    min-height: 54px;
+    margin: 24px var(--gutter) 0;
+    padding: 0 24px 0 26px;
+    font-size: 1rem;
   }
-  .detailSub {
-    font-size: 19px;
+  /* All five stages fit across the screen — no hidden fifth step. */
+  .stepper {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2px;
+    margin-top: 30px;
+    padding-inline: calc(var(--gutter) - 6px);
   }
-  .detailBody {
-    font-size: 17px;
+  .node {
+    --node: 40px;
+    gap: 8px;
+    min-width: 0;
+    padding: 6px 0;
+  }
+  .dot {
+    font-size: 0.85rem;
+  }
+  .nodeLabel {
+    font-size: 0.72rem;
+    line-height: 1.2;
   }
   .cardWrap {
     position: relative;
+    margin-top: 24px;
   }
   .card {
-    border-radius: 20px;
+    aspect-ratio: 16 / 10;
+    border-radius: 18px;
+  }
+  .arrowBtn {
+    --abtn: 48px;
   }
   .prevBtn {
     left: 12px;
     bottom: 12px;
   }
   .nextBtn {
+    display: none;
+  }
+  .nextBtnCard {
     display: grid;
     position: absolute;
     right: 12px;
     bottom: 12px;
   }
-  .arrowBtn {
-    --abtn: 56px;
+  .detail {
+    padding-top: 22px;
+  }
+  .bigNum {
+    font-size: 2.4rem;
+  }
+  .detailTitle {
+    font-size: 1.9rem;
+  }
+  .detailSub {
+    margin-top: 8px;
+    font-size: 1.05rem;
+  }
+  .detailBody {
+    margin-top: 16px;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .dashes {
+    padding-top: 22px;
   }
   .torn {
-    height: 60px;
+    height: 48px;
   }
 }
 
@@ -697,5 +731,20 @@ a.nextRow {
   }
   .node[data-state="active"] .dot {
     animation: none;
+  }
+}
+
+/* Below the pinned desktop layout the section label needs the page gutter like the copy. */
+@media (max-width: 1279px) {
+  .brandTitle {
+    padding: 32px var(--gutter) 0;
+  }
+}
+
+/* Narrowest phones: five step labels must fit 1/5 of 320px. */
+@media (max-width: 360px) {
+  .nodeLabel {
+    font-size: 0.64rem;
+    letter-spacing: -0.01em;
   }
 }

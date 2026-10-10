@@ -7,8 +7,8 @@
   align-items: center;
   /* Contains the cards' off-screen slide-in so it never widens the page on phones. */
   overflow-x: clip;
-  min-height: min(92svh, 900px);
-  padding-block: clamp(3.5rem, 7vw, 6rem);
+  /* Content-height: a forced near-viewport height left a blank band before Let's build. */
+  padding-block: clamp(3rem, 5vw, 4.5rem);
   background:
     radial-gradient(34% 42% at 4% 90%, rgb(127 216 255 / 0.08), transparent 70%),
     var(--color-paper);
@@ -316,7 +316,10 @@
 
 @media (max-width: 699px) {
   .section {
-    min-height: 0;
+    padding-block: 36px 32px;
+  }
+  .stairWrap {
+    margin-top: 0;
   }
   .stairWrap {
     padding-right: 0;
@@ -331,7 +334,7 @@
   }
   .note {
     position: static;
-    margin: 28px 0 0 auto;
+    margin: 14px 0 0 auto;
     width: fit-content;
   }
   .statements {

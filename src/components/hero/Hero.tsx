@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { HandArrow } from "./HandArrow";
 import { HeroClip } from "./HeroClip";
 import { HeroLogo } from "./HeroLogo";
+import { LOGO_GLYPHS, LOGO_H, LOGO_O_CENTER, LOGO_O_STOPS } from "./logoGlyphs";
 import { Plasma } from "./Plasma";
 import styles from "./Hero.module.css";
 
@@ -30,6 +31,18 @@ const TAGLINE: { text: string; dy: number; rot: number }[][] = [
     { text: "meet.", dy: 1, rot: 0.6 },
   ],
 ];
+
+/** Load intro pieces cut from the biz-ora logo: "biz-" | O (ring + dot) | "ra". */
+const LOGO_X0 = LOGO_GLYPHS[0].x0;
+const LOGO_X1 = LOGO_GLYPHS[LOGO_GLYPHS.length - 1].x1;
+const INTRO_O_INDEX = LOGO_GLYPHS.findIndex((g) => g.key === "o");
+const INTRO_O = LOGO_GLYPHS[INTRO_O_INDEX];
+const INTRO_LEFT = LOGO_GLYPHS.slice(0, INTRO_O_INDEX);
+const INTRO_RIGHT = LOGO_GLYPHS.slice(INTRO_O_INDEX + 1);
+// The O path is outer ring, counter, then the dot: split so the dot can land on its own.
+const [oOuter, oCounter, oDot] = INTRO_O.d.split(/(?=M)/);
+const INTRO_O_RING = `${oOuter} ${oCounter}`;
+const INTRO_O_DOT = oDot;
 
 /** Design canvas the hero composition is laid out on (scaled evenly to fit on ≥1100px). */
 const STAGE_W = 1440;
@@ -69,21 +82,43 @@ export function Hero() {
       <div className={styles.introOrb} />
     </div>
     <div className={`${styles.intro} ${styles.introLogo}`} data-intro-layer aria-hidden="true">
-      <div className={styles.introMark}>
-        <span className={styles.introBiz}>BIZ</span>
-        <svg className={styles.introO} viewBox="0 0 100 100">
-          <defs>
-            <linearGradient id="intro-o" x1="0" x2="1" y1="0" y2="0" gradientTransform="rotate(90 0.5 0.5)">
-              <stop offset="0" stopColor="#4b6cd6" />
-              <stop offset="0.5" stopColor="#9b47a8" />
-              <stop offset="1" stopColor="#e3337e" />
-            </linearGradient>
-          </defs>
-          <circle className={styles.introORing} cx="50" cy="50" r="41" pathLength={1} />
-          <circle className={styles.introODot} cx="50" cy="50" r="10" />
-        </svg>
-        <span className={styles.introRa}>RA</span>
-      </div>
+      <svg className={styles.introMark} viewBox={`${LOGO_X0} 0 ${LOGO_X1 - LOGO_X0} ${LOGO_H}`}>
+        <defs>
+          <linearGradient id="intro-o" gradientUnits="userSpaceOnUse" x1={INTRO_O.x0} x2={INTRO_O.x1} y1="0" y2="0">
+            {LOGO_O_STOPS.map((c, i) => (
+              <stop key={c} offset={i / (LOGO_O_STOPS.length - 1)} stopColor={c} />
+            ))}
+          </linearGradient>
+          {/* A thick stroke sweeping round the ring reveals it as if drawn. */}
+          <mask id="intro-o-draw" maskUnits="userSpaceOnUse">
+            <circle
+              className={styles.introDraw}
+              cx={LOGO_O_CENTER.cx}
+              cy={LOGO_O_CENTER.cy}
+              r="78"
+              fill="none"
+              stroke="#fff"
+              strokeWidth="58"
+              pathLength={1}
+              transform={`rotate(-90 ${LOGO_O_CENTER.cx} ${LOGO_O_CENTER.cy})`}
+            />
+          </mask>
+        </defs>
+        <g className={styles.introBiz}>
+          {INTRO_LEFT.map((g) => (
+            <path key={g.key} d={g.d} fillRule="evenodd" />
+          ))}
+        </g>
+        <g className={styles.introRa}>
+          {INTRO_RIGHT.map((g) => (
+            <path key={g.key} d={g.d} fillRule="evenodd" />
+          ))}
+        </g>
+        <g className={styles.introO}>
+          <path d={INTRO_O_RING} fillRule="evenodd" fill="url(#intro-o)" mask="url(#intro-o-draw)" />
+          <path className={styles.introODot} d={INTRO_O_DOT} fill="url(#intro-o)" />
+        </g>
+      </svg>
     </div>
     <section ref={heroRef} id="top" className={styles.hero} aria-labelledby="hero-heading">
       {/* z 0–2: living plasma under a soft white falloff — decorative */}
@@ -175,7 +210,6 @@ export function Hero() {
               {industry}
             </li>
           ))}
-          <li className={styles.chip}>+ more</li>
         </ul>
       </div>
     </section>

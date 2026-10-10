@@ -6,6 +6,7 @@ import { Plasma } from "@/components/hero/Plasma";
 import { HandArrow } from "@/components/ui/HandArrow";
 import { Icon } from "@/components/ui/Icon";
 import { pointerTilt } from "@/components/ui/pointerTilt";
+import { ScrollArrows } from "@/components/ui/ScrollArrows";
 import { TornEdge } from "@/components/ui/TornEdge";
 import { EVENTS, EVENTS_INDEX_HREF, type EventItem } from "@/content/home";
 import styles from "./UpcomingEvents.module.css";
@@ -130,7 +131,7 @@ export function UpcomingEvents() {
         />
       </div>
       <div className={`container ${styles.layout}`}>
-        <div className={styles.tab}>
+        <div className={styles.tab} data-reveal>
           <TornEdge edge="left" fill="var(--color-blue-deep)" seed={41} depth={22} className={styles.tabTear} />
           <h2 id="events-heading" className={`hand ${styles.tabTitle}`}>
             Upcoming
@@ -143,6 +144,8 @@ export function UpcomingEvents() {
         <div
           ref={railRef}
           className={styles.rail}
+          data-reveal
+          style={{ "--reveal-delay": "140ms", "--reveal-x": "36px", "--reveal-y": "0px" } as React.CSSProperties}
           tabIndex={0}
           role="region"
           aria-label="Upcoming events — scroll horizontally"
@@ -158,6 +161,7 @@ export function UpcomingEvents() {
             </li>
           </ul>
         </div>
+        <ScrollArrows targetRef={railRef} label="Browse upcoming events" className={styles.arrows} />
       </div>
     </section>
   );

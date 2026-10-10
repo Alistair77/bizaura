@@ -5,6 +5,8 @@
   position: relative;
   display: flex;
   align-items: center;
+  /* The note flies in from off-screen right; clip it so phones never widen (and zoom out) the page. */
+  overflow-x: clip;
   min-height: min(92svh, 920px);
   padding-block: clamp(3.5rem, 7vw, 6rem);
   background:
@@ -288,12 +290,46 @@
   .section {
     min-height: 0;
   }
+  /* Compact 2×2 on phones: content sits together, no tall empty middle. */
   .cards {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 40px;
   }
   .card {
-    min-height: 240px;
+    gap: 18px;
+    min-height: 0;
+    padding: 14px 14px 16px;
+    border-radius: 18px;
+  }
+  .cardTop {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+  .pill {
+    padding: 4px 8px;
+    border-width: 1.5px;
+    border-radius: 10px;
+    font-size: 0.6rem;
+  }
+  .iconBox {
+    width: 32px;
+    height: 32px;
+  }
+  .iconBox svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cardTitle {
+    font-size: 1.05rem;
+  }
+  .cardBody {
+    margin-top: 4px;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+  .bigNum {
+    font-size: 4.5rem;
   }
   :global(.js) .card[data-reveal]:nth-child(n) {
     --reveal-x: 0px;

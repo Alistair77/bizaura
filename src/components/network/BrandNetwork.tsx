@@ -68,7 +68,7 @@ export function BrandNetwork() {
   return (
     <section id="network" className={ticket.section} aria-labelledby="network-heading">
       <div className={`container ${ticket.layout}`}>
-        <div className={ticket.tab}>
+        <div className={ticket.tab} data-reveal>
           <TornEdge edge="left" fill="var(--color-blue-deep)" seed={57} depth={22} className={ticket.tabTear} />
           <h2 id="network-heading" className={`hand ${ticket.tabTitle}`}>
             Our
@@ -78,7 +78,14 @@ export function BrandNetwork() {
           <HandArrow variant="flickRight" className={ticket.tabArrow} />
         </div>
 
-        <div ref={marqueeRef} className={styles.marquee} role="region" aria-label="Brands in the Bizora network">
+        <div
+          ref={marqueeRef}
+          className={styles.marquee}
+          role="region"
+          aria-label="Brands in the Bizora network"
+          data-reveal
+          style={{ "--reveal-delay": "140ms", "--reveal-x": "36px", "--reveal-y": "0px" } as React.CSSProperties}
+        >
           <div className={styles.track}>
             {list(0)}
             {list(1)}

@@ -262,6 +262,24 @@ button {
   --btn-fg: #fff;
   --btn-border: var(--color-yellow);
 }
+/* Brand dark pink key (Let's build CTA). */
+.btn--pink {
+  --btn-bg: var(--color-pink-deep);
+  --btn-fg: #fff;
+  --btn-border: var(--color-pink-deep);
+}
+.btn--pink {
+  box-shadow:
+    0 6px 0 var(--color-pink-edge),
+    0 18px 28px -18px rgb(143 20 88 / 0.6);
+}
+.btn--pink:hover {
+  --btn-bg: #c0186f;
+  --btn-border: #c0186f;
+  box-shadow:
+    0 8px 0 var(--color-pink-edge),
+    0 24px 34px -18px rgb(143 20 88 / 0.6);
+}
 .btn--sm {
   min-height: 44px;
   padding: 0 18px;
@@ -310,29 +328,16 @@ button {
 }
 
 /* ---------- Brand ---------- */
+/* biz-ora logo (Wordmark.tsx): 0.8em tall ≈ the old wordmark's cap height, width from the artwork. */
 .wordmark {
-  display: inline-flex;
-  align-items: baseline;
-  font-weight: 900;
-  letter-spacing: -0.045em;
-  line-height: 0.8;
-  white-space: nowrap;
-  color: var(--color-ink);
-}
-/* The O: a proper black letterform whose counter carries the eye. */
-.wordmark__o {
-  position: relative;
   display: inline-block;
-  line-height: 1;
-}
-.wordmark__oChar {
-  color: inherit;
-}
-.wordmark__oEye {
-  position: absolute;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+  flex: none;
+  height: 0.8em;
+  width: auto;
+  aspect-ratio: 1039 / 248;
+  overflow: visible;
+  vertical-align: middle;
+  color: var(--color-ink);
 }
 
 /* ---------- Scroll reveal (only armed when JS is running) ---------- */

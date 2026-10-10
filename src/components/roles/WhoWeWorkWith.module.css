@@ -359,39 +359,91 @@
   }
 }
 
-/* ---------- Mobile: vertical stack, still physical ---------- */
+/* ---------- Mobile: all four passes in one view — 2×2, short straps, names first ---------- */
 @media (max-width: 699px) {
   .layout {
     grid-template-columns: 1fr;
   }
+  .heading {
+    font-size: 2.15rem;
+    line-height: 0.95;
+  }
   .note {
     justify-self: start;
-    margin-top: 36px;
+    margin-top: 18px;
+    font-size: 1.25rem;
+  }
+  .noteArrow {
+    width: 52px;
+    margin: 6px 0 0 30px;
   }
   .passes {
-    grid-template-columns: minmax(0, 300px);
-    justify-content: center;
-    row-gap: 4px;
-    margin-top: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 14px;
+    row-gap: 18px;
+    margin: 8px 0 0;
   }
+  /* Each strap is its own stub fading upward, so no shared rail is needed. */
   .passes::before {
-    left: 50%;
-    right: auto;
-    width: 324px;
-    translate: -50% 0;
+    display: none;
   }
   .passWrap {
-    padding-top: 194px;
-  }
-  .paper {
-    top: 180px;
+    --drop: 0px;
+    padding-top: 46px;
   }
   .lanyard {
-    top: -12px;
-    height: 216px;
+    top: 0;
+    width: 34px;
+    height: 66px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 55%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 55%);
+  }
+  .lanyardText {
+    font-size: 7px;
   }
   .ring {
-    top: 184px;
+    top: 36px;
+    width: 18px;
+    height: 18px;
+  }
+  .ring::after {
+    inset: 4px;
+  }
+  .paper {
+    top: 40px;
+    width: 92%;
+  }
+  .badge {
+    width: 100%;
+    max-width: 172px;
+    gap: 7px;
+    padding: 20px 8px 9px;
+    border-radius: 9px;
+  }
+  .badge::before {
+    top: 7px;
+    width: 22px;
+    height: 4px;
+  }
+  .badgeBrand {
+    font-size: 0.72rem;
+  }
+  .photo {
+    aspect-ratio: 4 / 3;
+  }
+  /* Two-line strip height for every name, so all four badges come out the same size. */
+  .roleStrip {
+    display: grid;
+    place-items: center;
+    min-height: calc(2 * 1.2em + 12px);
+    padding: 6px 4px;
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+  }
+  .desc,
+  .badgeFoot {
+    display: none;
   }
   .darkSheet {
     top: 2%;

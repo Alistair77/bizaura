@@ -20,6 +20,8 @@
   /* Accents — deep variants: AA with white body text */
   --color-violet-deep: #6b4ee6;
   --color-pink-deep: #d61f82;
+  /* Underside of raised pink keys. */
+  --color-pink-edge: #8f1458;
   --color-blue-deep: #2f5fe0;
 
   /* outcomes. — Purple → Blue → Magenta/Pink, horizontal */
