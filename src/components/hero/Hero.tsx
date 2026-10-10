@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from "react";
-import { INDUSTRIES } from "@/content/home";
+import { preload } from "react-dom";
+import { BASE_PATH, INDUSTRIES } from "@/content/home";
 import { Icon } from "@/components/ui/Icon";
 import { HandArrow } from "./HandArrow";
 import { HeroClip } from "./HeroClip";
@@ -44,12 +45,17 @@ const [oOuter, oCounter, oDot] = INTRO_O.d.split(/(?=M)/);
 const INTRO_O_RING = `${oOuter} ${oCounter}`;
 const INTRO_O_DOT = oDot;
 
+/** Still frames of the hero plasma (captured from the live canvas at 1440×900 and 375×812). */
+const PLASMA_POSTER = {
+  desktop: `${BASE_PATH}/images/hero/hero-plasma-desktop.webp`,
+  mobile: `${BASE_PATH}/images/hero/hero-plasma-mobile.webp`,
+} as const;
+
 /** Design canvas the hero composition is laid out on (scaled evenly to fit on ≥1100px). */
 const STAGE_W = 1440;
 const STAGE_H = 900;
 
 export function Hero() {
-  const wrapRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
 
   // Same scale as the CSS --s (min of width/height fit), set from JS for browsers without
@@ -66,14 +72,10 @@ export function Hero() {
     return () => window.removeEventListener("resize", fit);
   }, []);
 
-  // Static fallback shows ONLY when WebGL failed: Plasma appends no <canvas> then.
-  useEffect(() => {
-    const t = window.setTimeout(() => {
-      const el = wrapRef.current;
-      if (el && !el.querySelector("canvas")) el.classList.add(styles.isFallback);
-    }, 1500);
-    return () => window.clearTimeout(t);
-  }, []);
+  // A still frame of this exact plasma paints with the HTML (preloaded, ~5–11 KB), so the hero
+  // never waits on JS + WebGL; the live canvas fades in over it. Also the no-WebGL fallback.
+  preload(PLASMA_POSTER.desktop, { as: "image", media: "(min-width: 761px)", fetchPriority: "high" });
+  preload(PLASMA_POSTER.mobile, { as: "image", media: "(max-width: 760px)", fetchPriority: "high" });
 
   return (
     <>
@@ -122,8 +124,17 @@ export function Hero() {
     </div>
     <section ref={heroRef} id="top" className={styles.hero} aria-labelledby="hero-heading">
       {/* z 0–2: living plasma under a soft white falloff — decorative */}
-      <div className={styles.heroBg} aria-hidden="true">
-        <div ref={wrapRef} className={styles.plasmaWrap}>
+      <div
+        className={styles.heroBg}
+        aria-hidden="true"
+        style={
+          {
+            "--plasma-poster-d": `url(${PLASMA_POSTER.desktop})`,
+            "--plasma-poster-m": `url(${PLASMA_POSTER.mobile})`,
+          } as React.CSSProperties
+        }
+      >
+        <div className={styles.plasmaWrap}>
           <Plasma
             silk
             ring={PLASMA_RING}
@@ -139,7 +150,6 @@ export function Hero() {
             iterations={40}
             timeOffset={PLASMA_TIME_OFFSET}
           />
-          <div className={styles.plasmaStatic} />
         </div>
         <div className={styles.falloff} />
         <svg className={styles.filters} aria-hidden="true" focusable="false">

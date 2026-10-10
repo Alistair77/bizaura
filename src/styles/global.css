@@ -381,6 +381,7 @@ button {
 }
 
 /* Hero intro: hold every entrance animation at its first frame until the eye dives away. */
-html[data-intro="on"] body *:not([data-intro-layer], [data-intro-layer] *) {
+/* Canvases are exempt so the live plasma is already drawn when the intro gives way. */
+html[data-intro="on"] body *:not([data-intro-layer], [data-intro-layer] *, canvas) {
   animation-play-state: paused !important;
 }

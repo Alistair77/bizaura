@@ -232,30 +232,16 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  /* Poster frame of the plasma (Hero.tsx): visible on first paint, before any JS or WebGL. */
+  background: var(--plasma-poster-d) center / cover no-repeat;
 }
 .plasmaWrap {
   position: absolute;
   inset: 0;
-  animation: fadeIn 1400ms ease-out both;
 }
-.plasmaStatic {
-  display: none;
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(22% 34% at 8% 30%, #5b6bffcc, transparent 70%),
-    radial-gradient(20% 30% at 16% 62%, #e15bd8b3, transparent 70%),
-    radial-gradient(24% 28% at 18% 92%, #ffa56ab3, transparent 70%),
-    radial-gradient(24% 30% at 88% 22%, #ff9d7ab3, transparent 70%),
-    radial-gradient(22% 32% at 94% 70%, #ff62aab3, transparent 70%),
-    radial-gradient(18% 22% at 96% 96%, #7a62ff99, transparent 70%);
-  filter: blur(30px);
-}
-.isFallback canvas {
-  display: none;
-}
-.isFallback .plasmaStatic {
-  display: block;
+/* The live canvas eases in over the matching poster the moment WebGL draws. */
+.plasmaWrap canvas {
+  animation: fadeIn 700ms ease-out both;
 }
 /* Keeps the centre readable without a visible shape. */
 .falloff {
@@ -986,6 +972,9 @@
 
 /* ---------- ≤760px: phone composition ---------- */
 @media (max-width: 760px) {
+  .heroBg {
+    background-image: var(--plasma-poster-m);
+  }
   /* Content height on phones: a forced full-screen minimum left a blank band on tall phones. */
   .hero {
     min-height: 0;
