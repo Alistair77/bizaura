@@ -455,7 +455,8 @@ a.nextRow {
   display: flex;
   justify-content: center;
   gap: 12px;
-  padding: 30px var(--gutter) 0;
+  /* Bottom breathing room now the torn-paper strip below is gone. */
+  padding: 30px var(--gutter) 36px;
 }
 .dash {
   height: 8px;
@@ -469,13 +470,6 @@ a.nextRow {
   background: var(--pink);
 }
 
-/* ---------- G. Torn paper edge ---------- */
-.torn {
-  display: block;
-  width: 100%;
-  height: clamp(60px, 6vw, 100px);
-  margin-top: 40px;
-}
 
 /* ---------- Tablet: full-width stacked flow ---------- */
 @media (min-width: 768px) and (max-width: 1279px) {
@@ -625,14 +619,6 @@ a.nextRow {
     translate: -50% 0;
     padding: 0;
   }
-  .torn {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 12.6%;
-    min-height: 72px;
-    margin-top: 0;
-  }
 }
 
 /* ---------- Mobile stepper: scroll-snap row ---------- */
@@ -723,9 +709,6 @@ a.nextRow {
   }
   .dashes {
     padding-top: 22px;
-  }
-  .torn {
-    height: 48px;
   }
 }
 

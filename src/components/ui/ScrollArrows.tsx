@@ -9,6 +9,8 @@ type Props = {
   targetRef: RefObject<HTMLElement | null>;
   label: string;
   className?: string;
+  /** Where the down arrow goes at the end of the strip; defaults to the next section. */
+  continueRef?: RefObject<HTMLElement | null>;
 };
 
 /** Edge tolerance so sub-pixel scroll positions still count as "at the end". */
@@ -28,7 +30,7 @@ export function scrollToNextSection(el: Element | null) {
  * drag-rails on desktop). At the last card, next turns downward and carries on to the
  * following section instead of dead-ending.
  */
-export function ScrollArrows({ targetRef, label, className }: Props) {
+export function ScrollArrows({ targetRef, label, className, continueRef }: Props) {
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
 
@@ -57,6 +59,16 @@ export function ScrollArrows({ targetRef, label, className }: Props) {
     el.scrollBy({ left: dir * distance, behavior: smooth ? "smooth" : "auto" });
   };
 
+  const carryOn = () => {
+    const target = continueRef?.current;
+    if (!target) return scrollToNextSection(targetRef.current);
+    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Exact offset: the page's anchor scroll-padding would otherwise stop short and leave the
+    // arrows on screen. The target sets its own resting gap via scroll-margin-top.
+    const gap = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - gap, behavior: smooth ? "smooth" : "auto" });
+  };
+
   return (
     <div className={`${styles.arrows} ${className ?? ""}`} role="group" aria-label={label}>
       <button type="button" className={styles.btn} aria-label="Previous" disabled={isAtStart} onClick={() => step(-1)}>
@@ -66,7 +78,7 @@ export function ScrollArrows({ targetRef, label, className }: Props) {
         type="button"
         className={`${styles.btn} ${isAtEnd ? styles.down : ""}`}
         aria-label={isAtEnd ? "Continue to the next section" : "Next"}
-        onClick={() => (isAtEnd ? scrollToNextSection(targetRef.current) : step(1))}
+        onClick={() => (isAtEnd ? carryOn() : step(1))}
       >
         <Icon name="arrow" size={20} strokeWidth={2.2} className={styles.icon} />
       </button>

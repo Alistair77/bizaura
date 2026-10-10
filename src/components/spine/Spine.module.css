@@ -743,6 +743,9 @@
     display: block;
     height: 400px;
     margin: 36px 0 22px;
+    /* Down arrow lands here: journey at the top of the screen (arrows scrolled away),
+       events coming in below. The first label sits left, clear of the pinned menu. */
+    scroll-margin-top: 12px;
   }
   .pathV {
     position: absolute;

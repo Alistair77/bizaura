@@ -225,10 +225,23 @@
   font-family: var(--font-body), Inter, system-ui, sans-serif;
   font-size: 17px;
   font-weight: 600;
-  transition: transform 220ms ease;
+  /* Raised key, same language as the hero buttons: grey underside, presses flat. */
+  box-shadow:
+    0 6px 0 var(--key-edge),
+    0 16px 26px -14px rgb(0 0 0 / 0.45);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 .sheetCta:hover {
   transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 var(--key-edge),
+    0 20px 30px -14px rgb(0 0 0 / 0.5);
+}
+.sheetCta:active {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 transparent;
 }
 
 @keyframes navIn {

@@ -298,47 +298,7 @@ export function HowWeEngage() {
           </div>
         </div>
 
-        <TornPaper />
       </section>
     </div>
-  );
-}
-
-/** G. Hand-torn paper edge with turbulence displacement + grain. */
-function TornPaper() {
-  return (
-    <svg className={styles.torn} viewBox="0 0 1983 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <defs>
-        <filter id="engageTorn" x="-5%" y="-30%" width="110%" height="160%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="7" result="n" />
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="14" />
-        </filter>
-        <filter id="engagePaperGrain" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="3" result="g" />
-          <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0" />
-          <feComposite operator="in" in2="SourceGraphic" />
-        </filter>
-      </defs>
-      <path
-        d="M0,4 C150,2 300,8 400,12 C550,20 700,28 950,40 C1100,44 1250,30 1500,22 C1700,18 1900,16 1983,17 L1983,100 L0,100 Z"
-        fill="var(--paper)"
-        filter="url(#engageTorn)"
-      />
-      <path
-        d="M0,4 C150,2 300,8 400,12 C550,20 700,28 950,40 C1100,44 1250,30 1500,22 C1700,18 1900,16 1983,17"
-        fill="none"
-        stroke="#ffffff"
-        strokeOpacity="0.6"
-        strokeWidth="1.5"
-        transform="translate(0 1.5)"
-        filter="url(#engageTorn)"
-      />
-      <g fill="#8f8f8a" opacity="0.07" filter="url(#engageTorn)">
-        <ellipse cx="300" cy="70" rx="180" ry="22" />
-        <ellipse cx="1100" cy="60" rx="260" ry="26" />
-        <ellipse cx="1750" cy="72" rx="200" ry="20" />
-      </g>
-      <rect x="0" y="0" width="1983" height="100" filter="url(#engagePaperGrain)" opacity="0.08" />
-    </svg>
   );
 }

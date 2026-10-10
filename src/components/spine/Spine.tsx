@@ -46,6 +46,7 @@ const ZIGZAG = "M 18 8 C 18 22, 82 22, 82 36 C 82 50, 18 50, 18 64 C 18 78, 82 7
 
 export function Spine() {
   const pillarsRef = useRef<HTMLOListElement>(null);
+  const journeyRef = useRef<HTMLDivElement>(null);
   return (
     <section id="spine" className={styles.section} aria-labelledby="spine-heading" data-reveal>
       {/* Faint hero-plasma wash — light, never hyper. */}
@@ -126,7 +127,7 @@ export function Spine() {
               );
             })}
           </ol>
-          <ScrollArrows targetRef={pillarsRef} label="Browse the four pillars" />
+          <ScrollArrows targetRef={pillarsRef} continueRef={journeyRef} label="Browse the four pillars" />
 
           <div className={styles.journey} aria-hidden="true">
             <svg className={styles.path} viewBox="0 0 1000 200" preserveAspectRatio="none">
@@ -186,7 +187,7 @@ export function Spine() {
           </div>
 
           {/* Phone journey: zig-zag wave with the same glowing nodes (horizontal wave hidden). */}
-          <div className={styles.journeyV}>
+          <div ref={journeyRef} className={styles.journeyV}>
             <svg className={styles.pathV} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <defs>
                 <linearGradient id="spineJourneyV" x1="0" y1="0" x2="0" y2="1">
