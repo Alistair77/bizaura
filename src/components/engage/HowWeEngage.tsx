@@ -11,8 +11,8 @@ import styles from "./HowWeEngage.module.css";
 const LAST = ENGAGE_STAGES.length - 1;
 /** Pinned scroll length on desktop: ~90vh of scroll per stage. */
 const PIN_VH = 460;
-/** Resting gap above the photo card when a phone arrow frames it (px). */
-const CARD_TOP_GAP = 16;
+/** Resting gap above "See how it works" when phones frame the journey (px). */
+const FRAME_TOP_GAP = 16;
 const STEP01_ALT = "Five colleagues in a business meeting around a table";
 
 /**
@@ -26,7 +26,7 @@ export function HowWeEngage() {
   const [pinned, setPinned] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
   const touchX = useRef<number | null>(null);
   const reduceRef = useRef(false);
 
@@ -73,16 +73,17 @@ export function HowWeEngage() {
   }, [pinned, indexFromScroll]);
 
   /**
-   * Unpinned (phones/tablets): bring the photo card — arrows on it — to the top of the screen
-   * so the stage text below is fully in view; repeated presses keep the same framing.
+   * Unpinned (phones/tablets): pull the journey up so "See how it works" rests at the top of
+   * the screen, with the steps, photo card and stage text all in view below it.
+   * Repeated presses keep the same framing.
    */
-  const frameCard = () => {
-    const el = cardRef.current;
+  const frameJourney = () => {
+    const el = ctaRef.current;
     if (!el) return;
     const top = el.getBoundingClientRect().top;
-    if (Math.abs(top - CARD_TOP_GAP) < 4) return;
+    if (Math.abs(top - FRAME_TOP_GAP) < 4) return;
     window.scrollTo({
-      top: top + window.scrollY - CARD_TOP_GAP,
+      top: top + window.scrollY - FRAME_TOP_GAP,
       behavior: reduceRef.current ? "auto" : "smooth",
     });
   };
@@ -100,7 +101,7 @@ export function HowWeEngage() {
         });
       } else {
         setActive(clamped);
-        frameCard();
+        frameJourney();
       }
       if (moveFocus) tabRefs.current[clamped]?.focus();
     },
@@ -185,6 +186,7 @@ export function HowWeEngage() {
             </p>
           </div>
           <a
+            ref={ctaRef}
             className={styles.cta}
             href="#engage-panel"
             data-reveal
@@ -229,7 +231,7 @@ export function HowWeEngage() {
           </div>
 
           {/* C. Image card */}
-          <div ref={cardRef} className={styles.cardWrap} data-reveal>
+          <div className={styles.cardWrap} data-reveal>
             <div className={styles.card}>
               {ENGAGE_STAGES.map((s, i) => (
                 <Image
