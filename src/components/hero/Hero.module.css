@@ -915,13 +915,13 @@
 /* ---------- ≤1099px (tablets/phones): stacked flow beneath the copy ---------- */
 @media (max-width: 1099px) {
   .hero {
-    padding-bottom: 64px;
+    padding-bottom: 16px;
   }
   .stack {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding-bottom: 40px;
+    padding-bottom: 8px;
     text-align: left;
   }
   /* Video stacks beneath the copy, centred. */
@@ -986,8 +986,13 @@
 
 /* ---------- ≤760px: phone composition ---------- */
 @media (max-width: 760px) {
+  /* Content height on phones: a forced full-screen minimum left a blank band on tall phones. */
+  .hero {
+    min-height: 0;
+  }
+  /* The header controls now stack under the menu (right), so the logo starts level with it. */
   .stack {
-    padding-top: 104px;
+    padding-top: clamp(22px, 3.5vh, 34px);
   }
   .logo {
     font-size: clamp(38px, calc(11.5 * var(--hvw)), 54px);

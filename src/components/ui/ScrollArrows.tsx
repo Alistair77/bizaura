@@ -14,9 +14,19 @@ type Props = {
 /** Edge tolerance so sub-pixel scroll positions still count as "at the end". */
 const EDGE_PX = 4;
 
+/** Smooth-scrolls to the section after the one containing `el` (skipping wrappers). */
+export function scrollToNextSection(el: Element | null) {
+  const section = el?.closest("section");
+  const after = section?.nextElementSibling ?? section?.parentElement?.nextElementSibling;
+  if (!after) return;
+  const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  after.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+}
+
 /**
  * Prev / next buttons for a swipeable card strip. Phones only (the strips are grids or
- * drag-rails on desktop); disabled at either end so the affordance never lies.
+ * drag-rails on desktop). At the last card, next turns downward and carries on to the
+ * following section instead of dead-ending.
  */
 export function ScrollArrows({ targetRef, label, className }: Props) {
   const [isAtStart, setIsAtStart] = useState(true);
@@ -52,8 +62,13 @@ export function ScrollArrows({ targetRef, label, className }: Props) {
       <button type="button" className={styles.btn} aria-label="Previous" disabled={isAtStart} onClick={() => step(-1)}>
         <Icon name="arrowLeft" size={20} strokeWidth={2.2} />
       </button>
-      <button type="button" className={styles.btn} aria-label="Next" disabled={isAtEnd} onClick={() => step(1)}>
-        <Icon name="arrow" size={20} strokeWidth={2.2} />
+      <button
+        type="button"
+        className={`${styles.btn} ${isAtEnd ? styles.down : ""}`}
+        aria-label={isAtEnd ? "Continue to the next section" : "Next"}
+        onClick={() => (isAtEnd ? scrollToNextSection(targetRef.current) : step(1))}
+      >
+        <Icon name="arrow" size={20} strokeWidth={2.2} className={styles.icon} />
       </button>
     </div>
   );

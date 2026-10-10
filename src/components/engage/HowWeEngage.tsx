@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Plasma } from "@/components/hero/Plasma";
 import { Icon } from "@/components/ui/Icon";
+import { scrollToNextSection } from "@/components/ui/ScrollArrows";
 import { ENGAGE_STAGES } from "@/content/home";
 import styles from "./HowWeEngage.module.css";
 
@@ -230,12 +231,11 @@ export function HowWeEngage() {
             {/* Phones: next sits on the card beside prev (the section-level arrow is hidden there). */}
             <button
               type="button"
-              className={`${styles.arrowBtn} ${styles.nextBtnCard}`}
-              aria-label="Next stage"
-              disabled={active === LAST}
-              onClick={() => goTo(active + 1)}
+              className={`${styles.arrowBtn} ${styles.nextBtnCard} ${active === LAST ? styles.arrowDown : ""}`}
+              aria-label={active === LAST ? "Continue to the next section" : "Next stage"}
+              onClick={(e) => (active === LAST ? scrollToNextSection(e.currentTarget) : goTo(active + 1))}
             >
-              <Icon name="arrow" size={28} strokeWidth={2} />
+              <Icon name="arrow" size={28} strokeWidth={2} className={styles.arrowIcon} />
             </button>
           </div>
 
@@ -276,12 +276,11 @@ export function HowWeEngage() {
           {/* E. Next arrow */}
           <button
             type="button"
-            className={`${styles.arrowBtn} ${styles.nextBtn}`}
-            aria-label="Next stage"
-            disabled={active === LAST}
-            onClick={() => goTo(active + 1)}
+            className={`${styles.arrowBtn} ${styles.nextBtn} ${active === LAST ? styles.arrowDown : ""}`}
+            aria-label={active === LAST ? "Continue to the next section" : "Next stage"}
+            onClick={(e) => (active === LAST ? scrollToNextSection(e.currentTarget) : goTo(active + 1))}
           >
-            <Icon name="arrow" size={28} strokeWidth={2} />
+            <Icon name="arrow" size={28} strokeWidth={2} className={styles.arrowIcon} />
           </button>
 
           {/* F. Pagination dashes */}

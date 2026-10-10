@@ -249,6 +249,8 @@
   }
   /* Phones: only the menu stays pinned; the pill scrolls away with the hero instead of
      sitting on top of every section. */
+  /* Phones: Events + socials hang in a column under the menu (centred on it), freeing the
+     top-left for the hero. Only the menu stays pinned; the column scrolls away with the hero. */
   .eventsBtn {
     --events-h: 40px;
     position: absolute;
@@ -256,25 +258,28 @@
     font-size: 14px;
     right: calc(var(--edge-right) + var(--menu-size) + 10px);
   }
+  /* Home: the Events pill drops under the menu, right-aligned with it (wider than the menu,
+     so centring would push it off a 320px screen). Events page keeps Back beside the menu. */
+  .header:not(.backVariant) .eventsBtn {
+    top: calc(var(--edge-top) + var(--menu-size) + 12px);
+    right: var(--edge-right);
+  }
+  /* DOM order is LinkedIn, Instagram, YouTube: reversed so YouTube sits nearest Events. */
   .social {
-    gap: 8px;
-    right: calc(var(--edge-right) + var(--menu-size) + 10px + 100px);
+    top: calc(var(--edge-top) + var(--menu-size) + 12px + var(--events-col-h, 40px) + 12px);
+    right: calc(var(--edge-right) + var(--menu-size) / 2);
+    translate: 50% 0;
+    flex-direction: column-reverse;
+    height: auto;
+    gap: 10px;
   }
 }
 
 /* Events page on phones: the brand lockup needs the room; socials live in its footer. */
-/* Narrow phones: smaller social keys so the row clears the left edge (320px). */
-@media (max-width: 400px) {
-  .social {
-    gap: 6px;
-    right: calc(var(--edge-right) + var(--menu-size) + 8px + 92px);
-  }
+/* Phones: one size for the stacked social keys. */
+@media (max-width: 760px) {
   .social li:nth-child(n) {
-    --social-size: 36px;
-  }
-  .eventsBtn {
-    right: calc(var(--edge-right) + var(--menu-size) + 8px);
-    padding: 0 15px;
+    --social-size: 40px;
   }
 }
 

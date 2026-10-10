@@ -111,7 +111,6 @@ export const NAV_LINKS = [
 ] as const;
 
 export const INDUSTRIES = [
-  "Business",
   "Opportunity",
   "Reach",
   "Access",

@@ -30,10 +30,12 @@
   isolation: isolate;
 }
 /* Quiet hero-plasma continuation behind the journey. */
+/* Behind the content (the section isolates): at z-index 0 this positioned wash painted over
+   the unpositioned copy on phones/tablets and greyed the text out. */
 .engagePlasma {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   opacity: 0.7;
   -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 82%, transparent 100%);
@@ -439,6 +441,13 @@ a.nextRow {
 .nextBtn,
 .nextBtnCard {
   display: none;
+}
+/* At the last stage, next points down and carries on to the following section. */
+.arrowIcon {
+  transition: transform var(--duration-medium) var(--ease-out);
+}
+.arrowDown .arrowIcon {
+  transform: rotate(90deg);
 }
 
 /* ---------- F. Pagination dashes ---------- */

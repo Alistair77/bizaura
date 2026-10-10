@@ -29,6 +29,16 @@
   transform: translateY(3px);
   box-shadow: 0 0 0 transparent;
 }
+/* Arrow turns to point down at the end of the strip. */
+.icon {
+  transition: transform var(--duration-medium) var(--ease-out);
+}
+.down {
+  border-color: var(--color-ink);
+}
+.down .icon {
+  transform: rotate(90deg);
+}
 .btn:disabled {
   opacity: 0.35;
   box-shadow: none;
